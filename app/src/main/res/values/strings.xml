@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Password Saver</string>
+    <string name="add">Добавить запись</string>
+    <string name="addUser">Новый пользователь</string>
+    <string name="welcome_text">Введите пароль</string>
+    <string name="enter">Войти</string>
+    <string name="passwordHint">(Пароль должен состоять из пяти цифр)</string>
+    <string name="replayPassword">Повторите пароль</string>
+    <string name="ready">Готово</string>
+    <string name="site">Сайт</string>
+    <string name="no">Нет</string>
+    <string name="Resource">Ресурс</string>
+    <string name="login">Логин</string>
+    <string name="email">e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="fade">Скрыт</string>
+    <string name="resourcesList">Список ресурсов</string>
+    <string name="copyInBuffer">Копировать в буфер</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="goToResource">Перейти на сайт</string>
+    <string name="todo">TODO</string>
+</resources>
