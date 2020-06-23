@@ -55,4 +55,6 @@ public class ResourceViewActivity extends AppCompatActivity {
             fadePassword();
         }
     }
+
+    // master commit
 }
