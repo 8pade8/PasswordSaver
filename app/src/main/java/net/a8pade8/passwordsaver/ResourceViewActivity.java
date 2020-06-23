@@ -57,4 +57,9 @@ public class ResourceViewActivity extends AppCompatActivity {
     }
 
     // master commit
+
+    // Test commit
+    // Test commit 2
+
+    //sdfsdf
 }
