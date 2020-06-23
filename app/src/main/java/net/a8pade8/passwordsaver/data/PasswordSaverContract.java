@@ -6,6 +6,8 @@ import android.provider.BaseColumns;
  * Created by stanislav on 07.12.16.
  */
 
+//asdasd
+
 public final class PasswordSaverContract {
 
     private PasswordSaverContract(){
