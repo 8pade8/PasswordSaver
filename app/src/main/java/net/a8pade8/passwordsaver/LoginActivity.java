@@ -16,8 +16,11 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
+import net.a8pade8.passwordsaver.data.PasswordSaverContract;
+import net.a8pade8.passwordsaver.data.User;
 import net.a8pade8.passwordsaver.data.db;
 
 import java.sql.Time;
@@ -30,15 +33,17 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor preferencesEditor;
     private final String BLOCK_TIME = "blockTime";
     private final String ATTEMPT_COUNT = "attempts";
-    private String password;
-
-    public static int CURRENT_USER;
-
+    private User user;
 
     @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = User.getInstance(this);
+        if (user.getPassword().equals("")) {
+            Intent openAddUserActivity = new Intent(this, AddUserActivity.class);
+            startActivity(openAddUserActivity);
+        }
         setContentView(R.layout.activity_login);
         db.loading(this);               ////!!!!!поднимаем базу
         passwordIn = findViewById(R.id.password);
@@ -55,21 +60,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
     public void openMainActivity(View view) {
         if (isAttemptExist() && isPasswordExist()) {
-            CURRENT_USER = Integer.parseInt(password);
             Intent openMainActivity = new Intent(this, MainActivity.class);
             startActivity(openMainActivity);
-
         }
-
     }
 
     private boolean isPasswordExist() {
-        password = passwordIn.getText().toString();
-        if (!isPasswordExistInBD(password)) {
-            attemptPassword--;
-            Messages.MiddleToastShort(this, "Введен неверный пароль, осталось попыток: " + attemptPassword);
+        if (!user.getPassword().equals(passwordIn.getText().toString())) {
+            Messages.MiddleToastShort(this, "Введен неверный пароль, осталось попыток: " + --attemptPassword);
 
             if (attemptPassword == 0) {
                 if (!isBlocked()) {
@@ -104,12 +105,6 @@ public class LoginActivity extends AppCompatActivity {
         preferencesEditor.apply();
     }
 
-    private boolean isPasswordExistInBD(String pass) {
-        passwordIn.setText("");
-        return db.isContainPasswordInUsers(pass);
-    }
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -117,8 +112,4 @@ public class LoginActivity extends AppCompatActivity {
         preferencesEditor.apply();
     }
 
-    public void openAddUserActivity(View view) {
-        Intent openAddUserActivity = new Intent(this, AddUserActivity.class);
-        startActivity(openAddUserActivity);
-    }
 }

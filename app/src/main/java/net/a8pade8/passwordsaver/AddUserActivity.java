@@ -2,6 +2,7 @@ package net.a8pade8.passwordsaver;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
 import net.a8pade8.passwordsaver.data.PSDBHelper;
 import net.a8pade8.passwordsaver.data.PasswordSaverContract;
 import net.a8pade8.passwordsaver.data.db;
+import net.a8pade8.passwordsaver.data.User;
 
 import static net.a8pade8.passwordsaver.data.db.DB;
 
@@ -21,7 +24,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     private EditText passwordIn, passwordInReplay;
     private String password, passwordReplay;
-
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,14 @@ public class AddUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_user);
         passwordIn = findViewById(R.id.password);
         passwordInReplay = findViewById(R.id.replayPassword);
-
+        user = User.getInstance(this);
     }
 
     public void addNewUser(View view) {
         password = passwordIn.getText().toString();
         passwordReplay = passwordInReplay.getText().toString();
         if (passwordChecked()) {
-            db.insertPasswordToUsers(password);
+            user.setPassword(password);
             Messages.MiddleToastShort(this, "Пользователь успешно добавлен");
             this.finish();
         }
@@ -69,8 +72,7 @@ public class AddUserActivity extends AppCompatActivity {
         return isPasswordFiveSymbols()
                 && isPasswordNumber()
                 && isPasswordsEquals(password, passwordReplay)
-                && !isEasyPassword()
-                && !isUserExist();
+                && !isEasyPassword();
     }
 
     private boolean isPasswordFiveSymbols() {
@@ -91,15 +93,4 @@ public class AddUserActivity extends AppCompatActivity {
             return false;
         }
     }
-
-    private boolean isUserExist() {
-        if (db.isContainPasswordInUsers(password)) {
-            Messages.MiddleToastShort(this, "Такой пользователь уже существует");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
 }
