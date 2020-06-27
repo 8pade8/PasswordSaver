@@ -163,7 +163,12 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void addRecord() {
-        db.addRecordToPasswords(resource, login, password);
+        try {
+            db.addRecordToPasswords(resource, login, password);
+        } catch (db.EmptyDataException e) {
+            Messages.MiddleToastLong(this, "Ошибка, данные не указаны");
+            e.printStackTrace();
+        }
         Messages.MiddleToastLong(this, "Запись успешно добавлена.");
         this.finish();
     }

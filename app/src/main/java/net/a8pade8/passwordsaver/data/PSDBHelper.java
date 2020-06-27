@@ -3,6 +3,7 @@ package net.a8pade8.passwordsaver.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords;
 
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_LOGIN;

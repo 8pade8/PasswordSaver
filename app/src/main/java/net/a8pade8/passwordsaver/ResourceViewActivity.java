@@ -1,55 +1,53 @@
 package net.a8pade8.passwordsaver;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
-import net.a8pade8.passwordsaver.data.PasswordSaverContract;
+import net.a8pade8.passwordsaver.data.Record;
 import net.a8pade8.passwordsaver.data.db;
 
 public class ResourceViewActivity extends AppCompatActivity {
 
-    TextView resource;
-    TextView password;
-    TextView login;
-    String resourceName;
-    Cursor data;
+    TextView resourceTextView;
+    TextView passwordTextView;
+    TextView loginTextView;
+    Record record;
     String fadeString = "***************";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_view);
-        resource = findViewById(R.id.resource);
-        password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        setResourceName();
-        resource.setText(resourceName);
-        data = db.getResourceOfPasswords(resourceName);
-        data.moveToFirst();
-        login.setText(data.getString(data.getColumnIndex(PasswordSaverContract.Passwords.COLUMN_LOGIN)));
+        resourceTextView = findViewById(R.id.resource);
+        passwordTextView = findViewById(R.id.password);
+        loginTextView = findViewById(R.id.login);
+
+        try {
+            record = db.getRecordFromPasswords(getIntent().getIntExtra("id", 0));
+        } catch (db.IdIsNotExistException e) {
+            Messages.MiddleToastShort(this, "Ошибка, запись не найдена");
+            finish();
+            return;
+        }
+
+        resourceTextView.setText(record.getResourceName());
+        loginTextView.setText(record.getLogin());
         fadePassword();
     }
 
-    private void setResourceName() {
-        Intent intent = getIntent();
-        resourceName = intent.getStringExtra("resource");
-    }
-
     private void showPassword() {
-        password.setText(data.getString(data.getColumnIndex(PasswordSaverContract.Passwords.COLUMN_PASSWORD)));
+        passwordTextView.setText(record.getPassword());
     }
 
     private void fadePassword() {
-        password.setText(fadeString);
+        passwordTextView.setText(fadeString);
     }
 
     public void switchFadePassword(View view) {
-        if (password.getText().equals(fadeString)) {
+        if (passwordTextView.getText().equals(fadeString)) {
             showPassword();
         } else {
             fadePassword();

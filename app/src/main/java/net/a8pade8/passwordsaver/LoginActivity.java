@@ -114,5 +114,4 @@ public class LoginActivity extends AppCompatActivity {
         preferencesEditor.putInt(ATTEMPT_COUNT, attemptPassword);
         preferencesEditor.apply();
     }
-
 }
