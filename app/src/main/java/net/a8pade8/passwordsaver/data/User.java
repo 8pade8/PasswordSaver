@@ -13,7 +13,6 @@ public class User {
     }
 
     public static User getInstance(Context context) {
-
         if (INSTANCE == null) {
             synchronized (User.class) {
                 if (INSTANCE == null) {

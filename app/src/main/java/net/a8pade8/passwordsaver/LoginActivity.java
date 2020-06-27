@@ -40,9 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = User.getInstance(this);
-        if (user.getPassword().equals("")) {
-            Intent openAddUserActivity = new Intent(this, AddUserActivity.class);
-            startActivity(openAddUserActivity);
+        if (user.getPassword().isEmpty()) {
+            openAddUserActivity(null);
         }
         setContentView(R.layout.activity_login);
         db.loading(this);               ////!!!!!поднимаем базу
@@ -60,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    public void openAddUserActivity(View view){
+        Intent openAddUserActivity = new Intent(this, AddUserActivity.class);
+        startActivity(openAddUserActivity);
+    }
 
     public void openMainActivity(View view) {
         if (isAttemptExist() && isPasswordExist()) {
