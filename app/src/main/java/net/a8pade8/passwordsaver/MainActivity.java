@@ -1,24 +1,20 @@
 package net.a8pade8.passwordsaver;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import net.a8pade8.passwordsaver.data.PasswordSaverContract;
 import net.a8pade8.passwordsaver.data.db;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
+import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_RESOURCE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> as = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                as.add(cursor.getString(cursor.getColumnIndex(PasswordSaverContract.Passwords.COLUMN_RESOURCE)));
+                as.add(cursor.getString(cursor.getColumnIndex(COLUMN_RESOURCE)));
             } while (cursor.moveToNext());
 
         }
