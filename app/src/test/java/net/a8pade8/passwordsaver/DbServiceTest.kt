@@ -16,7 +16,7 @@ import org.robolectric.annotation.Config
 @Config(constants = BuildConfig::class, sdk = [VERSION_CODES.LOLLIPOP], packageName = "net.a8pade8.passwordsaver")
 class DbServiceTests {
 
-    private lateinit var context: Context
+    lateinit var context: Context
 
     @Before
     fun createDb() {
@@ -45,8 +45,24 @@ class DbServiceTests {
         Assert.assertTrue(isContainResourceInPasswords("vk.com"))
     }
 
+    @Test
+    fun updateRecordInPasswordsTest(){
+        val id = addRecordToPasswords("vk.com", "unknown4", "pass")
+        Assert.assertTrue(isRecordExistInPasswords(id))
+        updateRecordInPasswords(Record(
+                id,
+                "1vk.com1",
+                "unknown33",
+                "qwerty"
+        ))
+        val recordFromPasswords = getRecordFromPasswords(id)
+        Assert.assertEquals(recordFromPasswords.login,"unknown33")
+        Assert.assertEquals(recordFromPasswords.resourceName,"1vk.com1")
+        Assert.assertEquals(recordFromPasswords.password,"qwerty")
+    }
+
     @After
     fun deleteDb() {
-        context.deleteDatabase(DATA_BASE)
+        context.deleteDatabase(PSDBHelper.DATABASE_NAME)
     }
 }

@@ -1,8 +1,7 @@
 package net.a8pade8.passwordsaver;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
@@ -10,6 +9,8 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
 import net.a8pade8.passwordsaver.data.DbserviceKt;

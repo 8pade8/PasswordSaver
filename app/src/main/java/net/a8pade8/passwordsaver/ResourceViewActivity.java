@@ -1,10 +1,12 @@
 package net.a8pade8.passwordsaver;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
@@ -75,5 +77,10 @@ public class ResourceViewActivity extends AppCompatActivity {
             Messages.MiddleToastLong(this, "Не удалось удалить запись");
             e.printStackTrace();
         }
+    }
+
+    public void edit(View view) {
+        startActivity(new Intent(this, EditRecordActivity.class).putExtra("id", record.getId()));
+        finish();
     }
 }

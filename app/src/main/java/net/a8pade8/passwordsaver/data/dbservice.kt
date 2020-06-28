@@ -78,13 +78,25 @@ fun deleteRecordFromPasswords(id: Long) {
     if (result != 1) throw IdIsNotExistException()
 }
 
+@Throws(IdIsNotExistException::class)
+fun updateRecordInPasswords(record: Record) {
+    val cv = ContentValues()
+    cv.let {
+        it.put(COLUMN_LOGIN, record.login)
+        it.put(COLUMN_PASSWORD, record.password)
+        it.put(COLUMN_RESOURCE, record.resourceName)
+    }
+    val result = dataBase.update(TABLE_PASSWORDS, cv, "$_ID=${record.id}", null)
+    if (result != 1) throw  IdIsNotExistException()
+}
+
 private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
     val recordsList = mutableListOf<Record>()
     if (cursor.moveToFirst()) {
         do {
             recordsList.add(
                     Record(
-                            cursor.getInt(cursor.getColumnIndex(_ID)),
+                            cursor.getLong(cursor.getColumnIndex(_ID)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_RESOURCE)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
