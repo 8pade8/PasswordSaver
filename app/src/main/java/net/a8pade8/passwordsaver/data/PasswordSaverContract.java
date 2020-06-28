@@ -12,7 +12,7 @@ public final class PasswordSaverContract {
     }
 
     public static final class Passwords implements BaseColumns {
-        final static String TABLE_NAME = "passwords";
+        final static String TABLE_PASSWORDS = "passwords";
 
         final static String _ID = BaseColumns._ID;
         public final static String COLUMN_RESOURCE = "resource";

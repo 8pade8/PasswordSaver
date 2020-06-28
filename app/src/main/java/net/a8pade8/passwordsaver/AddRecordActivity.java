@@ -1,7 +1,6 @@
 package net.a8pade8.passwordsaver;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,22 +8,19 @@ import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
-import net.a8pade8.passwordsaver.data.PSDBHelper;
-import net.a8pade8.passwordsaver.data.db;
+import net.a8pade8.passwordsaver.data.DbserviceKt;
+import net.a8pade8.passwordsaver.data.EmptyDataException;
 
 public class AddRecordActivity extends AppCompatActivity {
 
-    private EditText editTextResourse, editTextLogin, editTextPassword, editTextPasswordReplay;
+    private EditText editTextResource, editTextLogin, editTextPassword, editTextPasswordReplay;
     private ToggleButton buttonSite, buttonFade, buttonEmail;
-    private Button buttonReady;
-
     private int inputTypeLogin;
-    private int inputTypeResourse;
+    private int inputTypeResource;
 
     private String resource;
     private String login;
@@ -38,22 +34,21 @@ public class AddRecordActivity extends AppCompatActivity {
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextPasswordReplay = findViewById(R.id.editTextPasswordReplay);
-        editTextResourse = findViewById(R.id.editTextResourse);
+        editTextResource = findViewById(R.id.editTextResourse);
 
         buttonEmail = findViewById(R.id.toggleButtonEmail);
         buttonFade = findViewById(R.id.toggleButtonFade);
         buttonSite = findViewById(R.id.toggleButtonSite);
-        buttonReady = findViewById(R.id.buttonReady);
 
         inputTypeLogin = editTextLogin.getInputType();
-        inputTypeResourse = editTextResourse.getInputType();
+        inputTypeResource = editTextResource.getInputType();
     }
 
     public void onSwitchSite(View view) {
         if (buttonSite.isChecked()) {
-            editTextResourse.setInputType(InputType.TYPE_CLASS_TEXT);
+            editTextResource.setInputType(InputType.TYPE_CLASS_TEXT);
         } else {
-            editTextResourse.setInputType(inputTypeResourse);
+            editTextResource.setInputType(inputTypeResource);
         }
     }
 
@@ -80,7 +75,7 @@ public class AddRecordActivity extends AppCompatActivity {
         password = editTextPassword.getText().toString();
         passwordRetry = editTextPasswordReplay.getText().toString();
         login = editTextLogin.getText().toString();
-        resource = editTextResourse.getText().toString();
+        resource = editTextResource.getText().toString();
 
         if (isValuesChecked() && isPasswordsEquals()) {
 
@@ -102,7 +97,7 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private boolean isResourceExist() {
-        return db.isContainResourceInPasswords(resource);
+        return DbserviceKt.isContainResourceInPasswords(resource);
     }
 
 
@@ -112,20 +107,11 @@ public class AddRecordActivity extends AppCompatActivity {
         ad.setTitle("Внимание!");
         ad.setMessage("Указанный ресурс уже существует. Все равно добавить?");
         ad.setCancelable(false);
-        ad.setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                addRecord();
-                dialogInterface.cancel();
-            }
+        ad.setPositiveButton("Добавить", (dialogInterface, i) -> {
+            addRecord();
+            dialogInterface.cancel();
         });
-        ad.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-
-            }
-        });
+        ad.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog alert = ad.create();
         alert.show();
     }
@@ -137,7 +123,7 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private boolean isResourceEmpty() {
-        if (editTextResourse.getText().toString().equals("")) {
+        if (editTextResource.getText().toString().equals("")) {
             Messages.MiddleToastShort(this, "Поле ввода РЕСУРС не заполнено.");
             return false;
         } else {
@@ -164,15 +150,14 @@ public class AddRecordActivity extends AppCompatActivity {
 
     private void addRecord() {
         try {
-            db.addRecordToPasswords(resource, login, password);
-        } catch (db.EmptyDataException e) {
+            DbserviceKt.addRecordToPasswords(resource, login, password);
+        } catch (EmptyDataException e) {
             Messages.MiddleToastLong(this, "Ошибка, данные не указаны");
             e.printStackTrace();
         }
         Messages.MiddleToastLong(this, "Запись успешно добавлена.");
         this.finish();
     }
-
 }
 
 

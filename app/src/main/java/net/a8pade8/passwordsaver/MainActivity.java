@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.Record;
-import net.a8pade8.passwordsaver.data.db;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,12 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recordsListView = findViewById(R.id.listOfRes);
-        recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                int resourceId = ((Record) adapterView.getAdapter().getItem(position)).getId();
-                openResourceView(resourceId);
-            }
+        recordsListView.setOnItemClickListener((adapterView, view, position, id) -> {
+            int resourceId = ((Record) adapterView.getAdapter().getItem(position)).getId();
+            openResourceView(resourceId);
         });
 
         listResourcesShow();
@@ -39,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void listResourcesShow() {
         ArrayAdapter<Record> listAdapter =
-                new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, db.getAllRecordsFromPasswords());
+                new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,
+                        DbserviceKt.getAllRecordsFromPasswords());
         recordsListView.setAdapter(listAdapter);
     }
 

@@ -1,24 +1,12 @@
 package net.a8pade8.passwordsaver;
 
-import android.content.ContentValues;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.content.SharedPreferences;
 
 import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
-import net.a8pade8.passwordsaver.data.PSDBHelper;
-import net.a8pade8.passwordsaver.data.PasswordSaverContract;
-import net.a8pade8.passwordsaver.data.db;
 import net.a8pade8.passwordsaver.data.User;
-
-import static net.a8pade8.passwordsaver.data.db.DB;
 
 public class AddUserActivity extends AppCompatActivity {
 

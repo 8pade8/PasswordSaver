@@ -4,12 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords;
-
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_LOGIN;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_PASSWORD;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_RESOURCE;
-import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.TABLE_NAME;
+import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.TABLE_PASSWORDS;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords._ID;
 
 /**
@@ -30,13 +28,13 @@ public class PSDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String SQL_CREATE_PASSWORDS_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
+        String SQL_CREATE_PASSWORDS_TABLE = "CREATE TABLE " + TABLE_PASSWORDS + " ("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_RESOURCE + " TEXT NOT NULL, "
                 + COLUMN_LOGIN + " TEXT NOT NULL, "
                 + COLUMN_PASSWORD + " TEXT NOT NULL) ;";
         String SQl_CREATE_PASSWORD_TABLE_UNIQUE = " CREATE UNIQUE INDEX passwordUnIndex \n"
-                + " ON " + TABLE_NAME + " (" + COLUMN_LOGIN + ","
+                + " ON " + TABLE_PASSWORDS + " (" + COLUMN_LOGIN + ","
                 + COLUMN_RESOURCE + ");";
 
         sqLiteDatabase.execSQL(SQL_CREATE_PASSWORDS_TABLE);
