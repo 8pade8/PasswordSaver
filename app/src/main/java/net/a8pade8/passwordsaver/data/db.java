@@ -69,6 +69,13 @@ public final class db {
         return mapCursorToRecordsList(cursor).iterator().next();
     }
 
+    public static void deleteRecordFromPasswords(int id) throws IdIsNotExistException {
+        int result = DB.delete(TABLE_NAME,
+                _ID + "=?",
+                new String[]{String.valueOf(id)});
+        if (result != 1) throw new IdIsNotExistException();
+    }
+
     private static List<Record> mapCursorToRecordsList(Cursor cursor) {
         List<Record> recordsList = new ArrayList<>();
         if (cursor.moveToFirst()) {

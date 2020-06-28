@@ -31,6 +31,5 @@ public class User {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(PASSWORD_NAME, password);
         editor.apply();
-        String result = getPassword();
     }
 }
