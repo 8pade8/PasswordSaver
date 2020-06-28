@@ -14,17 +14,18 @@ fun loading(context: Context) {
 }
 
 @Throws(EmptyDataException::class)
-fun addRecordToPasswords(resourceName: String, login: String, password: String) {
+fun addRecordToPasswords(resourceName: String, login: String, password: String): Long {
     if (resourceName.isBlank() || login.isBlank() || password.isBlank()) throw EmptyDataException()
-    ContentValues().let {
+    val cv = ContentValues()
+    cv.let {
         it.put(COLUMN_RESOURCE, resourceName)
         it.put(COLUMN_LOGIN, login)
         it.put(COLUMN_PASSWORD, password)
-        dataBase.insert(TABLE_PASSWORDS, null, it)
     }
+    return dataBase.insert(TABLE_PASSWORDS, null, cv)
 }
 
-fun isRecordExistInPasswords(id: Int): Boolean {
+fun isRecordExistInPasswords(id: Long): Boolean {
     val cursor = dataBase.query(
             TABLE_PASSWORDS,
             null,
@@ -54,7 +55,7 @@ fun getAllRecordsFromPasswords(): List<Record> {
 }
 
 @Throws(IdIsNotExistException::class)
-fun getRecordFromPasswords(id: Int): Record {
+fun getRecordFromPasswords(id: Long): Record {
     val cursor = dataBase.query(
             TABLE_PASSWORDS,
             null,
@@ -65,7 +66,7 @@ fun getRecordFromPasswords(id: Int): Record {
 }
 
 @Throws(IdIsNotExistException::class)
-fun deleteRecordFromPasswords(id: Int) {
+fun deleteRecordFromPasswords(id: Long) {
     val result = dataBase.delete(
             TABLE_PASSWORDS,
             "$_ID=?",

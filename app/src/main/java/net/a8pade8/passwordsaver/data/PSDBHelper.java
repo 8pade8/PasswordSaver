@@ -16,7 +16,7 @@ import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords._ID
 
 public class PSDBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "psdb.db";
+    public static final String DATABASE_NAME = "psdb.db";
     private static final int DATABASE_VERSION = 1;
 
 
