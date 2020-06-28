@@ -1,6 +1,8 @@
 package net.a8pade8.passwordsaver;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -51,6 +53,28 @@ public class ResourceViewActivity extends AppCompatActivity {
             showPassword();
         } else {
             fadePassword();
+        }
+    }
+
+    public void delete(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("Внимание!")
+                .setMessage("Удалить запись?")
+                .setCancelable(false)
+                .setPositiveButton("Удалить", (dialogInterface, i) -> deleteRecord())
+                .setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel())
+                .create()
+                .show();
+    }
+
+    private void deleteRecord() {
+        try {
+            db.deleteRecordFromPasswords(record.getId());
+            Messages.MiddleToastLong(this, "Запись удалена");
+            finish();
+        } catch (db.IdIsNotExistException e) {
+            Messages.MiddleToastLong(this, "Не удалось удалить запись");
+            e.printStackTrace();
         }
     }
 }
