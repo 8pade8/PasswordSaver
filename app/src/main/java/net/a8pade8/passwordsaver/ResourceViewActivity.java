@@ -28,7 +28,7 @@ public class ResourceViewActivity extends AppCompatActivity {
         loginTextView = findViewById(R.id.login);
 
         try {
-            record = DbserviceKt.getRecordFromPasswords(getIntent().getIntExtra("id", 0));
+            record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
             Messages.MiddleToastShort(this, "Ошибка, запись не найдена");
             finish();

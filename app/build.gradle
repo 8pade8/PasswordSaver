@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "net.a8pade8.passwordsaver"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

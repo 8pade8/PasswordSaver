@@ -7,24 +7,32 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
+import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.Record;
+
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import kotlin.Suppress;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView recordsListView;
 
+
     @Override
+    @Suppress(names = "UNCHECKED_CAST")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         recordsListView = findViewById(R.id.listOfRes);
-        recordsListView.setOnItemClickListener((adapterView, view, position, id) -> {
-            int resourceId = ((Record) adapterView.getAdapter().getItem(position)).getId();
-            openResourceView(resourceId);
-        });
+        recordsListView.setOnItemClickListener(this::onItemClick);
 
         listResourcesShow();
     }
@@ -35,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listResourcesShow() {
-        ArrayAdapter<Record> listAdapter =
-                new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item,
-                        DbserviceKt.getAllRecordsFromPasswords());
-        recordsListView.setAdapter(listAdapter);
+        SimpleAdapter adapter = new SimpleAdapter(this,
+                DbserviceKt.getAllRecordsFromPasswords().stream().map(Record::toMap).collect(Collectors.toList()),
+                android.R.layout.simple_list_item_2,
+                new String[]{"resourceName", "login"},
+                new int[]{android.R.id.text1, android.R.id.text2});
+        recordsListView.setAdapter(adapter);
     }
 
-    private void openResourceView(int id) {
+    private void openResourceView(long id) {
         Intent openResourceViewActivity = new Intent(this, ResourceViewActivity.class);
         openResourceViewActivity.putExtra("id", id);
         startActivity(openResourceViewActivity);
@@ -53,4 +63,10 @@ public class MainActivity extends AppCompatActivity {
         listResourcesShow();
     }
 
+    @SuppressWarnings("unchecked")
+    private void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        HashMap<String, String> item = (HashMap<String, String>) adapterView.getAdapter().getItem(position);
+        long resourceId = Long.parseLong(Objects.requireNonNull(item.get("id")));
+        openResourceView(resourceId);
+    }
 }
