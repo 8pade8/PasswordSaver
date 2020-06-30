@@ -2,6 +2,9 @@ package net.a8pade8.passwordsaver;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -82,5 +85,12 @@ public class ResourceViewActivity extends AppCompatActivity {
     public void edit(View view) {
         startActivity(new Intent(this, EditRecordActivity.class).putExtra("id", record.getId()));
         finish();
+    }
+
+    public void copyInBuffer(View view) {
+        ClipboardManager clipboard = (ClipboardManager)
+                getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("password", record.getPassword());
+        clipboard.setPrimaryClip(clip);
     }
 }
