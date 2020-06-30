@@ -11,12 +11,11 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = [VERSION_CODES.LOLLIPOP], packageName = "net.a8pade8.passwordsaver")
 class DbServiceTests {
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     @Before
     fun createDb() {

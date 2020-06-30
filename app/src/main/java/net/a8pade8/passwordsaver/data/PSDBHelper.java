@@ -1,8 +1,9 @@
 package net.a8pade8.passwordsaver.data;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_LOGIN;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_PASSWORD;
@@ -22,11 +23,13 @@ public class PSDBHelper extends SQLiteOpenHelper {
 
     PSDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        SQLiteDatabase.loadLibs(context);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
 
         String SQL_CREATE_PASSWORDS_TABLE = "CREATE TABLE " + TABLE_PASSWORDS + " ("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -45,4 +48,5 @@ public class PSDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
 }

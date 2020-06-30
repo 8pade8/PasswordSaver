@@ -3,14 +3,14 @@ package net.a8pade8.passwordsaver.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
+import net.sqlcipher.database.SQLiteDatabase
 
 lateinit var dataBase: SQLiteDatabase
 
 fun loading(context: Context) {
     val dataBaseHelper = PSDBHelper(context)
-    dataBase = dataBaseHelper.readableDatabase
+    dataBase = dataBaseHelper.getWritableDatabase((User.getInstance(context).cryptoKey))
 }
 
 @Throws(EmptyDataException::class)
