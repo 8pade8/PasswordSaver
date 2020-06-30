@@ -9,11 +9,12 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricGradleTestRunner
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-@RunWith(RobolectricGradleTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = [VERSION_CODES.LOLLIPOP], packageName = "net.a8pade8.passwordsaver")
+
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [VERSION_CODES.LOLLIPOP], packageName = "net.a8pade8.passwordsaver")
 class DbServiceTests {
 
     lateinit var context: Context
@@ -46,7 +47,7 @@ class DbServiceTests {
     }
 
     @Test
-    fun updateRecordInPasswordsTest(){
+    fun updateRecordInPasswordsTest() {
         val id = addRecordToPasswords("vk.com", "unknown4", "pass")
         Assert.assertTrue(isRecordExistInPasswords(id))
         updateRecordInPasswords(Record(
@@ -56,13 +57,13 @@ class DbServiceTests {
                 "qwerty"
         ))
         val recordFromPasswords = getRecordFromPasswords(id)
-        Assert.assertEquals(recordFromPasswords.login,"unknown33")
-        Assert.assertEquals(recordFromPasswords.resourceName,"1vk.com1")
-        Assert.assertEquals(recordFromPasswords.password,"qwerty")
+        Assert.assertEquals(recordFromPasswords.login, "unknown33")
+        Assert.assertEquals(recordFromPasswords.resourceName, "1vk.com1")
+        Assert.assertEquals(recordFromPasswords.password, "qwerty")
     }
 
     @After
     fun deleteDb() {
-        context.deleteDatabase(PSDBHelper.DATABASE_NAME)
+        context.deleteDatabase(DATA_BASE)
     }
 }

@@ -48,7 +48,7 @@ public class DataBaseAdapter {
 
     public Cursor query(String table, String[] columns, String selection,
                         String[] selectionArgs, String groupBy, String having,
-                        String orderBy){
+                        String orderBy) {
         if (isCrypto) {
             return cryptoDatabase.query(table, columns, selection,
                     selectionArgs, groupBy, having, orderBy);
@@ -64,6 +64,14 @@ public class DataBaseAdapter {
             return cryptoDatabase.delete(table, whereClause, whereArgs);
         } else {
             return dataBase.delete(table, whereClause, whereArgs);
+        }
+    }
+
+    public int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
+        if (isCrypto) {
+            return cryptoDatabase.update(table,values,whereClause,whereArgs);
+        } else {
+            return dataBase.update(table, values, whereClause, whereArgs);
         }
     }
 }
