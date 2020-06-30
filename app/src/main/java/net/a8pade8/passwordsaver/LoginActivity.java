@@ -15,6 +15,7 @@ import net.a8pade8.passwordsaver.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private boolean isCrypto = true; //Определеят шифровать ли данные, задел на будущее
     private EditText passwordIn;
     private int attemptPassword = 3;
     private SharedPreferences preferences;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             openAddUserActivity(null);
         }
         setContentView(R.layout.activity_login);
-        DbserviceKt.loading(this);               ////!!!!!поднимаем базу
+        DbserviceKt.loading(this, isCrypto);
         passwordIn = findViewById(R.id.password);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferencesEditor = preferences.edit();

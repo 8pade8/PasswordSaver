@@ -3,6 +3,7 @@ package net.a8pade8.passwordsaver
 import android.content.Context
 import android.os.Build.VERSION_CODES
 import net.a8pade8.passwordsaver.data.*
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.DATA_BASE
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -46,6 +47,6 @@ class DbServiceTests {
 
     @After
     fun deleteDb() {
-        context.deleteDatabase(PSDBHelper.DATABASE_NAME)
+        context.deleteDatabase(DATA_BASE)
     }
 }

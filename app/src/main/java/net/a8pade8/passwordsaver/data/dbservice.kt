@@ -4,13 +4,17 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
-import net.sqlcipher.database.SQLiteDatabase
 
-lateinit var dataBase: SQLiteDatabase
+lateinit var dataBase: DataBaseAdapter
 
-fun loading(context: Context) {
-    val dataBaseHelper = PSDBHelper(context)
-    dataBase = dataBaseHelper.getWritableDatabase((User.getInstance(context).cryptoKey))
+fun loading(context: Context, withCrypto: Boolean = false) {
+    dataBase = if (withCrypto) {
+        val dataBaseHelper = PSDBHelperCrypto(context)
+        dataBaseHelper.getDataBase((User.getInstance(context).cryptoKey)) //нужке другой метод возвращающий интерфейс
+    } else {
+        val dataBaseHelper = PSDBHelper(context)
+        dataBaseHelper.getDataBase()
+    }
 }
 
 @Throws(EmptyDataException::class)

@@ -11,6 +11,8 @@ public final class PasswordSaverContract {
     private PasswordSaverContract() {
     }
 
+    public static final String DATA_BASE = "psdb.db";
+
     public static final class Passwords implements BaseColumns {
         final static String TABLE_PASSWORDS = "passwords";
 
