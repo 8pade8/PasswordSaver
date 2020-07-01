@@ -20,4 +20,27 @@
     <string name="edit">Редактировать</string>
     <string name="goToResource">Перейти на сайт</string>
     <string name="todo">TODO</string>
+    <string name="passwordsNotEquals">Пароли не совпадают</string>
+    <string name="recordUpdateSucsessfully">Запись успешно обновлена</string>
+    <string name="recordIsNotExist">Ошибка, запись не найдена</string>
+    <string name="recordDeleteFailed">Не удалось удалить запись</string>
+    <string name="recordDeleted">Запись удалена</string>
+    <string name="approveDeleteRecord">Удалить запись?</string>
+    <string name="cancel">Отмена</string>
+    <string name="warning">Внимание!</string>
+    <string name="passwordMask">***************</string>
+    <string name="attemptsWarning">Введен неверный пароль, осталось попыток: </string>
+    <string name="noAttempts">Вы ввели неверный пароль трижды, попробуйте позднее.</string>
+    <string name="addingUserSuccessfully">Пользователь успешно добавлен</string>
+    <string name="easyPassword">Слишком легкий пароль, введите другой</string>
+    <string name="demandForPasswordLength">Пароль должен состоять из ПЯТИ цифр</string>
+    <string name="demandForPasswordCharacters">Пароль должен состоять ТОЛЬКО из цифр</string>
+    <string name="repeatResource">Указанный ресурс уже существует. Все равно добавить?</string>
+    <string name="repeatLoginResource">Ресурс с таким логином уже существует</string>
+    <string name="emptyResourceName">Поле ввода РЕСУРС не заполнено</string>
+    <string name="emptyPassword">Поле ввода ПАРОЛЬ не заполнено</string>
+    <string name="emptyLogin">Поле ввода ЛОГИН не заполнено</string>
+    <string name="recordAddedSucsessfully">Запись успешно добавлена</string>
+    <string name="dataError">Ошибка, данные не указаны</string>
+    <string name="copiedToClipboard">Скопировано в буфер</string>
 </resources>

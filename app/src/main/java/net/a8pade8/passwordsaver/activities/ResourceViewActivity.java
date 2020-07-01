@@ -17,13 +17,15 @@ import net.a8pade8.passwordsaver.data.IdIsNotExistException;
 import net.a8pade8.passwordsaver.data.Record;
 import net.a8pade8.passwordsaver.uilib.Messages;
 
+import static net.a8pade8.passwordsaver.R.string.copiedToClipboard;
+
 public class ResourceViewActivity extends AppCompatActivity {
 
     TextView resourceTextView;
     TextView passwordTextView;
     TextView loginTextView;
     Record record;
-    String fadeString = "***************";
+    String fadeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +38,11 @@ public class ResourceViewActivity extends AppCompatActivity {
         try {
             record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
-            Messages.MiddleToastShort(this, "Ошибка, запись не найдена");
+            Messages.MiddleToastShort(this, getString(R.string.recordIsNotExist));
             finish();
             return;
         }
+        fadeString = getString(R.string.passwordMask);
         resourceTextView.setText(record.getResourceName());
         loginTextView.setText(record.getLogin());
         fadePassword();
@@ -63,11 +66,11 @@ public class ResourceViewActivity extends AppCompatActivity {
 
     public void delete(View view) {
         new AlertDialog.Builder(this)
-                .setTitle("Внимание!")
-                .setMessage("Удалить запись?")
+                .setTitle(getString(R.string.warning))
+                .setMessage(getString(R.string.approveDeleteRecord))
                 .setCancelable(false)
-                .setPositiveButton("Удалить", (dialogInterface, i) -> deleteRecord())
-                .setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel())
+                .setPositiveButton(getString(R.string.delete), (dialogInterface, i) -> deleteRecord())
+                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.cancel())
                 .create()
                 .show();
     }
@@ -75,10 +78,10 @@ public class ResourceViewActivity extends AppCompatActivity {
     private void deleteRecord() {
         try {
             DbserviceKt.deleteRecordFromPasswords(record.getId());
-            Messages.MiddleToastLong(this, "Запись удалена");
+            Messages.MiddleToastLong(this, getString(R.string.recordDeleted));
             finish();
         } catch (IdIsNotExistException e) {
-            Messages.MiddleToastLong(this, "Не удалось удалить запись");
+            Messages.MiddleToastLong(this, getString(R.string.recordDeleteFailed));
             e.printStackTrace();
         }
     }
@@ -93,6 +96,6 @@ public class ResourceViewActivity extends AppCompatActivity {
                 getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("password", record.getPassword());
         clipboard.setPrimaryClip(clip);
-        Messages.MiddleToastLong(this, "Скопировано в буфер");
+        Messages.MiddleToastLong(this, getString(copiedToClipboard));
     }
 }

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_add_record.*
 import net.a8pade8.passwordsaver.R
+import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.uilib.Messages
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddRecordBinding
@@ -65,7 +66,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordsEquals(): Boolean {
         return if (binding.record!!.password != binding.passwordRetry) {
-            Messages.MiddleToastShort(this, "Пароли не совпадают.")
+            Messages.MiddleToastShort(this, getString(passwordsNotEquals))
             false
         } else {
             true
@@ -78,11 +79,11 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun messageDoubleResource() {
         AlertDialog.Builder(this)
-                .setTitle("Внимание!")
-                .setMessage("Указанный ресурс уже существует. Все равно добавить?\"")
+                .setTitle(getString(warning))
+                .setMessage(getString(repeatResource))
                 .setCancelable(false)
-                .setPositiveButton("Добавить") { dialogInterface: DialogInterface?, i: Int -> addRecord() }
-                .setNegativeButton("Отмена") { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
+                .setPositiveButton(getString(add)) { dialogInterface: DialogInterface?, i: Int -> addRecord() }
+                .setNegativeButton(getString(cancel)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
                 .create()
                 .show()
     }
@@ -95,7 +96,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isResourceEmpty(): Boolean {
         return if (binding.record!!.resourceName.isEmpty()) {
-            Messages.MiddleToastShort(this, "Поле ввода РЕСУРС не заполнено.")
+            Messages.MiddleToastShort(this, getString(emptyResourceName))
             false
         } else {
             true
@@ -104,7 +105,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isLoginEmpty(): Boolean {
         return if (binding.record!!.login.isEmpty()) {
-            Messages.MiddleToastShort(this, "Поле ввода ЛОГИН не заполнено.")
+            Messages.MiddleToastShort(this, getString(emptyLogin))
             false
         } else {
             true
@@ -113,7 +114,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordEmpty(): Boolean {
         if (binding.record!!.password.isEmpty()) {
-            Messages.MiddleToastShort(this, "Поле ввода ПАРОЛЬ не заполнено.")
+            Messages.MiddleToastShort(this, getString(emptyPassword))
             return false
         }
         return true
@@ -122,13 +123,13 @@ class AddRecordActivity : AppCompatActivity() {
     private fun addRecord() {
         try {
             addRecordToPasswords(binding.record!!.resourceName, binding.record!!.login, binding.record!!.password)
-            Messages.MiddleToastLong(this, "Запись успешно добавлена.")
+            Messages.MiddleToastLong(this, getString(recordAddedSucsessfully))
             finish()
         } catch (e: EmptyDataException) {
-            Messages.MiddleToastLong(this, "Ошибка, данные не указаны")
+            Messages.MiddleToastLong(this, getString(dataError))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            Messages.MiddleToastLong(this, "Ресурс с таким логином уже существует")
+            Messages.MiddleToastLong(this, getString(repeatLoginResource))
             e.printStackTrace()
         }
     }

@@ -30,7 +30,7 @@ public class AddUserActivity extends AppCompatActivity {
         passwordReplay = passwordInReplay.getText().toString();
         if (passwordChecked()) {
             security.setPassword(password);
-            Messages.MiddleToastShort(this, "Пользователь успешно добавлен");
+            Messages.MiddleToastShort(this, getString(R.string.addingUserSuccessfully));
             this.finish();
         }
         passwordIn.setText("");
@@ -40,7 +40,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     private boolean isPasswordsEquals(String pass1, String pass2) {
         if (!pass1.equals(pass2)) {
-            Messages.MiddleToastLong(this, "Пароли не совпадают");
+            Messages.MiddleToastLong(this, getString(R.string.passwordsNotEquals));
             return false;
         }
         return true;
@@ -51,7 +51,7 @@ public class AddUserActivity extends AppCompatActivity {
                 "77777", "888888", "99999"};
         for (String easy : easyPaswords) {
             if (easy.equals(password)) {
-                Messages.MiddleToastShort(this, "Слишком легкий пароль, введите другой");
+                Messages.MiddleToastShort(this, getString(R.string.easyPassword));
                 return true;
             }
         }
@@ -69,7 +69,7 @@ public class AddUserActivity extends AppCompatActivity {
         if (password.length() == 5) {
             return true;
         } else {
-            Messages.MiddleToastShort(this, "Пароль должен состоять из ПЯТИ цифр");
+            Messages.MiddleToastShort(this, getString(R.string.demandForPasswordLength));
             return false;
         }
     }
@@ -79,7 +79,7 @@ public class AddUserActivity extends AppCompatActivity {
             Integer.parseInt(password);
             return true;
         } catch (NumberFormatException e) {
-            Messages.MiddleToastShort(this, "Пароль должен состоять ТОЛЬКО из цифр");
+            Messages.MiddleToastShort(this, getString(R.string.demandForPasswordCharacters));
             return false;
         }
     }
