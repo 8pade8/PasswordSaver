@@ -10,16 +10,17 @@ lateinit var dataBase: DataBaseAdapter
 fun loading(context: Context, withCrypto: Boolean = false) {
     dataBase = if (withCrypto) {
         val dataBaseHelper = PSDBHelperCrypto(context)
-        dataBaseHelper.getDataBase((User.getInstance(context).cryptoKey)) //нужке другой метод возвращающий интерфейс
+        dataBaseHelper.getDataBase((User.getInstance(context).cryptoKey))
     } else {
         val dataBaseHelper = PSDBHelper(context)
         dataBaseHelper.getDataBase()
     }
 }
 
-@Throws(EmptyDataException::class)
+@Throws(EmptyDataException::class, ResourceLoginRepeatException::class)
 fun addRecordToPasswords(resourceName: String, login: String, password: String): Long {
     if (resourceName.isBlank() || login.isBlank() || password.isBlank()) throw EmptyDataException()
+    if (isContainResourceLoginInPasswords(resourceName, login)) throw ResourceLoginRepeatException()
     val cv = ContentValues()
     cv.let {
         it.put(COLUMN_RESOURCE, resourceName)
@@ -27,6 +28,14 @@ fun addRecordToPasswords(resourceName: String, login: String, password: String):
         it.put(COLUMN_PASSWORD, password)
     }
     return dataBase.insert(TABLE_PASSWORDS, null, cv)
+}
+
+private fun isContainResourceLoginInPasswords(resourceName: String, login: String): Boolean {
+    return dataBase.query(
+            TABLE_PASSWORDS,
+            null,
+            "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=?",
+            arrayOf(resourceName, login), null, null, null).count > 0
 }
 
 fun isRecordExistInPasswords(id: Long): Boolean {
@@ -78,8 +87,9 @@ fun deleteRecordFromPasswords(id: Long) {
     if (result != 1) throw IdIsNotExistException()
 }
 
-@Throws(IdIsNotExistException::class)
+@Throws(IdIsNotExistException::class, ResourceLoginRepeatException::class)
 fun updateRecordInPasswords(record: Record) {
+    if (isContainResourceLoginInPasswords(record.resourceName, record.login)) throw ResourceLoginRepeatException()
     val cv = ContentValues()
     cv.let {
         it.put(COLUMN_LOGIN, record.login)
@@ -110,3 +120,5 @@ private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
 class EmptyDataException : Exception()
 
 class IdIsNotExistException : Exception()
+
+class ResourceLoginRepeatException : Exception()
