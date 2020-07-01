@@ -2,21 +2,18 @@ package net.a8pade8.passwordsaver;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
+import androidx.appcompat.app.AppCompatActivity;
+
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.Record;
 
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import kotlin.Suppress;
