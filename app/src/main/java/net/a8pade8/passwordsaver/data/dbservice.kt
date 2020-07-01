@@ -13,13 +13,18 @@ fun loading(context: Context, withCrypto: Boolean = false) {
         dataBaseHelper.getDataBase((User.getInstance(context).cryptoKey)) //нужке другой метод возвращающий интерфейс
     } else {
         val dataBaseHelper = PSDBHelper(context)
-        dataBaseHelper.getDataBase()
+        dataBaseHelper.dataBase
     }
 }
 
-@Throws(EmptyDataException::class)
+@Throws(EmptyDataException::class, IsReplayResourceExistException::class)
 fun addRecordToPasswords(resourceName: String, login: String, password: String): Long {
     if (resourceName.isBlank() || login.isBlank() || password.isBlank()) throw EmptyDataException()
+    if (dataBase.query(
+                    TABLE_PASSWORDS,
+                    null,
+                    "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=?",
+                    arrayOf(resourceName, login), null, null, null).count > 0) throw IsReplayResourceExistException()
     val cv = ContentValues()
     cv.let {
         it.put(COLUMN_RESOURCE, resourceName)
@@ -110,3 +115,5 @@ private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
 class EmptyDataException : Exception()
 
 class IdIsNotExistException : Exception()
+
+class IsReplayResourceExistException : Exception()

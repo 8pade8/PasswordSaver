@@ -26,7 +26,7 @@ class DbServiceTests {
     }
 
     @Test
-    @Throws(EmptyDataException::class)
+    @Throws(EmptyDataException::class, IsReplayResourceExistException::class)
     fun addRecordToPasswordsTest() {
         val id = addRecordToPasswords("vk.com", "unknown", "pass")
         Assert.assertTrue(isRecordExistInPasswords(id))
