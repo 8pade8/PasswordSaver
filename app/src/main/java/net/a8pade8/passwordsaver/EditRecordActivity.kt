@@ -2,7 +2,7 @@ package net.a8pade8.passwordsaver
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
+import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
@@ -19,8 +19,9 @@ import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
 
 class EditRecordActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityEditRecordBinding
+    private lateinit var binding: ActivityEditRecordBinding
     private var inputTypeLogin = 0
+    private val TYPE_AUTO_COMPLETE_EMAIL = 65569
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +50,23 @@ class EditRecordActivity : AppCompatActivity() {
     }
 
     fun onSwitchSite(view: View) {
-        if (toggleButtonSite.isChecked()) {
-            editTextLogin.inputType = InputType.TYPE_CLASS_TEXT
+        if (toggleButtonSite.isChecked) {
+            editTextLogin.inputType = TYPE_CLASS_TEXT
         } else {
             editTextLogin.inputType = inputTypeLogin
         }
     }
 
     fun onSwitchEmail(view: View) {
-        if (toggleButtonEmail.isChecked()) {
-            editTextLogin.inputType = InputType.TYPE_CLASS_TEXT
+        if (toggleButtonEmail.isChecked) {
+            editTextLogin.inputType = TYPE_CLASS_TEXT
         } else {
-            editTextLogin.inputType = inputTypeLogin
-        }}
+            editTextLogin.inputType = TYPE_AUTO_COMPLETE_EMAIL
+        }
+    }
+
     fun onSwitchFade(view: View) {
-        if (!toggleButtonFade.isChecked()) {
+        if (!toggleButtonFade.isChecked) {
             editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             editTextPasswordReplay.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {

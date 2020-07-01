@@ -69,7 +69,7 @@ public class DataBaseAdapter {
 
     public int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
         if (isCrypto) {
-            return cryptoDatabase.update(table,values,whereClause,whereArgs);
+            return cryptoDatabase.update(table, values, whereClause, whereArgs);
         } else {
             return dataBase.update(table, values, whereClause, whereArgs);
         }

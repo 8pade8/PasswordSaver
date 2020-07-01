@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [VERSION_CODES.LOLLIPOP], packageName = "net.a8pade8.passwordsaver")
 class DbServiceTests {
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     @Before
     fun createDb() {
