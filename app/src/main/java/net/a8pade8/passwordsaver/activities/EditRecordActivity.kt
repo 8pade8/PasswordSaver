@@ -7,10 +7,14 @@ import android.text.InputType.TYPE_TEXT_VARIATION_URI
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+
 import kotlinx.android.synthetic.main.activity_edit_record.*
-import net.a8pade8.passwordsaver.R
+
+import net.a8pade8.passwordsaver.R.layout.*
+import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.uilib.Messages
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
@@ -23,11 +27,11 @@ class EditRecordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_record)
+        binding = DataBindingUtil.setContentView(this, activity_edit_record)
         val record: Record = try {
             getRecordFromPasswords(intent.getLongExtra("id", 0))
         } catch (e: IdIsNotExistException) {
-            Messages.MiddleToastShort(this, "Ошибка, запись не найдена")
+            Messages.MiddleToastShort(this, getString(recordIsNotExist))
             finish()
             return
         }
@@ -37,19 +41,19 @@ class EditRecordActivity : AppCompatActivity() {
 
     fun onReady(view: View) {
         if (binding.record?.password != binding.passwordRetry) {
-            Messages.MiddleToastLong(this, "Пароли не совпадают")
+            Messages.MiddleToastLong(this, getString(passwordsNotEquals))
             return
         }
         try {
             updateRecordInPasswords(binding.record!!)
-            Messages.MiddleToastLong(this, "Запись успешно обновлена")
+            Messages.MiddleToastLong(this, getString(recordUpdateSucsessfully))
             finish()
             startActivity(Intent(this, ResourceViewActivity::class.java).putExtra("id", binding.record?.id))
         } catch (e: IdIsNotExistException) {
-            Messages.MiddleToastLong(this, "")
+            Messages.MiddleToastLong(this, getString(recordIsNotExist))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            Messages.MiddleToastLong(this, "")
+            Messages.MiddleToastLong(this, getString(repeatLoginResource))
             e.printStackTrace()
         }
     }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
+import kotlin.reflect.typeOf
 
 lateinit var dataBase: DataBaseAdapter
 
@@ -37,6 +38,14 @@ private fun isContainResourceLoginInPasswords(resourceName: String, login: Strin
             null,
             "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=?",
             arrayOf(resourceName, login), null, null, null).count > 0
+}
+
+private fun isContainResourceLoginAnotherIdInPasswords(resourceName: String, login: String, id: Long): Boolean {
+    return dataBase.query(
+            TABLE_PASSWORDS,
+            null,
+            "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=? and $_ID<>?",
+            arrayOf(resourceName, login, id.toString()), null, null, null).count > 0
 }
 
 fun isRecordExistInPasswords(id: Long): Boolean {
@@ -90,7 +99,7 @@ fun deleteRecordFromPasswords(id: Long) {
 
 @Throws(IdIsNotExistException::class, ResourceLoginRepeatException::class)
 fun updateRecordInPasswords(record: Record) {
-    if (isContainResourceLoginInPasswords(record.resourceName, record.login)) throw ResourceLoginRepeatException()
+    if (isContainResourceLoginAnotherIdInPasswords(record.resourceName, record.login, record.id)) throw ResourceLoginRepeatException()
     val cv = ContentValues()
     cv.let {
         it.put(COLUMN_LOGIN, record.login)

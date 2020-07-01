@@ -67,9 +67,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordExist() {
-
         if (!security.getPassword().equals(passwordIn.getText().toString())) {
-            Messages.MiddleToastShort(this, "Введен неверный пароль, осталось попыток: " + --attemptPassword);
+            Messages.MiddleToastShort(this, getString(R.string.attemptsWarning) + --attemptPassword);
 
             if (attemptPassword == 0) {
                 if (!isBlocked()) {
@@ -83,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isAttemptExist() {
         if (attemptPassword == 0) {
-            Messages.MiddleToastLong(this, "Вы ввели неверный пароль трижды, попробуйте позднее.");
+            Messages.MiddleToastLong(this, getString(R.string.noAttempts));
             passwordIn.setText("");
             return false;
         }
