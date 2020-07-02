@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver;
+package net.a8pade8.passwordsaver.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,14 +6,15 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
-import net.a8pade8.passwordsaver.data.User;
+import net.a8pade8.passwordsaver.R;
+import net.a8pade8.passwordsaver.uilib.Messages;
+import net.a8pade8.passwordsaver.security.Security;
 
 public class AddUserActivity extends AppCompatActivity {
 
     private EditText passwordIn, passwordInReplay;
     private String password, passwordReplay;
-    private User user;
+    private Security security;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +22,14 @@ public class AddUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_user);
         passwordIn = findViewById(R.id.password);
         passwordInReplay = findViewById(R.id.replayPassword);
-        user = User.getInstance(this);
+        security = Security.getInstance(this);
     }
 
     public void addNewUser(View view) {
         password = passwordIn.getText().toString();
         passwordReplay = passwordInReplay.getText().toString();
         if (passwordChecked()) {
-            user.setPassword(password);
+            security.setPassword(password);
             Messages.MiddleToastShort(this, "Пользователь успешно добавлен");
             this.finish();
         }

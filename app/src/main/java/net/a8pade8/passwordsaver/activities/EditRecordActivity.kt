@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver
+package net.a8pade8.passwordsaver.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import kotlinx.android.synthetic.main.activity_edit_record.*
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages
+import net.a8pade8.passwordsaver.R
+import net.a8pade8.passwordsaver.uilib.Messages
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
 

@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver;
+package net.a8pade8.passwordsaver.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,31 +10,36 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
+import net.a8pade8.passwordsaver.R;
+import net.a8pade8.passwordsaver.uilib.Messages;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
-import net.a8pade8.passwordsaver.data.User;
+import net.a8pade8.passwordsaver.security.Security;
+import net.a8pade8.passwordsaver.util.TestDataGeneratorKt;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private boolean isCrypto = true; //Определеят шифровать ли данные, задел на будущее
+    private boolean generateTestData = true; // Генерировать тестовые данные
+    private boolean crypto = true; //Определеят шифровать ли данные, задел на будущее
+    private Security security;
     private EditText passwordIn;
     private int attemptPassword = 3;
     private SharedPreferences preferences;
     private SharedPreferences.Editor preferencesEditor;
     private final String BLOCK_TIME = "blockTime";
     private final String ATTEMPT_COUNT = "attempts";
-    private User user;
+
 
     @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = User.getInstance(this);
-        if (user.getPassword().isEmpty()) {
+        security = Security.getInstance(this);
+        setContentView(R.layout.activity_login);
+        DbserviceKt.loading(this, crypto);
+        TestDataGeneratorKt.generateTestData(this, generateTestData); //Генерация тестовых данных
+        if (security.getPassword().isEmpty()) {
             openAddUserActivity(null);
         }
-        setContentView(R.layout.activity_login);
-        DbserviceKt.loading(this, isCrypto);
         passwordIn = findViewById(R.id.password);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferencesEditor = preferences.edit();
@@ -62,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordExist() {
-        if (!user.getPassword().equals(passwordIn.getText().toString())) {
+
+        if (!security.getPassword().equals(passwordIn.getText().toString())) {
             Messages.MiddleToastShort(this, "Введен неверный пароль, осталось попыток: " + --attemptPassword);
 
             if (attemptPassword == 0) {

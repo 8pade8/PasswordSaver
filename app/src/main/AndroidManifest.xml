@@ -8,22 +8,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".EditRecordActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.EditRecordActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.WORK" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddUserActivity" />
-        <activity android:name=".AddRecordActivity" />
-        <activity android:name=".ResourceViewActivity" />
+        <activity android:name=".activities.AddUserActivity" />
+        <activity android:name=".activities.AddRecordActivity" />
+        <activity android:name=".activities.ResourceViewActivity" />
     </application>
 
 </manifest>

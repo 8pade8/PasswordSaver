@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver.a8pade8Lib1;
+package net.a8pade8.passwordsaver.uilib;
 
 import android.content.Context;
 import android.view.Gravity;

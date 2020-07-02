@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver.data;
+package net.a8pade8.passwordsaver.security;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,19 +6,19 @@ import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
+import net.a8pade8.passwordsaver.uilib.Messages;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 
-public class User {
+public class Security {
     private final static String USER_PASSWORD = "USER_PASSWORD";
     private final static String CRYPTO_KEY = "CRYPTO_KEY";
     private static SharedPreferences sharedPreferences;
-    private static User INSTANCE = null;
+    private static Security INSTANCE = null;
 
-    private User(Context context) throws GeneralSecurityException, IOException {
+    private Security(Context context) throws GeneralSecurityException, IOException {
 
         MasterKey masterKey = new MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -32,12 +32,12 @@ public class User {
         );
     }
 
-    public static User getInstance(Context context) {
+    public static Security getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized (User.class) {
+            synchronized (Security.class) {
                 if (INSTANCE == null) {
                     try {
-                        INSTANCE = new User(context);
+                        INSTANCE = new Security(context);
                     } catch (GeneralSecurityException | IOException e) {
                         Messages.MiddleToastLong(context,"Ошибка досутпа к файлу настроек приложения!");
                         e.printStackTrace();
