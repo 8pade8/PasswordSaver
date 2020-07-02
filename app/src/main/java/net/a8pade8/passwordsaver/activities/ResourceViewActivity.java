@@ -1,20 +1,21 @@
-package net.a8pade8.passwordsaver;
+package net.a8pade8.passwordsaver.activities;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.a8pade8.passwordsaver.a8pade8Lib1.Messages;
+import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.IdIsNotExistException;
 import net.a8pade8.passwordsaver.data.Record;
+import net.a8pade8.passwordsaver.uilib.Messages;
 
 public class ResourceViewActivity extends AppCompatActivity {
 

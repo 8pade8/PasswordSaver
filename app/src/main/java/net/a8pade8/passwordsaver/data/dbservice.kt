@@ -3,6 +3,7 @@ package net.a8pade8.passwordsaver.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
 
 lateinit var dataBase: DataBaseAdapter
@@ -10,7 +11,7 @@ lateinit var dataBase: DataBaseAdapter
 fun loading(context: Context, withCrypto: Boolean = false) {
     dataBase = if (withCrypto) {
         val dataBaseHelper = PSDBHelperCrypto(context)
-        dataBaseHelper.getDataBase((User.getInstance(context).cryptoKey))
+        dataBaseHelper.getDataBase((Security.getInstance(context).cryptoKey))
     } else {
         val dataBaseHelper = PSDBHelper(context)
         dataBaseHelper.getDataBase()

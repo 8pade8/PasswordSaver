@@ -1,4 +1,4 @@
-package net.a8pade8.passwordsaver;
+package net.a8pade8.passwordsaver.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.Record;
 
