@@ -92,5 +92,6 @@ public class ResourceViewActivity extends AppCompatActivity {
                 getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("password", record.getPassword());
         clipboard.setPrimaryClip(clip);
+        Messages.MiddleToastLong(this, "Скопировано в буфер");
     }
 }
