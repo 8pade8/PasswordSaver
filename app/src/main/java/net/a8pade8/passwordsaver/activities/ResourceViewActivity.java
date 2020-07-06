@@ -5,7 +5,9 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import net.a8pade8.passwordsaver.data.Record;
 import net.a8pade8.passwordsaver.uilib.Messages;
 
 import static net.a8pade8.passwordsaver.R.string.copiedToClipboard;
+import static net.a8pade8.passwordsaver.R.string.siteNotFound;
 
 public class ResourceViewActivity extends AppCompatActivity {
 
@@ -97,5 +100,22 @@ public class ResourceViewActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("password", record.getPassword());
         clipboard.setPrimaryClip(clip);
         Messages.MiddleToastLong(this, getString(copiedToClipboard));
+    }
+
+
+    public void goToResource(View view) {
+        String address = resourceTextView.getText().toString();
+        if (!address.startsWith("http")){
+            address = "http://"+address;
+        }
+        if(Patterns.WEB_URL.matcher(address).matches()){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+        else {
+            Messages.MiddleToastShort(this, getString(siteNotFound));
+        }
     }
 }
