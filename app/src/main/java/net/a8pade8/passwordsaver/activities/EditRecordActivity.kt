@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.activity_edit_record.*
 
 import net.a8pade8.passwordsaver.R.layout.*
 import net.a8pade8.passwordsaver.R.string.*
-import net.a8pade8.passwordsaver.uilib.Messages
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
+import net.a8pade8.passwordsaver.uilib.middleToastLong
 
 
 class EditRecordActivity : AppCompatActivity() {
@@ -31,7 +31,7 @@ class EditRecordActivity : AppCompatActivity() {
         val record: Record = try {
             getRecordFromPasswords(intent.getLongExtra("id", 0))
         } catch (e: IdIsNotExistException) {
-            Messages.MiddleToastShort(this, getString(recordIsNotExist))
+            middleToastLong(this, getString(recordIsNotExist))
             finish()
             return
         }
@@ -41,19 +41,19 @@ class EditRecordActivity : AppCompatActivity() {
 
     fun onReady(view: View) {
         if (binding.record?.password != binding.passwordRetry) {
-            Messages.MiddleToastLong(this, getString(passwordsNotEquals))
+            middleToastLong(this, getString(passwordsNotEquals))
             return
         }
         try {
             updateRecordInPasswords(binding.record!!)
-            Messages.MiddleToastLong(this, getString(recordUpdateSucsessfully))
+            middleToastLong(this, getString(recordUpdateSucsessfully))
             finish()
             startActivity(Intent(this, ResourceViewActivity::class.java).putExtra("id", binding.record?.id))
         } catch (e: IdIsNotExistException) {
-            Messages.MiddleToastLong(this, getString(recordIsNotExist))
+            middleToastLong(this, getString(recordIsNotExist))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            Messages.MiddleToastLong(this, getString(repeatLoginResource))
+            middleToastLong(this, getString(repeatLoginResource))
             e.printStackTrace()
         }
     }

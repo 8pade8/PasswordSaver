@@ -17,10 +17,10 @@ import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.IdIsNotExistException;
 import net.a8pade8.passwordsaver.data.Record;
-import net.a8pade8.passwordsaver.uilib.Messages;
 
 import static net.a8pade8.passwordsaver.R.string.copiedToClipboard;
 import static net.a8pade8.passwordsaver.R.string.siteNotFound;
+import static net.a8pade8.passwordsaver.uilib.MessagesKt.middleToastLong;
 
 public class ResourceViewActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class ResourceViewActivity extends AppCompatActivity {
         try {
             record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
-            Messages.MiddleToastShort(this, getString(R.string.recordIsNotExist));
+            middleToastLong(this, getString(R.string.recordIsNotExist));
             finish();
             return;
         }
@@ -81,10 +81,10 @@ public class ResourceViewActivity extends AppCompatActivity {
     private void deleteRecord() {
         try {
             DbserviceKt.deleteRecordFromPasswords(record.getId());
-            Messages.MiddleToastLong(this, getString(R.string.recordDeleted));
+            middleToastLong(this, getString(R.string.recordDeleted));
             finish();
         } catch (IdIsNotExistException e) {
-            Messages.MiddleToastLong(this, getString(R.string.recordDeleteFailed));
+            middleToastLong(this, getString(R.string.recordDeleteFailed));
             e.printStackTrace();
         }
     }
@@ -99,23 +99,21 @@ public class ResourceViewActivity extends AppCompatActivity {
                 getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("password", record.getPassword());
         clipboard.setPrimaryClip(clip);
-        Messages.MiddleToastLong(this, getString(copiedToClipboard));
+        middleToastLong(this, getString(copiedToClipboard));
     }
-
 
     public void goToResource(View view) {
         String address = resourceTextView.getText().toString();
-        if (!address.startsWith("http")){
-            address = "http://"+address;
+        if (!address.startsWith("http")) {
+            address = "http://" + address;
         }
-        if(Patterns.WEB_URL.matcher(address).matches()){
+        if (Patterns.WEB_URL.matcher(address).matches()) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
-        }
-        else {
-            Messages.MiddleToastShort(this, getString(siteNotFound));
+        } else {
+            middleToastLong(this, getString(siteNotFound));
         }
     }
 }
