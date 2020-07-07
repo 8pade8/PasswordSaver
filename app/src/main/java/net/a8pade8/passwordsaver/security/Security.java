@@ -6,11 +6,11 @@ import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
-import net.a8pade8.passwordsaver.uilib.Messages;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
+
+import static net.a8pade8.passwordsaver.uilib.MessagesKt.middleToastLong;
 
 public class Security {
     private final static String USER_PASSWORD = "USER_PASSWORD";
@@ -39,7 +39,7 @@ public class Security {
                     try {
                         INSTANCE = new Security(context);
                     } catch (GeneralSecurityException | IOException e) {
-                        Messages.MiddleToastLong(context,"Ошибка досутпа к файлу настроек приложения!");
+                        middleToastLong(context, "Ошибка досутпа к файлу настроек приложения!");
                         e.printStackTrace();
                     }
                 }

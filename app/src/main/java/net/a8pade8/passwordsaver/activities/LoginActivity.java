@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import net.a8pade8.passwordsaver.R;
-import net.a8pade8.passwordsaver.uilib.Messages;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.security.Security;
 import net.a8pade8.passwordsaver.util.TestDataGeneratorKt;
+
+import static net.a8pade8.passwordsaver.uilib.MessagesKt.middleToastLong;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -68,8 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPasswordExist() {
         if (!security.getPassword().equals(passwordIn.getText().toString())) {
-            Messages.MiddleToastShort(this, getString(R.string.attemptsWarning) + --attemptPassword);
-
+            middleToastLong(this, getString(R.string.attemptsWarning) + --attemptPassword);
             if (attemptPassword == 0) {
                 if (!isBlocked()) {
                     block();
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isAttemptExist() {
         if (attemptPassword == 0) {
-            Messages.MiddleToastLong(this, getString(R.string.noAttempts));
+            middleToastLong(this, getString(R.string.noAttempts));
             passwordIn.setText("");
             return false;
         }

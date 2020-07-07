@@ -8,14 +8,17 @@ import android.text.InputType.TYPE_TEXT_VARIATION_URI
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+
 import kotlinx.android.synthetic.main.activity_add_record.*
+
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.R.string.*
-import net.a8pade8.passwordsaver.uilib.Messages
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddRecordBinding
+import net.a8pade8.passwordsaver.uilib.middleToastLong
 
 class AddRecordActivity : AppCompatActivity() {
 
@@ -66,7 +69,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordsEquals(): Boolean {
         return if (binding.record!!.password != binding.passwordRetry) {
-            Messages.MiddleToastShort(this, getString(passwordsNotEquals))
+            middleToastLong(this, getString(passwordsNotEquals))
             false
         } else {
             true
@@ -96,7 +99,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isResourceEmpty(): Boolean {
         return if (binding.record!!.resourceName.isEmpty()) {
-            Messages.MiddleToastShort(this, getString(emptyResourceName))
+            middleToastLong(this, getString(emptyResourceName))
             false
         } else {
             true
@@ -105,7 +108,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isLoginEmpty(): Boolean {
         return if (binding.record!!.login.isEmpty()) {
-            Messages.MiddleToastShort(this, getString(emptyLogin))
+            middleToastLong(this, getString(emptyLogin))
             false
         } else {
             true
@@ -114,7 +117,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordEmpty(): Boolean {
         if (binding.record!!.password.isEmpty()) {
-            Messages.MiddleToastShort(this, getString(emptyPassword))
+            middleToastLong(this, getString(emptyPassword))
             return false
         }
         return true
@@ -123,13 +126,13 @@ class AddRecordActivity : AppCompatActivity() {
     private fun addRecord() {
         try {
             addRecordToPasswords(binding.record!!.resourceName, binding.record!!.login, binding.record!!.password)
-            Messages.MiddleToastLong(this, getString(recordAddedSucsessfully))
+            middleToastLong(this, getString(recordAddedSucsessfully))
             finish()
         } catch (e: EmptyDataException) {
-            Messages.MiddleToastLong(this, getString(dataError))
+            middleToastLong(this, getString(dataError))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            Messages.MiddleToastLong(this, getString(repeatLoginResource))
+            middleToastLong(this, getString(repeatLoginResource))
             e.printStackTrace()
         }
     }
