@@ -4,7 +4,7 @@
     <string name="addUser">Новый пользователь</string>
     <string name="welcome_text">Введите пароль</string>
     <string name="enter">Войти</string>
-    <string name="passwordHint">(Пароль должен состоять из пяти цифр)</string>
+    <string name="passwordHint">(Пароль должен состоять из шести символов)</string>
     <string name="replayPassword">Повторите пароль</string>
     <string name="ready">Готово</string>
     <string name="site">Сайт</string>
@@ -33,8 +33,8 @@
     <string name="noAttempts">Вы ввели неверный пароль трижды, попробуйте позднее.</string>
     <string name="addingUserSuccessfully">Пользователь успешно добавлен</string>
     <string name="easyPassword">Слишком легкий пароль, введите другой</string>
-    <string name="demandForPasswordLength">Пароль должен состоять из ПЯТИ цифр</string>
-    <string name="demandForPasswordCharacters">Пароль должен состоять ТОЛЬКО из цифр</string>
+    <string name="demandForPasswordLength">Пароль должен состоять минимум из ШЕСТИ символов</string>
+    <string name="demandForPasswordCharacters">Пароль должен содержать минимум одну цифру и букву</string>
     <string name="repeatResource">Указанный ресурс уже существует. Все равно добавить?</string>
     <string name="repeatLoginResource">Ресурс с таким логином уже существует</string>
     <string name="emptyResourceName">Поле ввода РЕСУРС не заполнено</string>

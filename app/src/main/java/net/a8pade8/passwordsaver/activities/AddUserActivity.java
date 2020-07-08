@@ -47,8 +47,8 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     private boolean isEasyPassword() {
-        String[] easyPaswords = {"00000", "11111", "22222", "33333", "44444", "55555", "666666",
-                "77777", "888888", "99999"};
+        String[] easyPaswords = {"123qwe", "qwe123", "q12345", "12345q", "qwert1", "1qwert", "qwert0",
+                "0qwert", "12qwer", "qwer12"};
         for (String easy : easyPaswords) {
             if (easy.equals(password)) {
                 Messages.MiddleToastShort(this, getString(R.string.easyPassword));
@@ -59,14 +59,14 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     private boolean passwordChecked() {
-        return isPasswordFiveSymbols()
-                && isPasswordNumber()
+        return isPasswordSixSymbols()
+                && isPasswordCombined()
                 && isPasswordsEquals(password, passwordReplay)
                 && !isEasyPassword();
     }
 
-    private boolean isPasswordFiveSymbols() {
-        if (password.length() == 5) {
+    private boolean isPasswordSixSymbols() {
+        if (password.length() >= 6) {
             return true;
         } else {
             Messages.MiddleToastShort(this, getString(R.string.demandForPasswordLength));
@@ -74,11 +74,14 @@ public class AddUserActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isPasswordNumber() {
-        try {
-            Integer.parseInt(password);
-            return true;
-        } catch (NumberFormatException e) {
+    private boolean isPasswordCombined() {
+        int letter = 0, digit = 0;
+        for (int i = 0; i < password.length() - 1; i++) {
+            if (Character.isLetter(password.charAt(i))) letter++;
+            if (Character.isDigit(password.charAt(i))) digit++;
+        }
+        if (letter > 0 && digit > 0) return true;
+        else {
             Messages.MiddleToastShort(this, getString(R.string.demandForPasswordCharacters));
             return false;
         }

@@ -18,7 +18,7 @@ import net.a8pade8.passwordsaver.util.TestDataGeneratorKt;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private boolean generateTestData = true; // Генерировать тестовые данные
+    private boolean generateTestData = false; // Генерировать тестовые данные
     private boolean crypto = true; //Определеят шифровать ли данные, задел на будущее
     private Security security;
     private EditText passwordIn;
