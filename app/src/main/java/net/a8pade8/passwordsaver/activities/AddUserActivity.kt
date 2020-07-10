@@ -11,6 +11,7 @@ import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddUserBinding
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.util.isAlthaNumeric
 
 
 class AddUserActivity : AppCompatActivity() {
@@ -39,19 +40,10 @@ class AddUserActivity : AppCompatActivity() {
         return true
     }
 
-    private fun isEasyPassword(): Boolean {
-        return if (binding.password in arrayOf("123qwe", "qwe123", "q12345", "12345q", "qwert1", "1qwert", "qwert0",
-                        "0qwert", "12qwer", "qwer12")) {
-            middleToastLong(this, getString(easyPassword))
-            true
-        } else false
-    }
-
     private fun passwordChecked(): Boolean {
         return (isPasswordSixSymbols()
                 && isPasswordCombined()
-                && isPasswordsEquals(binding.password, binding.passwordReplay)
-                && !isEasyPassword())
+                && isPasswordsEquals(binding.password, binding.passwordReplay))
     }
 
     private fun isPasswordSixSymbols(): Boolean {
@@ -64,13 +56,9 @@ class AddUserActivity : AppCompatActivity() {
     }
 
     private fun isPasswordCombined(): Boolean {
-        var letter = 0
-        var digit = 0
-        for (i in 0 until binding.password!!.length - 1) {
-            if (Character.isLetter(binding.password!!.get(i))) letter++
-            if (Character.isDigit(binding.password!!.get(i))) digit++
-        }
-        return if (letter > 0 && digit > 0) true else {
+        return if (isAlthaNumeric(binding.password.toString())) {
+            true
+        } else {
             middleToastLong(this, getString(demandForPasswordCharacters))
             false
         }

@@ -44,4 +44,5 @@
     <string name="dataError">Ошибка, данные не указаны</string>
     <string name="copiedToClipboard">Скопировано в буфер</string>
     <string name="siteNotFound">Сайт не найден!</string>
+    <string name="generatePassword">СГЕНЕРИРОВАТЬ ПАРОЛЬ</string>
 </resources>

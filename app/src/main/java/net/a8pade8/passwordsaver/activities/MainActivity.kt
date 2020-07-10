@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         Intent(this, ResourceViewActivity::class.java).let{
             it.putExtra("id", id)
             startActivity(it)
+            finish()
         }
     }
 
