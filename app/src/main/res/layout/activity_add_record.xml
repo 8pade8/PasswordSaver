@@ -13,21 +13,23 @@
             name="passwordRetry"
             type="String" />
     </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/activity_add_record"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/darker_gray">
 
         <Button
             android:id="@+id/buttonReady"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/generatePassword"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:onClick="onReady"
             android:text="@string/ready" />
 
@@ -204,6 +206,18 @@
             android:text="@string/login"
             android:textStyle="normal|bold" />
 
+        <Button
+            android:id="@+id/generatePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextPasswordReplay"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:checked="false"
+            android:onClick="generatePassword"
+            android:text="@string/generatePassword" />
     </RelativeLayout>
+    </ScrollView>
+
 </layout>
 

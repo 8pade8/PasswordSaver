@@ -2,6 +2,7 @@ package net.a8pade8.passwordsaver.activities
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_URI
@@ -19,16 +20,18 @@ import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddRecordBinding
 import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.util.generateAlthaNumericString
 
 class AddRecordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddRecordBinding
     private val TYPE_AUTO_COMPLETE_EMAIL = 65569
+    private var record = Record(0, "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_record)
-        binding.record = Record(0, "", "", "")
+        binding.record = record
     }
 
     fun onSwitchSite(view: View) {
@@ -67,8 +70,16 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
+    fun generatePassword(view: View?) {
+        generateAlthaNumericString(6).let {
+            record.password = it
+            binding.passwordRetry = it
+            binding.invalidateAll()
+        }
+    }
+
     private fun isPasswordsEquals(): Boolean {
-        return if (binding.record!!.password != binding.passwordRetry) {
+        return if (record.password != binding.passwordRetry) {
             middleToastLong(this, getString(passwordsNotEquals))
             false
         } else {
@@ -77,7 +88,7 @@ class AddRecordActivity : AppCompatActivity() {
     }
 
     private fun isResourceExist(): Boolean {
-        return isContainResourceInPasswords(binding.record!!.resourceName)
+        return isContainResourceInPasswords(record.resourceName)
     }
 
     private fun messageDoubleResource() {
@@ -92,13 +103,13 @@ class AddRecordActivity : AppCompatActivity() {
     }
 
     private fun isValuesChecked(): Boolean {
-        return (isResourceEmpty()
-                && isLoginEmpty()
-                && isPasswordEmpty())
+        return (isResourceNotEmpty()
+                && isLoginNotEmpty()
+                && isPasswordNotEmpty())
     }
 
-    private fun isResourceEmpty(): Boolean {
-        return if (binding.record!!.resourceName.isEmpty()) {
+    private fun isResourceNotEmpty(): Boolean {
+        return if (record.resourceName.isEmpty()) {
             middleToastLong(this, getString(emptyResourceName))
             false
         } else {
@@ -106,8 +117,8 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    private fun isLoginEmpty(): Boolean {
-        return if (binding.record!!.login.isEmpty()) {
+    private fun isLoginNotEmpty(): Boolean {
+        return if (record.login.isEmpty()) {
             middleToastLong(this, getString(emptyLogin))
             false
         } else {
@@ -115,8 +126,8 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    private fun isPasswordEmpty(): Boolean {
-        if (binding.record!!.password.isEmpty()) {
+    private fun isPasswordNotEmpty(): Boolean {
+        if (record.password.isEmpty()) {
             middleToastLong(this, getString(emptyPassword))
             return false
         }
@@ -125,8 +136,9 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun addRecord() {
         try {
-            addRecordToPasswords(binding.record!!.resourceName, binding.record!!.login, binding.record!!.password)
+            addRecordToPasswords(record.resourceName, record.login, record.password)
             middleToastLong(this, getString(recordAddedSucsessfully))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         } catch (e: EmptyDataException) {
             middleToastLong(this, getString(dataError))
