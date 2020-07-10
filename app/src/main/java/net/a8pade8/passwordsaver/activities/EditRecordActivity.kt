@@ -48,7 +48,7 @@ class EditRecordActivity : AppCompatActivity() {
             updateRecordInPasswords(binding.record!!)
             middleToastLong(this, getString(recordUpdateSucsessfully))
             finish()
-            startActivity(Intent(this, ResourceViewActivity::class.java).putExtra("id", binding.record?.id))
+            startActivity(Intent(this, ViewRecordActivity::class.java).putExtra("id", binding.record?.id))
         } catch (e: IdIsNotExistException) {
             middleToastLong(this, getString(recordIsNotExist))
             e.printStackTrace()
