@@ -34,7 +34,7 @@
             android:name=".activities.AddRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.ResourceViewActivity"
+            android:name=".activities.ViewRecordActivity"
             android:screenOrientation="portrait" />
     </application>
 

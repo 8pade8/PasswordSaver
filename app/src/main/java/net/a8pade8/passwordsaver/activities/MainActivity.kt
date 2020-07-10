@@ -36,10 +36,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openResourceView(id: Long) {
-        Intent(this, ResourceViewActivity::class.java).let{
+        Intent(this, ViewRecordActivity::class.java).let{
             it.putExtra("id", id)
             startActivity(it)
-            finish()
         }
     }
 
