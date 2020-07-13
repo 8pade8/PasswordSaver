@@ -32,7 +32,10 @@ class RecordViewAdapter(private val activity: Activity, private val recordList: 
             view?.let {
                 binding = DataBindingUtil.bind(it)!!
                 binding.record = recordList[position]
+                it.tag = binding
             }
+        } else {
+            (view.tag as RecordRowBinding).record = recordList[position]
         }
         return view
     }

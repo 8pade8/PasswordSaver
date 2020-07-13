@@ -32,8 +32,14 @@ class AddRecordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_record)
         binding.record = record
+        initToolbar()
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(binding.mainToolbar)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
     fun onSwitchSite(view: View) {
         if (toggleButtonSite.isChecked) {
             editTextLogin.inputType = TYPE_CLASS_TEXT
@@ -42,6 +48,7 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onSwitchEmail(view: View) {
         if (toggleButtonEmail.isChecked) {
             editTextLogin.inputType = TYPE_CLASS_TEXT
@@ -50,7 +57,8 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    fun onSwitchFade(view: View?) {
+    @Suppress("UNUSED_PARAMETER")
+    fun onSwitchFade(view: View) {
         if (!toggleButtonFade.isChecked) {
             editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             editTextPasswordReplay.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -60,7 +68,8 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    fun onReady(view: View?) {
+    @Suppress("UNUSED_PARAMETER")
+    fun onReady(view: View) {
         if (isValuesChecked() && isPasswordsEquals()) {
             if (!isResourceExist()) {
                 addRecord()
@@ -70,7 +79,8 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    fun generatePassword(view: View?) {
+    @Suppress("UNUSED_PARAMETER")
+    fun generatePassword(view: View) {
         generateAlthaNumericString(6).let {
             record.password = it
             binding.passwordRetry = it
@@ -138,7 +148,6 @@ class AddRecordActivity : AppCompatActivity() {
         try {
             addRecordToPasswords(record.resourceName, record.login, record.password)
             middleToastLong(this, getString(recordAddedSucsessfully))
-            startActivity(Intent(this, MainActivity::class.java))
             finish()
         } catch (e: EmptyDataException) {
             middleToastLong(this, getString(dataError))

@@ -1,7 +1,7 @@
 package net.a8pade8.passwordsaver.util
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.data.addRecordToPasswords
 

@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.a8pade8.passwordsaver.activities.MainActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/darker_gray"
+    tools:context="net.a8pade8.passwordsaver.activities.MainActivity">
 
-        <Button
-            android:text="@string/add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/addNewPasswordButton"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:onClick="openAddRecordActivity" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/addNewPasswordButton"
-            android:layout_below="@+id/textView6"
-            android:id="@+id/listOfRes">
-        </ListView>
+    <Button
+        android:id="@+id/addNewPasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:onClick="openAddRecordActivity"
+        android:text="@string/add" />
 
-        <TextView
-            android:text="@string/resourcesList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textAlignment="center"
-            android:textStyle="normal|bold"
-            android:gravity="center_horizontal" />
+    <ListView
+        android:id="@+id/listOfRes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/addNewPasswordButton"
+        android:layout_below="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainToolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_horizontal"
+        android:text="@string/resourcesList"
+        android:textAlignment="center"
+        android:textStyle="normal|bold" />
 </RelativeLayout>

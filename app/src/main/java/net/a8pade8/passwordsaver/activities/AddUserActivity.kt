@@ -22,9 +22,15 @@ class AddUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
         security = Security.getInstance(this)
+        initToolbar()
     }
 
-    fun addNewUser(view: View?) {
+    private fun initToolbar() {
+        setSupportActionBar(binding.mainToolbar)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun addNewUser(view: View) {
         if (passwordChecked()) {
             security.password = binding.password.toString()
             middleToastLong(this, getString(addingUserSuccessfully))

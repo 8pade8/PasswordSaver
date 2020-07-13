@@ -49,6 +49,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         resourceTextView.setText(record.getResourceName());
         loginTextView.setText(record.getLogin());
         fadePassword();
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(findViewById(R.id.mainToolbar));
     }
 
     private void showPassword() {

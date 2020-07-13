@@ -2,55 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/password"
+        android:layout_centerVertical="true"
+        android:autofillHints="TODO"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPassword"
         android:textAlignment="center"
         android:textColor="?attr/actionMenuTextColor"
-        android:gravity="center_horizontal"
-        tools:ignore="LabelFor"
-        android:autofillHints="TODO" />
+        tools:ignore="LabelFor" />
 
     <TextView
-        android:text="@string/welcome_text"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/password"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView"
-        android:textStyle="normal|bold"
-        android:layout_marginBottom="@dimen/activity_vertical_margin" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/welcome_text"
+        android:textStyle="normal|bold" />
 
     <Button
-        android:text="@string/enter"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
-        android:id="@+id/button"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:onClick="openMainActivity" />
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:onClick="openMainActivity"
+        android:text="@string/enter" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ps3"
-        android:id="@+id/imageView"
         android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/login" />
+        android:contentDescription="@string/login"
+        app:srcCompat="@drawable/ps3" />
 
 </RelativeLayout>

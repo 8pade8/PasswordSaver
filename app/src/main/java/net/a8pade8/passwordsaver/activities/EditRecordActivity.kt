@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 
 import kotlinx.android.synthetic.main.activity_edit_record.*
+import net.a8pade8.passwordsaver.R
 
 import net.a8pade8.passwordsaver.R.layout.*
 import net.a8pade8.passwordsaver.R.string.*
@@ -37,8 +38,14 @@ class EditRecordActivity : AppCompatActivity() {
         }
         binding.record = record
         binding.passwordRetry = record.password
+        initToolbar()
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(binding.mainToolbar)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
     fun onReady(view: View) {
         if (binding.record?.password != binding.passwordRetry) {
             middleToastLong(this, getString(passwordsNotEquals))
@@ -58,6 +65,7 @@ class EditRecordActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onSwitchSite(view: View) {
         if (toggleButtonSite.isChecked) {
             editTextLogin.inputType = TYPE_CLASS_TEXT
@@ -66,6 +74,7 @@ class EditRecordActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onSwitchEmail(view: View) {
         if (toggleButtonEmail.isChecked) {
             editTextLogin.inputType = TYPE_CLASS_TEXT
@@ -74,6 +83,7 @@ class EditRecordActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onSwitchFade(view: View) {
         if (!toggleButtonFade.isChecked) {
             editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
