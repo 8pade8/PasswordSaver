@@ -6,9 +6,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
-
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.appcompat.widget.Toolbar
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
@@ -16,6 +15,7 @@ import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
+    private lateinit var toolbar: Toolbar
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +24,15 @@ class MainActivity : AppCompatActivity() {
         recordsListView = findViewById(R.id.listOfRes)
         recordsListView.onItemClickListener = OnItemClickListener { adapterView, view, position, id -> onItemClick(adapterView, view, position, id) }
         listResourcesShow()
+        initToolbar()
     }
 
-    fun openAddRecordActivity(view: View?) {
+    private fun initToolbar() {
+        setSupportActionBar(findViewById(R.id.mainToolbar))
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun openAddRecordActivity(view: View) {
         startActivity(Intent(this, AddRecordActivity::class.java))
     }
 
@@ -36,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openResourceView(id: Long) {
-        Intent(this, ViewRecordActivity::class.java).let{
+        Intent(this, ViewRecordActivity::class.java).let {
             it.putExtra("id", id)
             startActivity(it)
         }
@@ -47,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         listResourcesShow()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun onItemClick(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
         openResourceView((adapterView.getItemAtPosition(position) as Record).id)
     }

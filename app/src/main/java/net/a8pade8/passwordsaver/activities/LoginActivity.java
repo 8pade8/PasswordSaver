@@ -8,7 +8,10 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+
+
 import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.security.Security;
@@ -27,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor preferencesEditor;
     private final String BLOCK_TIME = "blockTime";
     private final String ATTEMPT_COUNT = "attempts";
-
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -52,9 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         if (isBlocked()) {
             attemptPassword = 0;
         }
+        initToolbar();
     }
 
-    public void openAddUserActivity(View view){
+    private void initToolbar() {
+        setSupportActionBar(findViewById(R.id.mainToolbar));
+    }
+
+    public void openAddUserActivity(View view) {
         Intent openAddUserActivity = new Intent(this, AddUserActivity.class);
         startActivity(openAddUserActivity);
     }
