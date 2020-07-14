@@ -71,10 +71,9 @@ fun isContainResourceInPasswords(resource: String): Boolean {
 }
 
 fun getAllRecordsFromPasswords(): List<Record> {
-    val cursor = dataBase.query(
+    return mapCursorToRecordsList(dataBase.query(
             TABLE_PASSWORDS,
-            null, null, null, null, null, null)
-    return mapCursorToRecordsList(cursor)
+            null, null, null, null, null, COLUMN_RESOURCE))
 }
 
 @Throws(IdIsNotExistException::class)
