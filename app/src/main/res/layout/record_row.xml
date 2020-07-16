@@ -15,10 +15,17 @@
         android:orientation="vertical">
 
         <TextView
-            android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{record.resourceName}" />
+            android:text="@{record.resourceName}"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/format_brackets,record.comment) }"
+            android:textSize="20sp"
+            android:visibility="@{record.comment.equals(``) ? 8 : 0}" />
 
         <TextView
             android:layout_width="match_parent"

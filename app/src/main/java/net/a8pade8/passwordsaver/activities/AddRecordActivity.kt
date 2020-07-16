@@ -26,7 +26,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddRecordBinding
     private val TYPE_AUTO_COMPLETE_EMAIL = 65569
-    private var record = Record(0, "", "", "")
+    private var record = Record(0, "", "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,7 +146,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun addRecord() {
         try {
-            addRecordToPasswords(record.resourceName, record.login, record.password)
+            addRecordToPasswords(record.resourceName, record.login, record.password, record.comment)
             middleToastLong(this, getString(recordAddedSucsessfully))
             finish()
         } catch (e: EmptyDataException) {

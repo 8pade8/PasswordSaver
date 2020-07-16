@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.DATA_BASE;
+import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_COMMENT;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_LOGIN;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_PASSWORD;
 import static net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_RESOURCE;
@@ -31,7 +32,8 @@ public class PSDBHelperCrypto extends SQLiteOpenHelper {
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_RESOURCE + " TEXT NOT NULL, "
                 + COLUMN_LOGIN + " TEXT NOT NULL, "
-                + COLUMN_PASSWORD + " TEXT NOT NULL) ;";
+                + COLUMN_PASSWORD + " TEXT NOT NULL, "
+                + COLUMN_COMMENT + " TEXT) ;";
         String SQl_CREATE_PASSWORD_TABLE_UNIQUE = " CREATE UNIQUE INDEX passwordUnIndex \n"
                 + " ON " + TABLE_PASSWORDS + " (" + COLUMN_LOGIN + ","
                 + COLUMN_RESOURCE + ");";

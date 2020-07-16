@@ -109,6 +109,39 @@
                     android:textColor="?attr/actionMenuTextColor"
                     tools:ignore="LabelFor" />
 
+                <TextView
+                    android:id="@+id/comment_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editTextResourse"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="start"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/comment"
+                    android:textAlignment="viewStart"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/editTextComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/comment_lable"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:autofillHints="TODO"
+                    android:ems="10"
+                    android:gravity="start"
+                    android:inputType="textUri"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@={record.comment}"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/actionMenuTextColor"
+                    tools:ignore="LabelFor" />
+
                 <ToggleButton
                     android:id="@+id/toggleButtonEmail"
                     android:layout_width="wrap_content"
@@ -216,7 +249,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/editTextResourse"
+                    android:layout_below="@+id/editTextComment"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="20dp"
