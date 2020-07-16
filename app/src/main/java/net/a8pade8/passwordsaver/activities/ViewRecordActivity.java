@@ -27,6 +27,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     TextView resourceTextView;
     TextView passwordTextView;
     TextView loginTextView;
+    TextView commentTextView;
     Record record;
     String fadeString;
 
@@ -37,7 +38,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         resourceTextView = findViewById(R.id.resource);
         passwordTextView = findViewById(R.id.password);
         loginTextView = findViewById(R.id.login);
-
+        commentTextView = findViewById(R.id.comment);
         try {
             record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
@@ -48,6 +49,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         fadeString = getString(R.string.passwordMask);
         resourceTextView.setText(record.getResourceName());
         loginTextView.setText(record.getLogin());
+        commentTextView.setText(record.getComment());
         fadePassword();
         initToolbar();
     }

@@ -45,4 +45,6 @@
     <string name="copiedToClipboard">Скопировано в буфер</string>
     <string name="siteNotFound">Сайт не найден!</string>
     <string name="generatePassword">СГЕНЕРИРОВАТЬ ПАРОЛЬ</string>
+    <string name="comment">Комментарий</string>
+    <string name="format_brackets">(%s)</string>
 </resources>
