@@ -5,11 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.loading
+import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uilib.middleToastLong
 import net.a8pade8.passwordsaver.util.generateTestData
@@ -18,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private val generateTestData = false // Генерировать тестовые данные
     private val crypto = true //Определеят шифровать ли данные, задел на будущее
     private lateinit var security: Security
-    private lateinit var passwordIn: EditText
+    private lateinit var binding: ActivityLoginBinding
     private var attemptPassword = 3
     private lateinit var preferences: SharedPreferences
     private lateinit var preferencesEditor: SharedPreferences.Editor
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         if (security.password.isEmpty()) {
             openAddUserActivity(null)
         }
-        passwordIn = findViewById(R.id.password)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         preferencesEditor = preferences.edit()
         if (preferences.contains(ATTEMPT_COUNT)) {
@@ -58,11 +59,14 @@ class LoginActivity : AppCompatActivity() {
     fun openMainActivity(view: View?) {
         if (isAttemptExist() && isPasswordExist()) {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else {
+            binding.password = ""
         }
     }
 
     private fun isPasswordExist(): Boolean {
-        if (security.password != passwordIn.text.toString()) {
+        if (security.password != binding.password) {
             middleToastLong(this, getString(R.string.attemptsWarning) + --attemptPassword)
             if (attemptPassword == 0) {
                 if (!isBlocked()) {
@@ -77,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
     private fun isAttemptExist(): Boolean {
         if (attemptPassword == 0) {
             middleToastLong(this, getString(R.string.noAttempts))
-            passwordIn.setText("")
+            binding.password = ""
             return false
         }
         return true

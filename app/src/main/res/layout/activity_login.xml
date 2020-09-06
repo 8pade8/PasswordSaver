@@ -1,65 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
-    android:orientation="vertical">
+    tools:context="net.a8pade8.passwordsaver.activities.LoginActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainToolbar"
+    <data>
+
+        <variable
+            name="password"
+            type="String" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_blue_dark"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:autofillHints="TODO"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColor="?attr/actionMenuTextColor"
-        tools:ignore="LabelFor" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mainToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/holo_blue_dark"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:text="@string/welcome_text"
-        android:textStyle="normal|bold" />
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:autofillHints="TODO"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textPassword"
+            android:text="@={password}"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            tools:ignore="LabelFor" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_alignStart="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:onClick="openMainActivity"
-        android:text="@string/enter" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/password_input"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/welcome_text"
+            android:textStyle="normal|bold" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/login"
-        app:srcCompat="@drawable/logo" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_input"
+            android:layout_alignStart="@+id/textView"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:onClick="openMainActivity"
+            android:text="@string/enter" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_above="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/login"
+            app:srcCompat="@drawable/logo" />
+
+    </RelativeLayout>
+</layout>
+
+
