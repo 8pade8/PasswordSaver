@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 
-import static net.a8pade8.passwordsaver.uilib.MessagesKt.middleToastLong;
+import static net.a8pade8.passwordsaver.uiutil.MessagesKt.middleToastLong;
 
 public class Security {
     private final static String USER_PASSWORD = "USER_PASSWORD";

@@ -15,7 +15,6 @@ import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
-    private lateinit var toolbar: Toolbar
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     fun openAddRecordActivity(view: View) {
         startActivity(Intent(this, AddRecordActivity::class.java))
     }
-
 
     private fun listResourcesShow() {
         recordsListView.adapter = RecordViewAdapter(this, getAllRecordsFromPasswords())

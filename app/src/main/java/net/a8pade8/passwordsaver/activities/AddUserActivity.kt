@@ -2,15 +2,13 @@ package net.a8pade8.passwordsaver.activities
 
 import android.os.Bundle
 import android.view.View
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddUserBinding
 import net.a8pade8.passwordsaver.security.Security
-import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.isAlthaNumeric
 
 
@@ -33,14 +31,14 @@ class AddUserActivity : AppCompatActivity() {
     fun addNewUser(view: View) {
         if (passwordChecked()) {
             security.password = binding.password.toString()
-            middleToastLong(this, getString(addingUserSuccessfully))
+            showShortSnack(getString(addingUserSuccessfully))
             finish()
         }
     }
 
     private fun isPasswordsEquals(pass1: String?, pass2: String?): Boolean {
         if (pass1 != pass2) {
-            middleToastLong(this, getString(passwordsNotEquals))
+            showShortSnack(getString(passwordsNotEquals))
             return false
         }
         return true
@@ -56,7 +54,7 @@ class AddUserActivity : AppCompatActivity() {
         return if (binding.password!!.length >= 6) {
             true
         } else {
-            middleToastLong(this, getString(demandForPasswordLength))
+            showShortSnack(getString(demandForPasswordLength))
             false
         }
     }
@@ -65,7 +63,7 @@ class AddUserActivity : AppCompatActivity() {
         return if (isAlthaNumeric(binding.password.toString())) {
             true
         } else {
-            middleToastLong(this, getString(demandForPasswordCharacters))
+            showShortSnack(getString(demandForPasswordCharacters))
             false
         }
     }

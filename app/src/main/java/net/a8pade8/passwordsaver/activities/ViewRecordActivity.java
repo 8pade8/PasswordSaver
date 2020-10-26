@@ -20,8 +20,7 @@ import net.a8pade8.passwordsaver.data.Record;
 
 import static net.a8pade8.passwordsaver.R.string.copiedToClipboard;
 import static net.a8pade8.passwordsaver.R.string.siteNotFound;
-import static net.a8pade8.passwordsaver.uilib.MessagesKt.middleToastLong;
-
+import static net.a8pade8.passwordsaver.uiutil.MessagesKt.middleToastLong;
 public class ViewRecordActivity extends AppCompatActivity {
 
     TextView resourceTextView;

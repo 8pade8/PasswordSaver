@@ -2,24 +2,20 @@ package net.a8pade8.passwordsaver.activities
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_URI
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-
 import kotlinx.android.synthetic.main.activity_add_record.*
-
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddRecordBinding
-import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.generateAlthaNumericString
 
 class AddRecordActivity : AppCompatActivity() {
@@ -90,7 +86,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordsEquals(): Boolean {
         return if (record.password != binding.passwordRetry) {
-            middleToastLong(this, getString(passwordsNotEquals))
+            showShortSnack(getString(passwordsNotEquals))
             false
         } else {
             true
@@ -120,7 +116,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isResourceNotEmpty(): Boolean {
         return if (record.resourceName.isEmpty()) {
-            middleToastLong(this, getString(emptyResourceName))
+            showShortSnack(getString(emptyResourceName))
             false
         } else {
             true
@@ -129,7 +125,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isLoginNotEmpty(): Boolean {
         return if (record.login.isEmpty()) {
-            middleToastLong(this, getString(emptyLogin))
+            showShortSnack(getString(emptyLogin))
             false
         } else {
             true
@@ -138,7 +134,7 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun isPasswordNotEmpty(): Boolean {
         if (record.password.isEmpty()) {
-            middleToastLong(this, getString(emptyPassword))
+            showShortSnack(getString(emptyPassword))
             return false
         }
         return true
@@ -147,13 +143,13 @@ class AddRecordActivity : AppCompatActivity() {
     private fun addRecord() {
         try {
             addRecordToPasswords(record.resourceName, record.login, record.password, record.comment)
-            middleToastLong(this, getString(recordAddedSucsessfully))
+            showShortSnack(getString(recordAddedSucsessfully))
             finish()
         } catch (e: EmptyDataException) {
-            middleToastLong(this, getString(dataError))
+            showShortSnack(getString(dataError))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            middleToastLong(this, getString(repeatLoginResource))
+            showShortSnack(getString(repeatLoginResource))
             e.printStackTrace()
         }
     }

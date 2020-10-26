@@ -12,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 
 import kotlinx.android.synthetic.main.activity_edit_record.*
-import net.a8pade8.passwordsaver.R
 
 import net.a8pade8.passwordsaver.R.layout.*
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
-import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.uiutil.showShortSnack
 
 
 class EditRecordActivity : AppCompatActivity() {
@@ -32,7 +31,7 @@ class EditRecordActivity : AppCompatActivity() {
         val record: Record = try {
             getRecordFromPasswords(intent.getLongExtra("id", 0))
         } catch (e: IdIsNotExistException) {
-            middleToastLong(this, getString(recordIsNotExist))
+            showShortSnack(getString(recordIsNotExist))
             finish()
             return
         }
@@ -48,19 +47,19 @@ class EditRecordActivity : AppCompatActivity() {
     @Suppress("UNUSED_PARAMETER")
     fun onReady(view: View) {
         if (binding.record?.password != binding.passwordRetry) {
-            middleToastLong(this, getString(passwordsNotEquals))
+            showShortSnack(getString(passwordsNotEquals))
             return
         }
         try {
             updateRecordInPasswords(binding.record!!)
-            middleToastLong(this, getString(recordUpdateSucsessfully))
+            showShortSnack(getString(recordUpdateSucsessfully))
             finish()
             startActivity(Intent(this, ViewRecordActivity::class.java).putExtra("id", binding.record?.id))
         } catch (e: IdIsNotExistException) {
-            middleToastLong(this, getString(recordIsNotExist))
+            showShortSnack(getString(recordIsNotExist))
             e.printStackTrace()
         } catch (e: ResourceLoginRepeatException) {
-            middleToastLong(this, getString(repeatLoginResource))
+            showShortSnack(getString(repeatLoginResource))
             e.printStackTrace()
         }
     }

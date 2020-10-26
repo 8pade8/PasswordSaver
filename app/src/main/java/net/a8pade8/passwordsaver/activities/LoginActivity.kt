@@ -12,12 +12,12 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.loading
 import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
-import net.a8pade8.passwordsaver.uilib.middleToastLong
+import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.generateTestData
 
 class LoginActivity : AppCompatActivity() {
     private val generateTestData = false // Генерировать тестовые данные
-    private val crypto = true //Определеят шифровать ли данные, задел на будущее
+    private val crypto = false //Определеят шифровать ли данные, задел на будущее
     private lateinit var security: Security
     private lateinit var binding: ActivityLoginBinding
     private var attemptPassword = 3
@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isPasswordExist(): Boolean {
         if (security.password != binding.password) {
-            middleToastLong(this, getString(R.string.attemptsWarning) + --attemptPassword)
+            showShortSnack(getString(R.string.attemptsWarning) + --attemptPassword)
             if (attemptPassword == 0) {
                 if (!isBlocked()) {
                     block()
@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isAttemptExist(): Boolean {
         if (attemptPassword == 0) {
-            middleToastLong(this, getString(R.string.noAttempts))
+            showShortSnack(getString(R.string.noAttempts))
             binding.password = ""
             return false
         }

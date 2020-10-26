@@ -30,7 +30,7 @@
     <string name="cancel">Cancel</string>
     <string name="warning">Attention!</string>
     <string name="passwordMask">***************</string>
-    <string name="attemptsWarning">Password isn`t correctly, left attempts:</string>
+    <string name="attemptsWarning">Password isn`t correctly, left attempts: </string>
     <string name="noAttempts">You enetred incorrectly password 3 times, try it later.</string>
     <string name="addingUserSuccessfully">User successed added</string>
     <string name="easyPassword">Password is easy, enter another.</string>
