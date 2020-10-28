@@ -1,174 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_blue_dark"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        style="@style/mainToolBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/mainToolbar"
-        android:background="@android:color/holo_blue_light">
 
-        <RelativeLayout
-            android:id="@+id/activity_resource_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            tools:context="net.a8pade8.passwordsaver.activities.ViewRecordActivity">
+    <TextView
+        android:id="@+id/resourceTextView"
+        style="@style/largeLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainToolbar" />
 
+    <ImageButton
+        android:id="@+id/goToWebSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_small_margin"
+        android:background="@color/transparent"
+        android:contentDescription="@string/copyInBuffer"
+        android:onClick="goToResource"
+        android:src="@drawable/ic_web"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/loginTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/resourceTextView" />
 
-            <TextView
-                android:id="@+id/resource"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="normal|bold" />
+    <TextView
+        android:id="@+id/loginTextView"
+        style="@style/label"
+        android:labelFor="@id/loginEditText"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resourceTextView" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/resource"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="22dp"
-                android:gravity="start"
-                android:text="@string/login"
-                android:textAlignment="viewStart"
-                android:textStyle="normal|bold" />
+    <TextView
+        android:id="@+id/login"
+        style="@style/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
 
-            <TextView
-                android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView12"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+    <TextView
+        android:id="@+id/passwordTextView"
+        style="@style/label"
+        android:text="@string/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/login"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/password"
-                android:textStyle="normal|bold" />
+    <TextView
+        android:id="@+id/password"
+        style="@style/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
 
-            <ToggleButton
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView14"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:onClick="switchFadePassword"
-                android:text="@string/fade"
-                android:textOff="@string/fade"
-                android:textOn="@string/no" />
+    <com.github.zagum.switchicon.SwitchIconView
+        android:id="@+id/passwordToggleButton"
+        style="@style/imageToggleButton"
+        android:layout_marginEnd="@dimen/horizontal_small_margin"
+        android:onClick="switchFadePassword"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toStartOf="@+id/copyToClipboard"
+        app:layout_constraintTop_toTopOf="@+id/password"
+        app:si_enabled="false"
+        app:srcCompat="@drawable/ic_visibility" />
 
-            <TextView
-                android:id="@+id/password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/toggleButton"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+    <ImageButton
+        android:id="@+id/copyToClipboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_small_margin"
+        android:layout_marginStart="@dimen/horizontal_small_margin"
+        android:background="@color/transparent"
+        android:contentDescription="@string/copyInBuffer"
+        android:onClick="copyInBuffer"
+        android:src="@drawable/ic_copy"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/passwordToggleButton" />
 
-            <TextView
-                android:id="@+id/comment_lable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button7"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/comment"
-                android:textStyle="normal|bold" />
+    <TextView
+        android:id="@+id/commentTextView"
+        style="@style/label"
+        android:accessibilityTraversalAfter="@id/passwordEditText"
+        android:labelFor="@id/commentEditText"
+        android:text="@string/comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
-            <TextView
-                android:id="@+id/comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/comment_lable"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:textSize="24sp" />
+    <TextView
+        android:id="@+id/comment"
+        style="@style/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentTextView" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/button5"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:onClick="goToResource"
-                android:text="@string/goToResource" />
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_large_margin"
+        android:background="@color/transparent"
+        android:contentDescription="@string/copyInBuffer"
+        android:onClick="edit"
+        android:src="@drawable/ic_edit"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/deleteButton"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button6"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="10dp"
-                android:onClick="edit"
-                android:text="@string/edit" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/comment"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="10dp"
-                android:onClick="delete"
-                android:text="@string/delete" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/password"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:onClick="copyInBuffer"
-                android:text="@string/copyInBuffer" />
-
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_large_margin"
+        android:background="@color/transparent"
+        android:contentDescription="@string/copyInBuffer"
+        android:onClick="delete"
+        android:src="@drawable/ic_delete"
+        android:tint="@color/colorDanger"
+        app:layout_constraintEnd_toStartOf="@+id/editButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 

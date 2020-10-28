@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.zagum.switchicon.SwitchIconView;
+
 import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.IdIsNotExistException;
@@ -27,6 +29,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     TextView passwordTextView;
     TextView loginTextView;
     TextView commentTextView;
+    SwitchIconView passwordToggleButton;
     Record record;
     String fadeString;
 
@@ -34,10 +37,11 @@ public class ViewRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_view);
-        resourceTextView = findViewById(R.id.resource);
+        resourceTextView = findViewById(R.id.resourceTextView);
         passwordTextView = findViewById(R.id.password);
         loginTextView = findViewById(R.id.login);
         commentTextView = findViewById(R.id.comment);
+        passwordToggleButton = findViewById(R.id.passwordToggleButton);
         try {
             record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
@@ -66,7 +70,8 @@ public class ViewRecordActivity extends AppCompatActivity {
     }
 
     public void switchFadePassword(View view) {
-        if (passwordTextView.getText().equals(fadeString)) {
+        passwordToggleButton.switchState(true);
+        if (passwordToggleButton.isIconEnabled()) {
             showPassword();
         } else {
             fadePassword();

@@ -16,8 +16,8 @@ import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.generateTestData
 
 class LoginActivity : AppCompatActivity() {
-    private val generateTestData = false // Генерировать тестовые данные
-    private val crypto = false //Определеят шифровать ли данные, задел на будущее
+    private val generateTestData = true // Генерировать тестовые данные
+    private val crypto = true //Определеят шифровать ли данные, задел на будущее
     private lateinit var security: Security
     private lateinit var binding: ActivityLoginBinding
     private var attemptPassword = 3

@@ -37,30 +37,33 @@ class AddRecordActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchSite(view: View) {
-        if (toggleButtonSite.isChecked) {
-            editTextLogin.inputType = TYPE_CLASS_TEXT
+        resourceToggleButton.switchState(true)
+        if (resourceToggleButton.isIconEnabled) {
+            resourceEditText.inputType = TYPE_TEXT_VARIATION_URI
         } else {
-            editTextLogin.inputType = TYPE_TEXT_VARIATION_URI
+            resourceEditText.inputType = TYPE_CLASS_TEXT
         }
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchEmail(view: View) {
-        if (toggleButtonEmail.isChecked) {
-            editTextLogin.inputType = TYPE_CLASS_TEXT
+        loginToggleButton.switchState(true)
+        if (loginToggleButton.isIconEnabled) {
+            loginEditText.inputType = TYPE_AUTO_COMPLETE_EMAIL
         } else {
-            editTextLogin.inputType = TYPE_AUTO_COMPLETE_EMAIL
+            loginEditText.inputType = TYPE_CLASS_TEXT
         }
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchFade(view: View) {
-        if (!toggleButtonFade.isChecked) {
-            editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-            editTextPasswordReplay.transformationMethod = PasswordTransformationMethod.getInstance()
+        passwordToggleButton.switchState(true)
+        if (!passwordToggleButton.isIconEnabled) {
+            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {
-            editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            editTextPasswordReplay.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
         }
     }
 
@@ -102,7 +105,7 @@ class AddRecordActivity : AppCompatActivity() {
                 .setTitle(getString(warning))
                 .setMessage(getString(repeatResource))
                 .setCancelable(false)
-                .setPositiveButton(getString(add)) { dialogInterface: DialogInterface?, i: Int -> addRecord() }
+                .setPositiveButton(getString(addRecord)) { dialogInterface: DialogInterface?, i: Int -> addRecord() }
                 .setNegativeButton(getString(cancel)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
                 .create()
                 .show()

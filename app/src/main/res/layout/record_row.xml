@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="record"
             type="net.a8pade8.passwordsaver.data.Record" />
@@ -14,25 +13,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{record.resourceName}"
-            android:textSize="30sp" />
+    <LinearLayout
+        android:id="@+id/resourceWithComment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/normal_text"
+            android:text="@{record.resourceName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/textColorHighlight"
+            android:textSize="@dimen/normal_text"
+            android:layout_marginStart="@dimen/horizontal_small_margin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.format(@string/format_brackets,record.comment) }"
-            android:textSize="20sp"
             android:visibility="@{record.comment.equals(``) ? 8 : 0}" />
+    </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_small_margin"
             android:text="@{record.login}"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textColor="@color/textColorPrimary"
+            android:textSize="@dimen/normal_text" />
     </LinearLayout>
 </layout>
 

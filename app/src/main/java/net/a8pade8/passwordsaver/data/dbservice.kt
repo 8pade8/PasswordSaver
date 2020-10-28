@@ -3,9 +3,8 @@ package net.a8pade8.passwordsaver.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
-import kotlin.reflect.typeOf
+import net.a8pade8.passwordsaver.security.Security
 
 lateinit var dataBase: DataBaseAdapter
 

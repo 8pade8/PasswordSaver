@@ -18,17 +18,19 @@ import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
+import net.a8pade8.passwordsaver.util.generateAlthaNumericString
 
 
 class EditRecordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditRecordBinding
     private val TYPE_AUTO_COMPLETE_EMAIL = 65569
+    private lateinit var record: Record
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, activity_edit_record)
-        val record: Record = try {
+        record = try {
             getRecordFromPasswords(intent.getLongExtra("id", 0))
         } catch (e: IdIsNotExistException) {
             showShortSnack(getString(recordIsNotExist))
@@ -66,30 +68,42 @@ class EditRecordActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchSite(view: View) {
-        if (toggleButtonSite.isChecked) {
-            editTextLogin.inputType = TYPE_CLASS_TEXT
+        resourceToggleButton.switchState(true)
+        if (resourceToggleButton.isIconEnabled) {
+            loginEditText.inputType = TYPE_TEXT_VARIATION_URI
         } else {
-            editTextLogin.inputType = TYPE_TEXT_VARIATION_URI
+            loginEditText.inputType = TYPE_CLASS_TEXT
         }
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchEmail(view: View) {
-        if (toggleButtonEmail.isChecked) {
-            editTextLogin.inputType = TYPE_CLASS_TEXT
+        loginToggleButton.switchState(true)
+        if (loginToggleButton.isIconEnabled) {
+            loginEditText.inputType = TYPE_AUTO_COMPLETE_EMAIL
         } else {
-            editTextLogin.inputType = TYPE_AUTO_COMPLETE_EMAIL
+            loginEditText.inputType = TYPE_CLASS_TEXT
         }
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun onSwitchFade(view: View) {
-        if (!toggleButtonFade.isChecked) {
-            editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-            editTextPasswordReplay.transformationMethod = PasswordTransformationMethod.getInstance()
+        passwordToggleButton.switchState(true)
+        if (!passwordToggleButton.isIconEnabled) {
+            passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {
-            editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            editTextPasswordReplay.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+        }
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun generatePassword(view: View) {
+        generateAlthaNumericString(6).let {
+            record.password = it
+            binding.passwordRetry = it
+            binding.invalidateAll()
         }
     }
 }

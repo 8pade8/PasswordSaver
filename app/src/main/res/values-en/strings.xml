@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Password Saver</string>
-    <string name="add">Add record</string>
+    <string name="addRecord">Add record</string>
     <string name="addUser">New user</string>
     <string name="welcome_text">Enter password</string>
     <string name="enter">Log in</string>
     <string name="passwordHint">Password must contains 6 characters</string>
-    <string name="replayPassword">Repeat password</string>
+    <string name="repeatPassword">Repeat password</string>
     <string name="ready">OK</string>
     <string name="site">Web site</string>
     <string name="no">NO</string>
-    <string name="Resource">Resource</string>
+    <string name="resource">Resource</string>
     <string name="login">Login</string>
     <string name="email">e-mail</string>
     <string name="password">Password</string>
     <string name="fade">Hide</string>
-    <string name="resourcesList">Resources list</string>
+    <string name="resourceList">Resource list</string>
     <string name="copyInBuffer">Copy to clipbord</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>

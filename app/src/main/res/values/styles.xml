@@ -1,11 +1,81 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/textColorPrimaryDisableOnly</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorHighlight">@color/textColorHighlight</item>
+
+    </style>
+
+    <style name="mainToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:theme">@style/Theme.MaterialComponents.Light.DarkActionBar</item>
+    </style>
+
+    <style name="largeLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_large_margin</item>
+    </style>
+
+    <style name="label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textStyle">normal|bold</item>
+    </style>
+
+    <style name="inputField">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">textAutoComplete</item>
+        <item name="android:layout_marginLeft">@dimen/horizontal_small_margin</item>
+        <item name="android:layout_marginRight">@dimen/horizontal_small_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_small_margin</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="imageToggleButton" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_small_margin</item>
+        <item name="si_animation_duration">500</item>
+        <item name="si_disabled_alpha">0.3</item>
+        <item name="si_disabled_color">@color/colorPrimaryDark</item>
+        <item name="si_tint_color">@color/colorPrimary</item>
+    </style>
+
+    <style name="button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_large_margin</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="text">
+        <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_large_margin</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
 </resources>
