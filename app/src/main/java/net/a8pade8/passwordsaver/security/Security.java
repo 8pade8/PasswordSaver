@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
+import net.a8pade8.passwordsaver.R;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
@@ -39,7 +41,7 @@ public class Security {
                     try {
                         INSTANCE = new Security(context);
                     } catch (GeneralSecurityException | IOException e) {
-                        middleToastLong(context, "Ошибка досутпа к файлу настроек приложения!");
+                        middleToastLong(context, context.getString(R.string.ErrorAccessingTheApplicationSettingsFile));
                         e.printStackTrace();
                     }
                 }

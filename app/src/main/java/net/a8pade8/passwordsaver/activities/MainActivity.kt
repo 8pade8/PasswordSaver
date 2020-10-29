@@ -14,13 +14,19 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
+import net.a8pade8.passwordsaver.util.exportPasswordsToFile
 import net.a8pade8.passwordsaver.util.openActivity
+import net.a8pade8.passwordsaver.util.verifyStoragePermissions
+import net.rdrei.android.dirchooser.DirectoryChooserActivity
+import net.rdrei.android.dirchooser.DirectoryChooserConfig
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
     private var favoriteOnly = false
-    private var searchString:String = ""
+    private var searchString: String = ""
+    private val REQUEST_DIRECTORY = 0
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,4 +111,31 @@ class MainActivity : AppCompatActivity() {
         }
         showResourceList()
     }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun exportToFile(item: MenuItem) {
+        if (recordsListView.adapter.count > 0 && verifyStoragePermissions(this)) {
+            val chooserIntent = Intent(this, DirectoryChooserActivity::class.java)
+
+            val config = DirectoryChooserConfig.builder()
+                    .newDirectoryName("DirChooserSample")
+                    .allowReadOnlyDirectory(true)
+                    .allowNewDirectoryNameModification(true)
+                    .build()
+            chooserIntent.putExtra(DirectoryChooserActivity.EXTRA_CONFIG, config)
+            startActivityForResult(chooserIntent, REQUEST_DIRECTORY)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_DIRECTORY) {
+            if (resultCode == DirectoryChooserActivity.RESULT_CODE_DIR_SELECTED) {
+                exportPasswordsToFile(
+                        data?.getStringExtra(DirectoryChooserActivity.RESULT_SELECTED_DIR).toString(),
+                        (recordsListView.adapter as RecordViewAdapter).getList(),this)
+            }
+        }
+    }
+
 }

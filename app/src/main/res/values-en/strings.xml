@@ -50,4 +50,10 @@
     <string name="format_brackets">(%s)</string>
     <string name="favorite">Favorite</string>
     <string name="search">Search</string>
+    <string name="exportToFile">Export to file</string>
+    <string name="passwordsSavedToFile">Passwords saved to file</string>
+    <string name="fileNotFound">File not found</string>
+    <string name="folderNotExist">Folder not exist</string>
+    <string name="exportToFileError">Export to file error</string>
+    <string name="ErrorAccessingTheApplicationSettingsFile">Error accessing the application settings file!</string>
 </resources>

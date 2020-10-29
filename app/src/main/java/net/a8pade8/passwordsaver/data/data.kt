@@ -1,7 +1,9 @@
 package net.a8pade8.passwordsaver.data
 
 import androidx.databinding.BaseObservable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Record(val id: Long, var resourceName: String, var login: String, var password: String,
                   var comment: String, var favorite: Boolean = false): BaseObservable() {
 

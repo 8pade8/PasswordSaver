@@ -16,5 +16,16 @@
         android:onClick="showFavorite"
         android:iconTint="@color/colorContrastDark"
         android:title="@string/favorite"/>
-
+    <item
+        android:icon="@drawable/ic_action_menu"
+        android:title=""
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/settings_menu_change_name"
+                android:title="@string/exportToFile"
+                android:onClick="exportToFile"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>
