@@ -49,4 +49,10 @@
     <string name="format_brackets">(%s)</string>
     <string name="favorite">Избранное</string>
     <string name="search">Поиск</string>
+    <string name="exportToFile">Экспорт в файл</string>
+    <string name="passwordsSavedToFile">Пароли сохранены в файл</string>
+    <string name="fileNotFound">Файл не доступен</string>
+    <string name="folderNotExist">Путь не доступен</string>
+    <string name="exportToFileError">Ошибка экспорта в файл</string>
+    <string name="ErrorAccessingTheApplicationSettingsFile">Ошибка доступа к файлу настроек приложения!</string>
 </resources>
