@@ -19,6 +19,7 @@ import net.a8pade8.passwordsaver.R;
 import net.a8pade8.passwordsaver.data.DbserviceKt;
 import net.a8pade8.passwordsaver.data.IdIsNotExistException;
 import net.a8pade8.passwordsaver.data.Record;
+import net.a8pade8.passwordsaver.data.ResourceLoginRepeatException;
 
 import static net.a8pade8.passwordsaver.R.string.copiedToClipboard;
 import static net.a8pade8.passwordsaver.R.string.siteNotFound;
@@ -30,6 +31,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     TextView loginTextView;
     TextView commentTextView;
     SwitchIconView passwordToggleButton;
+    SwitchIconView favoriteToggleButton;
     Record record;
     String fadeString;
 
@@ -42,6 +44,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         loginTextView = findViewById(R.id.login);
         commentTextView = findViewById(R.id.comment);
         passwordToggleButton = findViewById(R.id.passwordToggleButton);
+        favoriteToggleButton = findViewById(R.id.favoriteToggleButton);
         try {
             record = DbserviceKt.getRecordFromPasswords(getIntent().getLongExtra("id", 0));
         } catch (IdIsNotExistException e) {
@@ -53,6 +56,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         resourceTextView.setText(record.getResourceName());
         loginTextView.setText(record.getLogin());
         commentTextView.setText(record.getComment());
+        favoriteToggleButton.setIconEnabled(record.getFavorite());
         fadePassword();
         initToolbar();
     }
@@ -126,5 +130,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         } else {
             middleToastLong(this, getString(siteNotFound));
         }
+    }
+
+    public void switchFavorite(View view) throws ResourceLoginRepeatException, IdIsNotExistException {
+        favoriteToggleButton.switchState(true);
+        record.setFavorite(favoriteToggleButton.isIconEnabled());
+        DbserviceKt.updateRecordInPasswords(record);
     }
 }

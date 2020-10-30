@@ -21,5 +21,6 @@ public final class PasswordSaverContract {
         public final static String COLUMN_LOGIN = "login";
         public final static String COLUMN_PASSWORD = "password";
         public final static String COLUMN_COMMENT = "comment";
+        public final static String COLUMN_FAVORITE = "favorite";
     }
 }

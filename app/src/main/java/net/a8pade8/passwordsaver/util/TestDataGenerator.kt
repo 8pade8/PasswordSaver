@@ -15,7 +15,7 @@ fun generateTestData(context: Context, generateTestData: Boolean) {
     val testDataGenerated = defaultSharedPreferences.getBoolean(TEST_DATA_GENERATED, false)
     if (!testDataGenerated){
         Security.getInstance(context).password = "12345"
-        addRecordToPasswords("vk.com", "unknown", "qwerty123")
+        addRecordToPasswords("vk.com", "unknown", "qwerty123", "Дополнительный",true)
         addRecordToPasswords("vk.com", "unknown2", "qwerty123")
         addRecordToPasswords("World of Warcraft", "unknown", "Asdfg321")
         addRecordToPasswords("World of Tanks", "unknown", "Asdfg321")
@@ -23,8 +23,8 @@ fun generateTestData(context: Context, generateTestData: Boolean) {
         addRecordToPasswords("yandex.ru", "unknown", "qwerty123")
         addRecordToPasswords("google.com", "unknown", "qwerty123")
         addRecordToPasswords("mos.ru", "unknown", "qwerty123")
-        addRecordToPasswords("stepik.org", "unknown", "qwerty123")
-        addRecordToPasswords("github.com", "unknown", "qwerty123")
+        addRecordToPasswords("stepik.org", "unknown", "qwerty123", "Основной", true)
+        addRecordToPasswords("github.com", "unknown", "qwerty123", "", true)
         defaultSharedPreferences.edit().putBoolean(TEST_DATA_GENERATED, true).apply()
     }
 }

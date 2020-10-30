@@ -111,7 +111,7 @@
             android:tint="@color/colorPrimary"
             android:checked="false"
             android:onClick="generatePassword"
-            android:src="@drawable/ic_loop"
+            android:src="@drawable/ic_generate"
             app:layout_constraintBottom_toBottomOf="@+id/passwordEditText"
             app:layout_constraintEnd_toStartOf="@+id/passwordEditText"
             app:layout_constraintHorizontal_bias="0.5"

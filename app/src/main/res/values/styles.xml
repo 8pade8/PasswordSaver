@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -26,7 +26,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/normal_text</item>
+        <item name="android:textSize">@dimen/large_text</item>
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
         <item name="android:layout_marginBottom">@dimen/vertical_large_margin</item>
@@ -36,9 +36,19 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
+        <item name="android:textSize">@dimen/normal_text</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/textColorSecondary</item>
         <item name="android:textStyle">normal|bold</item>
+    </style>
+
+    <style name="smallLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">@dimen/small_text</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="inputField">

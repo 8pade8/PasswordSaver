@@ -24,7 +24,8 @@
             android:textSize="@dimen/normal_text"
             android:text="@{record.resourceName}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:textColor="@color/textColorHighlight"
@@ -33,7 +34,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.format(@string/format_brackets,record.comment) }"
-            android:visibility="@{record.comment.equals(``) ? 8 : 0}" />
+            android:visibility="@{record.comment.equals(``) ? 8 : 0}"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star"
+            android:tint="@color/colorPrimary"
+            android:layout_marginStart="@dimen/horizontal_small_margin"
+            android:visibility="@{record.favorite? 0 : 8}"
+            android:contentDescription="@string/favorite" />
     </LinearLayout>
 
         <TextView

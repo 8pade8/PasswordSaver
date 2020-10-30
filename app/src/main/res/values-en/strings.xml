@@ -48,4 +48,5 @@
     <string name="generatePassword">GENERATE PASSWORD</string>
     <string name="comment">Comment</string>
     <string name="format_brackets">(%s)</string>
+    <string name="favorite">Favorite</string>
 </resources>

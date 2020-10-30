@@ -75,12 +75,14 @@
         app:si_enabled="false"
         app:srcCompat="@drawable/ic_visibility" />
 
+
+
     <ImageButton
         android:id="@+id/copyToClipboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/horizontal_small_margin"
         android:layout_marginStart="@dimen/horizontal_small_margin"
+        android:layout_marginEnd="@dimen/horizontal_small_margin"
         android:background="@color/transparent"
         android:contentDescription="@string/copyInBuffer"
         android:onClick="copyInBuffer"
@@ -110,13 +112,13 @@
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_large_margin"
         android:background="@color/transparent"
         android:contentDescription="@string/copyInBuffer"
         android:onClick="edit"
         android:src="@drawable/ic_edit"
         android:tint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/vertical_large_margin"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteToggleButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/deleteButton"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
@@ -125,15 +127,57 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_large_margin"
         android:background="@color/transparent"
         android:contentDescription="@string/copyInBuffer"
         android:onClick="delete"
         android:src="@drawable/ic_delete"
         android:tint="@color/colorDanger"
+        android:layout_marginTop="@dimen/vertical_large_margin"
         app:layout_constraintEnd_toStartOf="@+id/editButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <TextView
+        android:id="@+id/deleteTextView"
+        android:text="@string/delete"
+        style="@style/smallLabel"
+        app:layout_constraintEnd_toEndOf="@+id/deleteButton"
+        app:layout_constraintStart_toStartOf="@+id/deleteButton"
+        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
+
+    <com.github.zagum.switchicon.SwitchIconView
+        android:id="@+id/favoriteToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="switchFavorite"
+        android:layout_marginTop="@dimen/vertical_large_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/comment"
+        app:si_animation_duration="500"
+        app:si_disabled_alpha="0.3"
+        app:si_disabled_color="@color/colorPrimaryDark"
+        app:si_enabled="false"
+        app:si_no_dash="true"
+        app:si_tint_color="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_star_32" />
+
+    <TextView
+        android:id="@+id/favoriteTextView"
+        style="@style/smallLabel"
+        android:text="@string/favorite"
+        app:layout_constraintEnd_toEndOf="@+id/favoriteToggleButton"
+        app:layout_constraintStart_toStartOf="@+id/favoriteToggleButton"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteToggleButton" />
+
+    <TextView
+        android:id="@+id/editTextView"
+        style="@style/smallLabel"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="@+id/editButton"
+        app:layout_constraintStart_toStartOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/editButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

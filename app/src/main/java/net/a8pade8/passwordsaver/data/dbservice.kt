@@ -19,7 +19,7 @@ fun loading(context: Context, withCrypto: Boolean = false) {
 }
 
 @Throws(EmptyDataException::class, ResourceLoginRepeatException::class)
-fun addRecordToPasswords(resourceName: String, login: String, password: String, comment: String=""): Long {
+fun addRecordToPasswords(resourceName: String, login: String, password: String, comment: String="", favorite: Boolean = false): Long {
     if (resourceName.isBlank() || login.isBlank() || password.isBlank()) throw EmptyDataException()
     if (isContainResourceLoginInPasswords(resourceName, login)) throw ResourceLoginRepeatException()
     val cv = ContentValues()
@@ -28,6 +28,7 @@ fun addRecordToPasswords(resourceName: String, login: String, password: String, 
         it.put(COLUMN_LOGIN, login)
         it.put(COLUMN_PASSWORD, password)
         it.put(COLUMN_COMMENT, comment)
+        it.put(COLUMN_FAVORITE, if(favorite) 1 else 0)
     }
     return dataBase.insert(TABLE_PASSWORDS, null, cv)
 }
@@ -105,6 +106,7 @@ fun updateRecordInPasswords(record: Record) {
         it.put(COLUMN_PASSWORD, record.password)
         it.put(COLUMN_RESOURCE, record.resourceName)
         it.put(COLUMN_COMMENT, record.comment)
+        it.put(COLUMN_FAVORITE, if(record.favorite) 1 else 0)
     }
     val result = dataBase.update(TABLE_PASSWORDS, cv, "$_ID=${record.id}", null)
     if (result != 1) throw  IdIsNotExistException()
@@ -120,8 +122,8 @@ private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
                             cursor.getString(cursor.getColumnIndex(COLUMN_RESOURCE)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)),
                             cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT))
-                    ))
+                            cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT)),
+                            cursor.getInt(cursor.getColumnIndex(COLUMN_FAVORITE)) == 1))
         } while (cursor.moveToNext())
     }
     cursor.close()
