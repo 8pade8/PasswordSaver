@@ -17,7 +17,6 @@ import net.a8pade8.passwordsaver.util.generateTestData
 
 class LoginActivity : AppCompatActivity() {
     private val generateTestData = true // Генерировать тестовые данные
-    private val crypto = true //Определеят шифровать ли данные, задел на будущее
     private lateinit var security: Security
     private lateinit var binding: ActivityLoginBinding
     private var attemptPassword = 3
@@ -31,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         security = Security.getInstance(this)
         setContentView(R.layout.activity_login)
-        loading(this, crypto)
+        loading(this)
         generateTestData(this, generateTestData) //Генерация тестовых данных
         if (security.password.isEmpty()) {
             openAddUserActivity(null)

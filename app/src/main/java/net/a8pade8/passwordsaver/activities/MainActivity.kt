@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_login.*
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords

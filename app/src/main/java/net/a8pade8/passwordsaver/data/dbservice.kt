@@ -5,17 +5,12 @@ import android.content.Context
 import android.database.Cursor
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
 import net.a8pade8.passwordsaver.security.Security
+import net.sqlcipher.database.SQLiteDatabase
 
-lateinit var dataBase: DataBaseAdapter
+lateinit var dataBase: SQLiteDatabase
 
-fun loading(context: Context, withCrypto: Boolean = false) {
-    dataBase = if (withCrypto) {
-        val dataBaseHelper = PSDBHelperCrypto(context)
-        dataBaseHelper.getDataBase((Security.getInstance(context).cryptoKey))
-    } else {
-        val dataBaseHelper = PSDBHelper(context)
-        dataBaseHelper.getDataBase()
-    }
+fun loading(context: Context) {
+    dataBase = PSDBHelperCrypto(context).getDataBase((Security.getInstance(context).cryptoKey))
 }
 
 @Throws(EmptyDataException::class, ResourceLoginRepeatException::class)

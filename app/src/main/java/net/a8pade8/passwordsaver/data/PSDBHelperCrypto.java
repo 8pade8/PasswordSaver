@@ -18,17 +18,13 @@ public class PSDBHelperCrypto extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-
     PSDBHelperCrypto(Context context) {
         super(context, DATA_BASE, null, DATABASE_VERSION);
         SQLiteDatabase.loadLibs(context);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
-
         String SQL_CREATE_PASSWORDS_TABLE = "CREATE TABLE " + TABLE_PASSWORDS + " ("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_RESOURCE + " TEXT NOT NULL, "
@@ -49,8 +45,8 @@ public class PSDBHelperCrypto extends SQLiteOpenHelper {
 
     }
 
-    public DataBaseAdapter getDataBase(String password) {
-        return new DataBaseAdapter(getWritableDatabase(password));
+    public SQLiteDatabase getDataBase(String password) {
+        return getWritableDatabase(password);
     }
 
 }
