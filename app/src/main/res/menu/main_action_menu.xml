@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.a8pade8.passwordsaver.activities.MainActivity">
+    <item
+        android:id="@+id/action_search"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_star_32"
+        android:onClick="showFavorite"
+        android:iconTint="@color/colorContrastDark"
+        android:title="@string/favorite"/>
+</menu>

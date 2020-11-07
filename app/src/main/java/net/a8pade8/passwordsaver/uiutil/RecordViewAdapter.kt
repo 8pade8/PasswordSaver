@@ -39,4 +39,6 @@ class RecordViewAdapter(private val activity: Activity, private val recordList: 
         }
         return view
     }
+
+    fun getList() = recordList
 }
