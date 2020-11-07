@@ -14,6 +14,7 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
+import net.a8pade8.passwordsaver.util.openActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun openAddRecordActivity(view: View) {
-        startActivity(Intent(this, AddRecordActivity::class.java))
+        openActivity(AddRecordActivity::class.java)
     }
 
     private fun showAllResourceList() {

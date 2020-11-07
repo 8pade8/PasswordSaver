@@ -13,7 +13,9 @@ import net.a8pade8.passwordsaver.data.loading
 import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
+import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 import net.a8pade8.passwordsaver.util.generateTestData
+import net.a8pade8.passwordsaver.util.openActivity
 
 class LoginActivity : AppCompatActivity() {
     private val generateTestData = true // Генерировать тестовые данные
@@ -51,14 +53,13 @@ class LoginActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     private fun openAddUserActivity(view: View?) {
-        startActivity(Intent(this, AddUserActivity::class.java))
+        openActivity(AddUserActivity::class.java)
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun openMainActivity(view: View?) {
         if (isAttemptExist() && isPasswordExist()) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            finishAndOpenActivity(MainActivity::class.java)
         } else {
             binding.password = ""
         }
@@ -105,5 +106,4 @@ class LoginActivity : AppCompatActivity() {
         preferencesEditor.putInt(ATTEMPT_COUNT, attemptPassword)
         preferencesEditor.apply()
     }
-
 }

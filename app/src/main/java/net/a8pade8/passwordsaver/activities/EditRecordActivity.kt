@@ -18,6 +18,7 @@ import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
+import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 import net.a8pade8.passwordsaver.util.generateAlthaNumericString
 
 
@@ -55,8 +56,7 @@ class EditRecordActivity : AppCompatActivity() {
         try {
             updateRecordInPasswords(binding.record!!)
             showShortSnack(getString(recordUpdateSucsessfully))
-            finish()
-            startActivity(Intent(this, ViewRecordActivity::class.java).putExtra("id", binding.record?.id))
+            finishAndOpenActivity(ViewRecordActivity::class.java, hashMapOf( "id" to binding.record!!.id ))
         } catch (e: IdIsNotExistException) {
             showShortSnack(getString(recordIsNotExist))
             e.printStackTrace()
