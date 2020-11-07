@@ -48,4 +48,5 @@
     <string name="comment">Комментарий</string>
     <string name="format_brackets">(%s)</string>
     <string name="favorite">Избранное</string>
+    <string name="search">Поиск</string>
 </resources>

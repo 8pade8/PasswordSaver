@@ -8,15 +8,19 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
     private var favoriteOnly = false
+    private var searchString:String = ""
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         recordsListView = findViewById(R.id.listOfRes)
         recordsListView.onItemClickListener = OnItemClickListener { adapterView, view, position, id -> onItemClick(adapterView, view, position, id) }
-        showResourceList()
+        showAllResourceList()
         initToolbar()
     }
 
@@ -34,6 +38,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menuInflater.inflate(R.menu.main_action_menu, menu)
+        val searchBar = menu?.findItem(R.id.searchBar)?.actionView as SearchView
+        searchBar.queryHint = resources.getString(R.string.search)
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?) = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    searchString = newText
+                    showResourceList()
+                } else {
+                    searchString = ""
+                    showResourceList()
+                }
+                return true
+            }
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -42,16 +61,23 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, AddRecordActivity::class.java))
     }
 
+    private fun showAllResourceList() {
+        recordsListView.adapter = RecordViewAdapter(this, getAllRecordsFromPasswords())
+    }
+
     private fun showResourceList() {
         recordsListView.adapter = getListAdapter()
     }
 
     private fun getListAdapter(): RecordViewAdapter {
-        return if (favoriteOnly) {
-            RecordViewAdapter(this, getAllRecordsFromPasswords().filter { it.favorite })
-        } else {
-            RecordViewAdapter(this, getAllRecordsFromPasswords())
+        var list = getAllRecordsFromPasswords()
+        if (searchString.isNotBlank()) {
+            list = list.filter { it.resourceName.toLowerCase(Locale.ROOT).contains(searchString) }
         }
+        if (favoriteOnly) {
+            list = list.filter { it.favorite }
+        }
+        return RecordViewAdapter(this, list)
     }
 
     private fun openResourceView(id: Long) {
@@ -73,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     fun showFavorite(item: MenuItem) {
         favoriteOnly = !favoriteOnly
-        when (favoriteOnly){
+        when (favoriteOnly) {
             true -> item.icon.setTint(getColor(R.color.colorContrast))
             else -> item.icon.setTint(getColor(R.color.colorContrastDark))
         }
