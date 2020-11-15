@@ -55,4 +55,10 @@
     <string name="folderNotExist">Путь не доступен</string>
     <string name="exportToFileError">Ошибка экспорта в файл</string>
     <string name="ErrorAccessingTheApplicationSettingsFile">Ошибка доступа к файлу настроек приложения!</string>
+    <string name="ErrorImportingPasswordsFromFile">Ошибка при импорте паролей из файла</string>
+    <string name="importFromFile">Импорт из файла</string>
+    <string name="importCompletedSuccessfully">Импорт успешно завершен</string>
+    <string name="thereAreNoRecordsToExport">Отсутствуют записи для экспорта!</string>
+    <string name="selectDirectory">Выбор директории</string>
+    <string name="selectFile">Выбор файла</string>
 </resources>
