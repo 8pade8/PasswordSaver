@@ -22,9 +22,14 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/settings_menu_change_name"
+                android:id="@+id/export_to_file"
                 android:title="@string/exportToFile"
                 android:onClick="exportToFile"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/import_from_file"
+                android:title="@string/importFromFile"
+                android:onClick="importFromFile"
                 app:showAsAction="never" />
         </menu>
     </item>

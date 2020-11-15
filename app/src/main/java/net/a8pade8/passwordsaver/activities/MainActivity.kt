@@ -2,6 +2,7 @@ package net.a8pade8.passwordsaver.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,15 +11,16 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import com.obsez.android.lib.filechooser.ChooserDialog
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
+import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.a8pade8.passwordsaver.util.exportPasswordsToFile
+import net.a8pade8.passwordsaver.util.importPasswordsFromFile
 import net.a8pade8.passwordsaver.util.openActivity
 import net.a8pade8.passwordsaver.util.verifyStoragePermissions
-import net.rdrei.android.dirchooser.DirectoryChooserActivity
-import net.rdrei.android.dirchooser.DirectoryChooserConfig
 import java.util.*
 
 
@@ -26,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
     private var favoriteOnly = false
     private var searchString: String = ""
-    private val REQUEST_DIRECTORY = 0
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,27 +115,39 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun exportToFile(item: MenuItem) {
-        if (recordsListView.adapter.count > 0 && verifyStoragePermissions(this)) {
-            val chooserIntent = Intent(this, DirectoryChooserActivity::class.java)
-
-            val config = DirectoryChooserConfig.builder()
-                    .newDirectoryName("DirChooserSample")
-                    .allowReadOnlyDirectory(true)
-                    .allowNewDirectoryNameModification(true)
+        if (recordsListView.adapter.count == 0) {
+            middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))
+            return
+        }
+        if (verifyStoragePermissions(this)) {
+            ChooserDialog(this)
+                    .withFilter(true, false)
+                    .withStartFile(Environment.getExternalStorageDirectory().path)
+                    .withResources(R.string.selectDirectory,R.string.ready,R.string.cancel)
+                    .withChosenListener { path, _ ->
+                        exportPasswordsToFile(
+                                path,
+                                (recordsListView.adapter as RecordViewAdapter).getList(),
+                                this)
+                    }
                     .build()
-            chooserIntent.putExtra(DirectoryChooserActivity.EXTRA_CONFIG, config)
-            startActivityForResult(chooserIntent, REQUEST_DIRECTORY)
+                    .show()
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_DIRECTORY) {
-            if (resultCode == DirectoryChooserActivity.RESULT_CODE_DIR_SELECTED) {
-                exportPasswordsToFile(
-                        data?.getStringExtra(DirectoryChooserActivity.RESULT_SELECTED_DIR).toString(),
-                        (recordsListView.adapter as RecordViewAdapter).getList(),this)
-            }
+    @Suppress("UNUSED_PARAMETER")
+    fun importFromFile(item: MenuItem) {
+        if (verifyStoragePermissions(this)) {
+            ChooserDialog(this)
+                    .withStartFile(Environment.getExternalStorageDirectory().path)
+                    .withResources(R.string.selectFile,R.string.ready,R.string.cancel)
+                    .withChosenListener { path, _ ->
+                        importPasswordsFromFile(path, this)
+                        showAllResourceList()
+                    }
+                    .withOnCancelListener { dialog -> dialog.cancel() }
+                    .build()
+                    .show()
         }
     }
 
