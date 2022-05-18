@@ -54,7 +54,9 @@ class DbServiceTests {
                 id,
                 "1vk.com1",
                 "unknown33",
-                "qwerty"
+                "qwerty",
+                "comment",
+                false
         ))
         val recordFromPasswords = getRecordFromPasswords(id)
         Assert.assertEquals(recordFromPasswords.login, "unknown33")
