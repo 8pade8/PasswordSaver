@@ -51,7 +51,7 @@ class AddUserActivity : AppCompatActivity() {
     }
 
     private fun isPasswordSixSymbols(): Boolean {
-        return if (binding.password!!.length >= 6) {
+        return if ((binding.password?.length ?: 0) >= 6) {
             true
         } else {
             showShortSnack(getString(demandForPasswordLength))

@@ -6,7 +6,7 @@ android {
     buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "net.a8pade8.passwordsaver"
-        minSdkVersion 28
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    testImplementation project(path: ':app')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
