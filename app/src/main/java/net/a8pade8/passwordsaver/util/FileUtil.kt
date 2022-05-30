@@ -72,3 +72,26 @@ fun verifyStoragePermissions(context: AppCompatActivity): Boolean {
     }
     return true
 }
+
+fun exportPasswordsToTxtFile(folderName: String, records: List<Record>, context: AppCompatActivity) {
+    try {
+        val file = File(folderName, "passwords.txt")
+        file.createNewFile()
+        val fileWriter = FileWriter(file)
+        records.sortedBy { it.resourceName }
+        records.forEach {
+            fileWriter.write(
+                "${it.resourceName} | ${it.login} | ${it.password} | " +
+                        "${it.comment} | ${it.favorite} \n"
+            )
+        }
+        fileWriter.close()
+        middleToastLong(context, context.getString(R.string.passwordsSavedToFile))
+    } catch (e: FileNotFoundException) {
+        middleToastLong(context, context.getString(R.string.fileNotFound))
+    } catch (e: IOException) {
+        middleToastLong(context, context.getString(R.string.folderNotExist))
+    } catch (e: Exception) {
+        middleToastLong(context, context.getString(R.string.exportToFileError))
+    }
+}

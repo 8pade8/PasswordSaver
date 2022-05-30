@@ -50,16 +50,17 @@
     <string name="format_brackets">(%s)</string>
     <string name="favorite">Favorite</string>
     <string name="search">Search</string>
-    <string name="exportToFile">Export to file</string>
+    <string name="exportToFile">Export to JSON file</string>
     <string name="passwordsSavedToFile">Passwords saved to file</string>
     <string name="fileNotFound">File not found</string>
     <string name="folderNotExist">Folder not exist</string>
     <string name="exportToFileError">Export to file error</string>
     <string name="ErrorAccessingTheApplicationSettingsFile">Error accessing the application settings file!</string>
     <string name="ErrorImportingPasswordsFromFile">Error importing passwords from file</string>
-    <string name="importFromFile">Import from file</string>
+    <string name="importFromFile">Import from JSON file</string>
     <string name="importCompletedSuccessfully">Import completed successfully</string>
     <string name="thereAreNoRecordsToExport">There are no records to export!</string>
     <string name="selectDirectory">Select directory</string>
     <string name="selectFile">Select file</string>
+    <string name="exportToTxtFile">Export to txt file</string>
 </resources>

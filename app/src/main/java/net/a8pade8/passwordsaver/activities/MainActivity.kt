@@ -17,10 +17,7 @@ import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
-import net.a8pade8.passwordsaver.util.exportPasswordsToFile
-import net.a8pade8.passwordsaver.util.importPasswordsFromFile
-import net.a8pade8.passwordsaver.util.openActivity
-import net.a8pade8.passwordsaver.util.verifyStoragePermissions
+import net.a8pade8.passwordsaver.util.*
 import java.util.*
 
 
@@ -148,6 +145,28 @@ class MainActivity : AppCompatActivity() {
                     .withOnCancelListener { dialog -> dialog.cancel() }
                     .build()
                     .show()
+        }
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun exportToTxtFile(item: MenuItem) {
+        if (recordsListView.adapter.count == 0) {
+            middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))
+            return
+        }
+        if (verifyStoragePermissions(this)) {
+            ChooserDialog(this)
+                .withFilter(true, false)
+                .withStartFile(Environment.getExternalStorageDirectory().path)
+                .withResources(R.string.selectDirectory,R.string.ready,R.string.cancel)
+                .withChosenListener { path, _ ->
+                    exportPasswordsToTxtFile(
+                        path,
+                        (recordsListView.adapter as RecordViewAdapter).getList(),
+                        this)
+                }
+                .build()
+                .show()
         }
     }
 

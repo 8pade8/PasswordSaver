@@ -31,6 +31,11 @@
                 android:title="@string/importFromFile"
                 android:onClick="importFromFile"
                 app:showAsAction="never" />
+            <item
+                android:id="@+id/export_to_txt_file"
+                android:title="@string/exportToTxtFile"
+                android:onClick="exportToTxtFile"
+                app:showAsAction="never" />
         </menu>
     </item>
 </menu>
