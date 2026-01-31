@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     defaultConfig {
         applicationId "net.a8pade8.passwordsaver"
-        minSdkVersion 24
-        targetSdkVersion 30
+        minSdkVersion 33
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.zagum:Android-SwitchIcon:1.4.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.github.hedzr:android-file-chooser:devel-SNAPSHOT'
+    implementation 'com.github.hedzr:android-file-chooser:1.2.0-SNAPSHOT'
 }
 repositories {
     mavenCentral()

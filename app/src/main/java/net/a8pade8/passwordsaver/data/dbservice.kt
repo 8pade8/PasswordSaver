@@ -3,9 +3,13 @@ package net.a8pade8.passwordsaver.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import androidx.appcompat.app.AppCompatActivity
+import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
 import net.a8pade8.passwordsaver.security.Security
+import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.sqlcipher.database.SQLiteDatabase
+import java.io.FileInputStream
 
 lateinit var dataBase: SQLiteDatabase
 
@@ -123,6 +127,25 @@ private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
     }
     cursor.close()
     return recordsList
+}
+
+fun importRecords(
+    records: List<Record>,
+    context: AppCompatActivity
+) {
+    if (records.count() > 0) {
+        for (item in records) {
+            if (!isContainResourceLoginInPasswords(item.resourceName, item.login))
+                addRecordToPasswords(
+                    item.resourceName,
+                    item.login,
+                    item.password,
+                    item.comment,
+                    item.favorite
+                )
+        }
+        middleToastLong(context, context.getString(R.string.importCompletedSuccessfully))
+    }
 }
 
 class EmptyDataException : Exception()

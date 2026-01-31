@@ -31,7 +31,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recordsListView = findViewById(R.id.listOfRes)
-        recordsListView.onItemClickListener = OnItemClickListener { adapterView, view, position, id -> onItemClick(adapterView, view, position, id) }
+        recordsListView.onItemClickListener =
+            OnItemClickListener { adapterView, view, position, id ->
+                onItemClick(
+                    adapterView,
+                    view,
+                    position,
+                    id
+                )
+            }
         showAllResourceList()
         initToolbar()
     }
@@ -104,8 +112,8 @@ class MainActivity : AppCompatActivity() {
     fun showFavorite(item: MenuItem) {
         favoriteOnly = !favoriteOnly
         when (favoriteOnly) {
-            true -> item.icon.setTint(getColor(R.color.colorContrast))
-            else -> item.icon.setTint(getColor(R.color.colorContrastDark))
+            true -> item.icon?.setTint(getColor(R.color.colorContrast))
+            else -> item.icon?.setTint(getColor(R.color.colorContrastDark))
         }
         showResourceList()
     }
@@ -118,17 +126,18 @@ class MainActivity : AppCompatActivity() {
         }
         if (verifyStoragePermissions(this)) {
             ChooserDialog(this)
-                    .withFilter(true, false)
-                    .withStartFile(Environment.getExternalStorageDirectory().path)
-                    .withResources(R.string.selectDirectory,R.string.ready,R.string.cancel)
-                    .withChosenListener { path, _ ->
-                        exportPasswordsToFile(
-                                path,
-                                (recordsListView.adapter as RecordViewAdapter).getList(),
-                                this)
-                    }
-                    .build()
-                    .show()
+                .withFilter(true, false)
+                .withStartFile(Environment.getExternalStorageDirectory().path)
+                .withResources(R.string.selectDirectory, R.string.ready, R.string.cancel)
+                .withChosenListener { path, _ ->
+                    exportPasswordsToFile(
+                        path,
+                        (recordsListView.adapter as RecordViewAdapter).getList(),
+                        this
+                    )
+                }
+                .build()
+                .show()
         }
     }
 
@@ -136,15 +145,15 @@ class MainActivity : AppCompatActivity() {
     fun importFromFile(item: MenuItem) {
         if (verifyStoragePermissions(this)) {
             ChooserDialog(this)
-                    .withStartFile(Environment.getExternalStorageDirectory().path)
-                    .withResources(R.string.selectFile,R.string.ready,R.string.cancel)
-                    .withChosenListener { path, _ ->
-                        importPasswordsFromFile(path, this)
-                        showAllResourceList()
-                    }
-                    .withOnCancelListener { dialog -> dialog.cancel() }
-                    .build()
-                    .show()
+                .withStartFile(Environment.getExternalStorageDirectory().path)
+                .withResources(R.string.selectFile, R.string.ready, R.string.cancel)
+                .withChosenListener { path, _ ->
+                    importPasswordsFromFile(path, this)
+                    showAllResourceList()
+                }
+                .withOnCancelListener { dialog -> dialog.cancel() }
+                .build()
+                .show()
         }
     }
 
@@ -158,12 +167,13 @@ class MainActivity : AppCompatActivity() {
             ChooserDialog(this)
                 .withFilter(true, false)
                 .withStartFile(Environment.getExternalStorageDirectory().path)
-                .withResources(R.string.selectDirectory,R.string.ready,R.string.cancel)
+                .withResources(R.string.selectDirectory, R.string.ready, R.string.cancel)
                 .withChosenListener { path, _ ->
                     exportPasswordsToTxtFile(
                         path,
                         (recordsListView.adapter as RecordViewAdapter).getList(),
-                        this)
+                        this
+                    )
                 }
                 .build()
                 .show()

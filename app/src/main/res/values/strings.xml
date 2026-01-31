@@ -6,6 +6,7 @@
     <string name="enter">Войти</string>
     <string name="passwordHint">(Пароль должен состоять из шести символов)</string>
     <string name="repeatPassword">Повторите пароль</string>
+    <string name="passwordsJson">Json с паролями</string>
     <string name="ready">Готово</string>
     <string name="site">Сайт</string>
     <string name="no">Нет</string>

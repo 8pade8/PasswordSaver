@@ -63,4 +63,5 @@
     <string name="selectDirectory">Select directory</string>
     <string name="selectFile">Select file</string>
     <string name="exportToTxtFile">Export to txt file</string>
+    <string name="passwordsJson">Json with passwords</string>
 </resources>
