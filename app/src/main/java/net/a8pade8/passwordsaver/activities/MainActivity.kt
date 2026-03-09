@@ -2,7 +2,6 @@ package net.a8pade8.passwordsaver.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,17 +10,23 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import com.obsez.android.lib.filechooser.ChooserDialog
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
-import net.a8pade8.passwordsaver.util.*
-import java.util.*
+import net.a8pade8.passwordsaver.util.exportPasswordsToFile
+import net.a8pade8.passwordsaver.util.exportPasswordsToTxtFile
+import net.a8pade8.passwordsaver.util.importPasswordsFromFile
+import net.a8pade8.passwordsaver.util.openActivity
+import net.a8pade8.passwordsaver.util.verifyStoragePermissions
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
+    val CREATE_JSON_FILE = 1
+    val CREATE_TXT_FILE = 2
+    val PICK_JSON_FILE = 3
     private lateinit var recordsListView: ListView
     private var favoriteOnly = false
     private var searchString: String = ""
@@ -125,35 +130,18 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (verifyStoragePermissions(this)) {
-            ChooserDialog(this)
-                .withFilter(true, false)
-                .withStartFile(Environment.getExternalStorageDirectory().path)
-                .withResources(R.string.selectDirectory, R.string.ready, R.string.cancel)
-                .withChosenListener { path, _ ->
-                    exportPasswordsToFile(
-                        path,
-                        (recordsListView.adapter as RecordViewAdapter).getList(),
-                        this
-                    )
-                }
-                .build()
-                .show()
+            createFile("application/json", "passwords.json", CREATE_JSON_FILE)
         }
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun importFromFile(item: MenuItem) {
         if (verifyStoragePermissions(this)) {
-            ChooserDialog(this)
-                .withStartFile(Environment.getExternalStorageDirectory().path)
-                .withResources(R.string.selectFile, R.string.ready, R.string.cancel)
-                .withChosenListener { path, _ ->
-                    importPasswordsFromFile(path, this)
-                    showAllResourceList()
-                }
-                .withOnCancelListener { dialog -> dialog.cancel() }
-                .build()
-                .show()
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "application/json"
+            }
+            startActivityForResult(intent, PICK_JSON_FILE)
         }
     }
 
@@ -164,20 +152,41 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (verifyStoragePermissions(this)) {
-            ChooserDialog(this)
-                .withFilter(true, false)
-                .withStartFile(Environment.getExternalStorageDirectory().path)
-                .withResources(R.string.selectDirectory, R.string.ready, R.string.cancel)
-                .withChosenListener { path, _ ->
-                    exportPasswordsToTxtFile(
-                        path,
-                        (recordsListView.adapter as RecordViewAdapter).getList(),
-                        this
-                    )
-                }
-                .build()
-                .show()
+            createFile("application/txt", "passwords.txt", CREATE_TXT_FILE)
         }
     }
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == RESULT_OK) {
+            resultData?.data?.let {
+                var records = (recordsListView.adapter as RecordViewAdapter).getList()
+                val contentResolver = getContentResolver()
+                if (requestCode == CREATE_TXT_FILE) {
+                    contentResolver.openOutputStream(it)?.let {
+                        exportPasswordsToTxtFile(it, records, this)
+                    }
+                } else if (requestCode == CREATE_JSON_FILE) {
+                    contentResolver.openOutputStream(it)?.let {
+                        exportPasswordsToFile(it, records, this)
+                    }
+                } else if (requestCode == PICK_JSON_FILE) {
+                    contentResolver.openInputStream(it)?.let {
+                        importPasswordsFromFile(it, this@MainActivity)
+                        showAllResourceList()
+                    }
+                }else{
+                }
+            }
+        }
+    }
+
+    private fun MainActivity.createFile(type: String, defaultFileName: String, requestCode: Int) {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            this.type = type
+            putExtra(Intent.EXTRA_TITLE, defaultFileName)
+        }
+        startActivityForResult(intent, requestCode)
+    }
 }
