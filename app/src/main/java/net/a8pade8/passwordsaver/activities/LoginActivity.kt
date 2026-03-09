@@ -96,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
             .setNegativeButtonText("Cancel") // A non-biometric fallback (e.g., PIN) can also be set
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG) // Enforce strong biometrics
             .build()
+        ActivityCompat.requestPermissions(this, arrayOf<String>(USE_BIOMETRIC), 1)
+        fingerAuthenticate(null)
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -105,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun fingerAuthenticate(view: View?) {
-        ActivityCompat.requestPermissions(this,  arrayOf<String>(USE_BIOMETRIC), 1)
         biometricPrompt.authenticate(promptInfo)
     }
 
