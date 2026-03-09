@@ -36,10 +36,6 @@ class AddUserActivity : AppCompatActivity() {
         if (passwordChecked()) {
             security.password = binding.password.toString()
             showShortSnack(getString(addingUserSuccessfully))
-            binding.passwordsJson?.let {
-                val records: List<Record> = Json.decodeFromString(it)
-                importRecords(records, this)
-            }
             finish()
         }
     }

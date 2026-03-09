@@ -1,9 +1,6 @@
 package net.a8pade8.passwordsaver.util
 
-import android.Manifest
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -11,7 +8,10 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.importRecords
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
-import java.io.*
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 
 fun exportPasswordsToFile(
@@ -44,23 +44,6 @@ fun importPasswordsFromFile(fileName: InputStream, context: AppCompatActivity) {
     } catch (e: Exception) {
         middleToastLong(context, context.getString(R.string.ErrorImportingPasswordsFromFile))
     }
-}
-
-
-fun verifyStoragePermissions(context: AppCompatActivity): Boolean {
-    val newPermissions = arrayOf<String>(
-        Manifest.permission.READ_MEDIA_IMAGES,
-        Manifest.permission.READ_MEDIA_VIDEO,
-        Manifest.permission.READ_MEDIA_AUDIO
-    )
-    val allNewPermissionNotPresent =
-        !newPermissions.map { ActivityCompat.checkSelfPermission(context, it) }
-            .all { it == PackageManager.PERMISSION_GRANTED }
-    if (allNewPermissionNotPresent) {
-        ActivityCompat.requestPermissions(context, newPermissions, 1)
-        return false
-    }
-    return true
 }
 
 fun exportPasswordsToTxtFile(

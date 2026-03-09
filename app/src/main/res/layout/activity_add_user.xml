@@ -14,9 +14,6 @@
             name="passwordReplay"
             type="String" />
 
-        <variable
-                name="passwordsJson"
-                type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,37 +111,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextView"
             tools:ignore="Autofill" />
-
-        <TextView
-                android:id="@+id/passwordsJsonTextView"
-                style="@style/largeLabel"
-                android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:labelFor="@id/passwordsJsonTextView"
-                android:text="@string/passwordsJson"
-                android:textStyle="normal|bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordBox"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="104dp" />
-
-        <EditText
-                android:id="@+id/passwordsJsonEditText"
-                style="@style/inputField"
-                android:layout_width="wrap_content"
-                android:layout_alignStart="@+id/passwordsJsonEditText"
-                android:ems="10"
-                android:text="@={passwordsJson}"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextView"
-                tools:ignore="Autofill"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="92dp"
-                app:layout_constraintHorizontal_bias="0.497" />
 
         <Button
             android:id="@+id/readyButton"

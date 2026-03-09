@@ -19,7 +19,6 @@ import net.a8pade8.passwordsaver.util.exportPasswordsToFile
 import net.a8pade8.passwordsaver.util.exportPasswordsToTxtFile
 import net.a8pade8.passwordsaver.util.importPasswordsFromFile
 import net.a8pade8.passwordsaver.util.openActivity
-import net.a8pade8.passwordsaver.util.verifyStoragePermissions
 import java.util.Locale
 
 
@@ -129,20 +128,16 @@ class MainActivity : AppCompatActivity() {
             middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))
             return
         }
-        if (verifyStoragePermissions(this)) {
-            createFile("application/json", "passwords.json", CREATE_JSON_FILE)
-        }
+        createFile("application/json", "passwords.json", CREATE_JSON_FILE)
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun importFromFile(item: MenuItem) {
-        if (verifyStoragePermissions(this)) {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "application/json"
-            }
-            startActivityForResult(intent, PICK_JSON_FILE)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/json"
         }
+        startActivityForResult(intent, PICK_JSON_FILE)
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -151,9 +146,7 @@ class MainActivity : AppCompatActivity() {
             middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))
             return
         }
-        if (verifyStoragePermissions(this)) {
-            createFile("application/txt", "passwords.txt", CREATE_TXT_FILE)
-        }
+        createFile("application/txt", "passwords.txt", CREATE_TXT_FILE)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -175,7 +168,7 @@ class MainActivity : AppCompatActivity() {
                         importPasswordsFromFile(it, this@MainActivity)
                         showAllResourceList()
                     }
-                }else{
+                } else {
                 }
             }
         }

@@ -1,19 +1,15 @@
 package net.a8pade8.passwordsaver.activities
 
-import android.Manifest
-import android.Manifest.permission.*
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.AuthenticationCallback
 import androidx.biometric.BiometricPrompt.PromptInfo
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
@@ -22,7 +18,6 @@ import net.a8pade8.passwordsaver.data.loading
 import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
-import net.a8pade8.passwordsaver.uiutil.middleToastShort
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 import net.a8pade8.passwordsaver.util.generateTestData
@@ -39,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private val BLOCK_TIME = "blockTime"
     private val ATTEMPT_COUNT = "attempts"
+    private val CREATE_USER = 1
     private val authenticationCallback = object : AuthenticationCallback() {
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
@@ -66,9 +62,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         loading(this)
         generateTestData(this, generateTestData) //Генерация тестовых данных
-        if (security.password.isEmpty()) {
-            openAddUserActivity(null)
-        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         preferencesEditor = preferences.edit()
@@ -96,13 +89,19 @@ class LoginActivity : AppCompatActivity() {
             .setNegativeButtonText("Cancel") // A non-biometric fallback (e.g., PIN) can also be set
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG) // Enforce strong biometrics
             .build()
-        ActivityCompat.requestPermissions(this, arrayOf<String>(USE_BIOMETRIC), 1)
-        fingerAuthenticate(null)
+
+        if (security.password.isEmpty()) {
+            openActivity(AddUserActivity::class.java, requestCode = CREATE_USER)
+        } else {
+            fingerAuthenticate(null)
+        }
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    private fun openAddUserActivity(view: View?) {
-        openActivity(AddUserActivity::class.java)
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == RESULT_OK && requestCode == CREATE_USER) {
+            fingerAuthenticate(null)
+        }
     }
 
     @Suppress("UNUSED_PARAMETER")
