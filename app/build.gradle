@@ -5,7 +5,7 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId "net.a8pade8.passwordsaver"
-        minSdkVersion 33
+        minSdkVersion 30
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
@@ -22,8 +22,8 @@ android {
     apply plugin: 'kotlin-android-extensions'
     apply plugin: 'kotlinx-serialization'
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     dataBinding {
         //noinspection DataBindingWithoutKapt
