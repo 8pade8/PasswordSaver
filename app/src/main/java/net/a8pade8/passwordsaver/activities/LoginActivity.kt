@@ -1,21 +1,34 @@
 package net.a8pade8.passwordsaver.activities
 
+import android.Manifest
+import android.Manifest.permission.*
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.AuthenticationCallback
+import androidx.biometric.BiometricPrompt.PromptInfo
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.loading
 import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
+import net.a8pade8.passwordsaver.uiutil.middleToastLong
+import net.a8pade8.passwordsaver.uiutil.middleToastShort
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 import net.a8pade8.passwordsaver.util.generateTestData
 import net.a8pade8.passwordsaver.util.openActivity
+import java.util.concurrent.Executor
+
 
 class LoginActivity : AppCompatActivity() {
     private val generateTestData = false // Генерировать тестовые данные
@@ -26,6 +39,25 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var preferencesEditor: SharedPreferences.Editor
     private val BLOCK_TIME = "blockTime"
     private val ATTEMPT_COUNT = "attempts"
+    private val authenticationCallback = object : AuthenticationCallback() {
+        override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+            super.onAuthenticationError(errorCode, errString)
+            middleToastLong(this@LoginActivity, getString(R.string.fingerError) + ":$errString")
+        }
+
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+            super.onAuthenticationSucceeded(result)
+            finishAndOpenActivity(MainActivity::class.java)
+        }
+
+        override fun onAuthenticationFailed() {
+            super.onAuthenticationFailed()
+            middleToastLong(this@LoginActivity, getString(R.string.fingerError))
+        }
+    }
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: PromptInfo
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +81,32 @@ class LoginActivity : AppCompatActivity() {
         if (isBlocked()) {
             attemptPassword = 0
         }
+
+        // --- 1. Create an Executor ---
+        // The executor is used to run the authentication on the main thread.
+        executor = ContextCompat.getMainExecutor(this)
+
+        // --- 2. Set up the BiometricPrompt Callbacks ---
+        biometricPrompt = BiometricPrompt(this, executor, authenticationCallback)
+
+        // --- 3. Configure the PromptInfo (UI dialog) ---
+        promptInfo = PromptInfo.Builder()
+            .setTitle("Biometric authentication")
+            .setSubtitle("Log in using your fingerprint")
+            .setNegativeButtonText("Cancel") // A non-biometric fallback (e.g., PIN) can also be set
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG) // Enforce strong biometrics
+            .build()
     }
 
     @Suppress("UNUSED_PARAMETER")
     private fun openAddUserActivity(view: View?) {
         openActivity(AddUserActivity::class.java)
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun fingerAuthenticate(view: View?) {
+        ActivityCompat.requestPermissions(this,  arrayOf<String>(USE_BIOMETRIC), 1)
+        biometricPrompt.authenticate(promptInfo)
     }
 
     @Suppress("UNUSED_PARAMETER")

@@ -63,4 +63,6 @@
     <string name="thereAreNoRecordsToExport">Отсутствуют записи для экспорта!</string>
     <string name="selectDirectory">Выбор директории</string>
     <string name="selectFile">Выбор файла</string>
+    <string name="fingerError">Ошибка проверки биометрии</string>
+    <string name="fingerEnter">Войти по биометрии</string>
 </resources>

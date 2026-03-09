@@ -64,4 +64,6 @@
     <string name="selectFile">Select file</string>
     <string name="exportToTxtFile">Export to txt file</string>
     <string name="passwordsJson">Json with passwords</string>
+    <string name="fingerError">Biometric error</string>
+    <string name="fingerEnter">Log in use biometric</string>
 </resources>

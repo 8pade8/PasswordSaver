@@ -67,6 +67,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
+        <Button
+                android:id="@+id/finger_button"
+                style="@style/button"
+                android:layout_width="wrap_content"
+                android:onClick="fingerAuthenticate"
+                android:text="@string/fingerEnter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button"
+                tools:ignore="NotSibling" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
