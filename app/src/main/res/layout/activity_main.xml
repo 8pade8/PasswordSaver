@@ -28,6 +28,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/horizontal_small_margin"
         android:layout_marginEnd="@dimen/horizontal_small_margin"
+        android:layout_marginBottom="@dimen/vertical_small_margin"
         app:layout_constraintBottom_toTopOf="@+id/addNewPasswordButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
     <Button
         android:id="@+id/addNewPasswordButton"
         style="@style/button"
+        android:layout_marginBottom="@dimen/vertical_margin"
         android:onClick="openAddRecordActivity"
         android:text="@string/addRecord"
         app:layout_constraintBottom_toBottomOf="parent"

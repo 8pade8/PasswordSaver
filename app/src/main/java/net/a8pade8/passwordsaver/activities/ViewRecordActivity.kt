@@ -14,7 +14,11 @@ import androidx.databinding.DataBindingUtil
 import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.R.string.copiedToClipboard
 import net.a8pade8.passwordsaver.R.string.siteNotFound
-import net.a8pade8.passwordsaver.data.*
+import net.a8pade8.passwordsaver.data.IdIsNotExistException
+import net.a8pade8.passwordsaver.data.ResourceLoginRepeatException
+import net.a8pade8.passwordsaver.data.deleteRecordFromPasswords
+import net.a8pade8.passwordsaver.data.getRecordFromPasswords
+import net.a8pade8.passwordsaver.data.updateRecordInPasswords
 import net.a8pade8.passwordsaver.databinding.ActivityResourceViewBinding
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
@@ -63,13 +67,13 @@ class ViewRecordActivity : AppCompatActivity() {
     @Suppress("UNUSED_PARAMETER")
     fun delete(view: View?) {
         AlertDialog.Builder(this)
-                .setTitle(getString(R.string.warning))
-                .setMessage(getString(R.string.approveDeleteRecord))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.delete)) { _, _ -> deleteRecord() }
-                .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, _ -> dialogInterface.cancel() }
-                .create()
-                .show()
+            .setTitle(getString(R.string.warning))
+            .setMessage(getString(R.string.approveDeleteRecord))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.delete)) { _, _ -> deleteRecord() }
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, _ -> dialogInterface.cancel() }
+            .create()
+            .show()
     }
 
     private fun deleteRecord() {
@@ -85,13 +89,16 @@ class ViewRecordActivity : AppCompatActivity() {
 
     @Suppress("UNUSED_PARAMETER")
     fun edit(view: View?) {
-        finishAndOpenActivity(EditRecordActivity::class.java, hashMapOf("id" to binding.record!!.id))
+        finishAndOpenActivity(
+            EditRecordActivity::class.java,
+            hashMapOf("id" to binding.record!!.id)
+        )
     }
 
     @Suppress("UNUSED_PARAMETER")
     fun copyInBuffer(view: View?) {
         (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager)
-                .setPrimaryClip(ClipData.newPlainText("password", binding.record?.password))
+            .setPrimaryClip(ClipData.newPlainText("password", binding.record?.password))
         middleToastLong(this, getString(copiedToClipboard))
     }
 

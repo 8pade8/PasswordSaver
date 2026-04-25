@@ -2,8 +2,8 @@ package net.a8pade8.passwordsaver.util
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.data.addRecordToPasswords
+import net.a8pade8.passwordsaver.security.Security
 
 fun generateTestData(context: Context, generateTestData: Boolean) {
 
@@ -13,9 +13,9 @@ fun generateTestData(context: Context, generateTestData: Boolean) {
 
     val defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     val testDataGenerated = defaultSharedPreferences.getBoolean(TEST_DATA_GENERATED, false)
-    if (!testDataGenerated){
+    if (!testDataGenerated) {
         Security.getInstance(context).password = "12345"
-        addRecordToPasswords("vk.com", "unknown", "qwerty123", "Дополнительный",true)
+        addRecordToPasswords("vk.com", "unknown", "qwerty123", "Дополнительный", true)
         addRecordToPasswords("vk.com", "unknown2", "qwerty123")
         addRecordToPasswords("World of Warcraft", "unknown", "Asdfg321")
         addRecordToPasswords("World of Tanks", "unknown", "Asdfg321")

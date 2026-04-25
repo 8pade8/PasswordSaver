@@ -1,0 +1,13 @@
+<resources>
+    <!-- Для экранов с минимальной шириной 320dp (маленькие смартфоны) -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="horizontal_margin">8dp</dimen>
+    <dimen name="horizontal_small_margin">4dp</dimen>
+    <dimen name="vertical_margin">6dp</dimen>
+    <dimen name="vertical_small_margin">4dp</dimen>
+    <dimen name="vertical_large_margin">12dp</dimen>
+    <dimen name="large_text">14sp</dimen>
+    <dimen name="normal_text">12sp</dimen>
+    <dimen name="small_text">10sp</dimen>
+</resources>

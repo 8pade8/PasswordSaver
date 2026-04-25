@@ -10,7 +10,8 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.databinding.RecordRowBinding
 
-class RecordViewAdapter(private val activity: Activity, private val recordList: List<Record>) : BaseAdapter() {
+class RecordViewAdapter(private val activity: Activity, private val recordList: List<Record>) :
+    BaseAdapter() {
 
     override fun getCount(): Int {
         return recordList.size

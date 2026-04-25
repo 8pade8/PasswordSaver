@@ -21,24 +21,48 @@ fun middleToastLong(c: Context, message: String) {
     }
 }
 
-fun AppCompatActivity.showShortSnack(message: String, action: CharSequence? = null, onClickListener: View.OnClickListener? = null) {
+fun AppCompatActivity.showShortSnack(
+    message: String,
+    action: CharSequence? = null,
+    onClickListener: View.OnClickListener? = null
+) {
     if (action != null && onClickListener != null) {
-        Snackbar.make(this.window.decorView.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
-                .setAction(action, onClickListener)
-                .show()
+        Snackbar.make(
+            this.window.decorView.findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+            .setAction(action, onClickListener)
+            .show()
     } else {
-        Snackbar.make(this.window.decorView.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
-                .show()
+        Snackbar.make(
+            this.window.decorView.findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+            .show()
     }
 }
 
-fun AppCompatActivity.showLongSnack(message: String, action: CharSequence?, onClickListener: View.OnClickListener?) {
+fun AppCompatActivity.showLongSnack(
+    message: String,
+    action: CharSequence?,
+    onClickListener: View.OnClickListener?
+) {
     if (action != null && onClickListener != null) {
-        Snackbar.make(this.window.decorView.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-                .setAction(action, onClickListener)
-                .show()
+        Snackbar.make(
+            this.window.decorView.findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(action, onClickListener)
+            .show()
     } else {
-        Snackbar.make(this.window.decorView.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-                .show()
+        Snackbar.make(
+            this.window.decorView.findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_LONG
+        )
+            .show()
     }
 }

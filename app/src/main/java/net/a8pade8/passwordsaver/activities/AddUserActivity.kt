@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import net.a8pade8.passwordsaver.R
-import net.a8pade8.passwordsaver.R.string.*
-import net.a8pade8.passwordsaver.data.Record
-import net.a8pade8.passwordsaver.data.importRecords
+import net.a8pade8.passwordsaver.R.string.addingUserSuccessfully
+import net.a8pade8.passwordsaver.R.string.demandForPasswordCharacters
+import net.a8pade8.passwordsaver.R.string.demandForPasswordLength
+import net.a8pade8.passwordsaver.R.string.passwordsNotEquals
 import net.a8pade8.passwordsaver.databinding.ActivityAddUserBinding
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uiutil.showShortSnack

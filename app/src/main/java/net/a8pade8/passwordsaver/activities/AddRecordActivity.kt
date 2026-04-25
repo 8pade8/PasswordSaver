@@ -63,7 +63,8 @@ class AddRecordActivity : AppCompatActivity() {
             repeatPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {
             passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            repeatPasswordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod =
+                HideReturnsTransformationMethod.getInstance()
         }
     }
 
@@ -102,13 +103,13 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun messageDoubleResource() {
         AlertDialog.Builder(this)
-                .setTitle(getString(warning))
-                .setMessage(getString(repeatResource))
-                .setCancelable(false)
-                .setPositiveButton(getString(addRecord)) { dialogInterface: DialogInterface?, i: Int -> addRecord() }
-                .setNegativeButton(getString(cancel)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
-                .create()
-                .show()
+            .setTitle(getString(warning))
+            .setMessage(getString(repeatResource))
+            .setCancelable(false)
+            .setPositiveButton(getString(addRecord)) { dialogInterface: DialogInterface?, i: Int -> addRecord() }
+            .setNegativeButton(getString(cancel)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
+            .create()
+            .show()
     }
 
     private fun isValuesChecked(): Boolean {

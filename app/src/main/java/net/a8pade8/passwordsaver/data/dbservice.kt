@@ -5,11 +5,16 @@ import android.content.Context
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import net.a8pade8.passwordsaver.R
-import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.*
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_COMMENT
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_FAVORITE
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_LOGIN
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_PASSWORD
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.COLUMN_RESOURCE
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords.TABLE_PASSWORDS
+import net.a8pade8.passwordsaver.data.PasswordSaverContract.Passwords._ID
 import net.a8pade8.passwordsaver.security.Security
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.sqlcipher.database.SQLiteDatabase
-import java.io.FileInputStream
 
 lateinit var dataBase: SQLiteDatabase
 
@@ -18,7 +23,13 @@ fun loading(context: Context) {
 }
 
 @Throws(EmptyDataException::class, ResourceLoginRepeatException::class)
-fun addRecordToPasswords(resourceName: String, login: String, password: String, comment: String = "", favorite: Boolean = false): Long {
+fun addRecordToPasswords(
+    resourceName: String,
+    login: String,
+    password: String,
+    comment: String = "",
+    favorite: Boolean = false
+): Long {
     if (resourceName.isBlank() || login.isBlank() || password.isBlank()) throw EmptyDataException()
     if (isContainResourceLoginInPasswords(resourceName, login)) throw ResourceLoginRepeatException()
     val cv = ContentValues()
@@ -34,26 +45,33 @@ fun addRecordToPasswords(resourceName: String, login: String, password: String, 
 
 fun isContainResourceLoginInPasswords(resourceName: String, login: String): Boolean {
     return dataBase.query(
-            TABLE_PASSWORDS,
-            null,
-            "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=?",
-            arrayOf(resourceName, login), null, null, null).count > 0
+        TABLE_PASSWORDS,
+        null,
+        "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=?",
+        arrayOf(resourceName, login), null, null, null
+    ).count > 0
 }
 
-private fun isContainResourceLoginAnotherIdInPasswords(resourceName: String, login: String, id: Long): Boolean {
+private fun isContainResourceLoginAnotherIdInPasswords(
+    resourceName: String,
+    login: String,
+    id: Long
+): Boolean {
     return dataBase.query(
-            TABLE_PASSWORDS,
-            null,
-            "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=? and $_ID<>?",
-            arrayOf(resourceName, login, id.toString()), null, null, null).count > 0
+        TABLE_PASSWORDS,
+        null,
+        "$COLUMN_RESOURCE=? and $COLUMN_LOGIN=? and $_ID<>?",
+        arrayOf(resourceName, login, id.toString()), null, null, null
+    ).count > 0
 }
 
 fun isRecordExistInPasswords(id: Long): Boolean {
     val cursor = dataBase.query(
-            TABLE_PASSWORDS,
-            null,
-            "$_ID=?",
-            arrayOf("$id"), null, null, null)
+        TABLE_PASSWORDS,
+        null,
+        "$_ID=?",
+        arrayOf("$id"), null, null, null
+    )
     val countRows = cursor.count
     cursor.close()
     return countRows != 0
@@ -61,28 +79,33 @@ fun isRecordExistInPasswords(id: Long): Boolean {
 
 fun isContainResourceInPasswords(resource: String): Boolean {
     val cursor = dataBase.query(
-            TABLE_PASSWORDS,
-            null,
-            "$COLUMN_RESOURCE=?",
-            arrayOf(resource), null, null, null)
+        TABLE_PASSWORDS,
+        null,
+        "$COLUMN_RESOURCE=?",
+        arrayOf(resource), null, null, null
+    )
     val countRows = cursor.count
     cursor.close()
     return countRows != 0
 }
 
 fun getAllRecordsFromPasswords(): List<Record> {
-    return mapCursorToRecordsList(dataBase.query(
+    return mapCursorToRecordsList(
+        dataBase.query(
             TABLE_PASSWORDS,
-            null, null, null, null, null, COLUMN_RESOURCE))
+            null, null, null, null, null, COLUMN_RESOURCE
+        )
+    )
 }
 
 @Throws(IdIsNotExistException::class)
 fun getRecordFromPasswords(id: Long): Record {
     val cursor = dataBase.query(
-            TABLE_PASSWORDS,
-            null,
-            "$_ID=?",
-            arrayOf("$id"), null, null, null)
+        TABLE_PASSWORDS,
+        null,
+        "$_ID=?",
+        arrayOf("$id"), null, null, null
+    )
     if (cursor.count == 0) throw IdIsNotExistException()
     return mapCursorToRecordsList(cursor).iterator().next()
 }
@@ -90,15 +113,21 @@ fun getRecordFromPasswords(id: Long): Record {
 @Throws(IdIsNotExistException::class)
 fun deleteRecordFromPasswords(id: Long) {
     val result = dataBase.delete(
-            TABLE_PASSWORDS,
-            "$_ID=?",
-            arrayOf("$id"))
+        TABLE_PASSWORDS,
+        "$_ID=?",
+        arrayOf("$id")
+    )
     if (result != 1) throw IdIsNotExistException()
 }
 
 @Throws(IdIsNotExistException::class, ResourceLoginRepeatException::class)
 fun updateRecordInPasswords(record: Record) {
-    if (isContainResourceLoginAnotherIdInPasswords(record.resourceName, record.login, record.id)) throw ResourceLoginRepeatException()
+    if (isContainResourceLoginAnotherIdInPasswords(
+            record.resourceName,
+            record.login,
+            record.id
+        )
+    ) throw ResourceLoginRepeatException()
     val cv = ContentValues()
     cv.let {
         it.put(COLUMN_LOGIN, record.login)
@@ -108,7 +137,7 @@ fun updateRecordInPasswords(record: Record) {
         it.put(COLUMN_FAVORITE, if (record.favorite) 1 else 0)
     }
     val result = dataBase.update(TABLE_PASSWORDS, cv, "$_ID=${record.id}", null)
-    if (result != 1) throw  IdIsNotExistException()
+    if (result != 1) throw IdIsNotExistException()
 }
 
 private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
@@ -116,13 +145,15 @@ private fun mapCursorToRecordsList(cursor: Cursor): List<Record> {
     if (cursor.moveToFirst()) {
         do {
             recordsList.add(
-                    Record(
-                            cursor.getLong(cursor.getColumnIndex(_ID)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_RESOURCE)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)),
-                            cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT)),
-                            cursor.getInt(cursor.getColumnIndex(COLUMN_FAVORITE)) == 1))
+                Record(
+                    cursor.getLong(cursor.getColumnIndex(_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_RESOURCE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LOGIN)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_FAVORITE)) == 1
+                )
+            )
         } while (cursor.moveToNext())
     }
     cursor.close()

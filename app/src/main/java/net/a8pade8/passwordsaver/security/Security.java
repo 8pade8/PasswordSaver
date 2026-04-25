@@ -1,5 +1,7 @@
 package net.a8pade8.passwordsaver.security;
 
+import static net.a8pade8.passwordsaver.uiutil.MessagesKt.middleToastLong;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -12,8 +14,6 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 
-import static net.a8pade8.passwordsaver.uiutil.MessagesKt.middleToastLong;
-
 public class Security {
     private final static String USER_PASSWORD = "USER_PASSWORD";
     private final static String CRYPTO_KEY = "CRYPTO_KEY";
@@ -23,14 +23,14 @@ public class Security {
     private Security(Context context) throws GeneralSecurityException, IOException {
 
         MasterKey masterKey = new MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build();
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build();
         sharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            context,
+            "secret_shared_prefs",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         );
     }
 
@@ -65,7 +65,7 @@ public class Security {
             StringBuilder buffer = new StringBuilder(targetStringLength);
             for (int i = 0; i < targetStringLength; i++) {
                 int randomLimitedInt = leftLimit + (int)
-                        (random.nextFloat() * (rightLimit - leftLimit + 1));
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
                 buffer.append((char) randomLimitedInt);
             }
             String generatedString = buffer.toString();

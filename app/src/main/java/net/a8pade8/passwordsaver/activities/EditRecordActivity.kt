@@ -1,18 +1,14 @@
 package net.a8pade8.passwordsaver.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.InputType.TYPE_TEXT_VARIATION_URI
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-
 import kotlinx.android.synthetic.main.activity_edit_record.*
-
 import net.a8pade8.passwordsaver.R.layout.*
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
@@ -56,7 +52,10 @@ class EditRecordActivity : AppCompatActivity() {
         try {
             updateRecordInPasswords(binding.record!!)
             showShortSnack(getString(recordUpdateSucsessfully))
-            finishAndOpenActivity(ViewRecordActivity::class.java, hashMapOf( "id" to binding.record!!.id ))
+            finishAndOpenActivity(
+                ViewRecordActivity::class.java,
+                hashMapOf("id" to binding.record!!.id)
+            )
         } catch (e: IdIsNotExistException) {
             showShortSnack(getString(recordIsNotExist))
             e.printStackTrace()
@@ -94,7 +93,8 @@ class EditRecordActivity : AppCompatActivity() {
             repeatPasswordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {
             passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            repeatPasswordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            repeatPasswordEditText.transformationMethod =
+                HideReturnsTransformationMethod.getInstance()
         }
     }
 

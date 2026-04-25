@@ -4,8 +4,10 @@ import androidx.databinding.BaseObservable
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Record(val id: Long, var resourceName: String, var login: String, var password: String,
-                  var comment: String, var favorite: Boolean = false): BaseObservable() {
+data class Record(
+    val id: Long, var resourceName: String, var login: String, var password: String,
+    var comment: String, var favorite: Boolean = false
+) : BaseObservable() {
 
     override fun toString(): String {
         return "$resourceName $login"
