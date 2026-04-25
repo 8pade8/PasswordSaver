@@ -13,6 +13,7 @@ import net.a8pade8.passwordsaver.R.layout.*
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityEditRecordBinding
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 import net.a8pade8.passwordsaver.util.generateAlthaNumericString
@@ -25,6 +26,7 @@ class EditRecordActivity : AppCompatActivity() {
     private lateinit var record: Record
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, activity_edit_record)
         record = try {

@@ -52,7 +52,6 @@
             android:inputType="textPassword"
             android:text="@={password}"
             android:textAlignment="center"
-            android:textColor="?attr/actionMenuTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"

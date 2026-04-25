@@ -14,4 +14,10 @@
     <color name="textColorHighlight">#8C8888</color>
 
     <color name="transparent">#00000000</color>
+    
+    <!-- Дополнительные цвета для светлой темы -->
+    <color name="background">#FFFFFF</color>
+    <color name="surface">#F5F5F5</color>
+    <color name="onSurface">#000000</color>
+    <color name="hint">#888888</color>
 </resources>

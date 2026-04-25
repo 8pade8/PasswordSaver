@@ -66,4 +66,10 @@
     <string name="passwordsJson">Json with passwords</string>
     <string name="fingerError">Biometric error</string>
     <string name="fingerEnter">Log in use biometric</string>
+    <string name="theme_settings">App theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_summary">Choose app theme</string>
+    <string name="settings">Settings</string>
 </resources>

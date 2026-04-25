@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Основные цвета - можно оставить такими же или немного изменить -->
+    <color name="colorPrimary">#FF9137</color>
+    <color name="colorPrimaryDark">#AF550F</color>
+    <color name="colorAccent">#F8A058</color>
+    
+    <!-- Контрастные цвета для темной темы -->
+    <color name="colorContrast">#121212</color> <!-- Темный фон -->
+    <color name="colorContrastDark">#1E1E1E</color> <!-- Более темный фон для элементов -->
+    
+    <color name="colorDanger">#F40B1E</color>
+    
+    <!-- Цвета текста для темной темы -->
+    <color name="textColorPrimary">#FFFFFF</color> <!-- Белый текст на темном фоне -->
+    <color name="textColorPrimaryDisableOnly">#B0B0B0</color> <!-- Серый для отключенных элементов -->
+    <color name="textColorSecondary">#FF9137</color> <!-- Оранжевый акцентный текст -->
+    <color name="textColorHighlight">#8C8888</color>
+    
+    <color name="transparent">#00000000</color>
+    
+    <!-- Дополнительные цвета для темной темы -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="onSurface">#FFFFFF</color>
+    <color name="hint">#888888</color>
+</resources>

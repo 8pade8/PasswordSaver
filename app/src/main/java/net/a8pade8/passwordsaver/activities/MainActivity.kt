@@ -14,6 +14,7 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.Record
 import net.a8pade8.passwordsaver.data.getAllRecordsFromPasswords
 import net.a8pade8.passwordsaver.uiutil.RecordViewAdapter
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.a8pade8.passwordsaver.util.exportPasswordsToFile
 import net.a8pade8.passwordsaver.util.exportPasswordsToTxtFile
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recordsListView = findViewById(R.id.listOfRes)
@@ -147,6 +149,13 @@ class MainActivity : AppCompatActivity() {
             return
         }
         createFile("application/txt", "passwords.txt", CREATE_TXT_FILE)
+    }
+
+    @Suppress("unused")
+    fun openSettings(item: MenuItem) {
+        // Открываем активность настроек
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {

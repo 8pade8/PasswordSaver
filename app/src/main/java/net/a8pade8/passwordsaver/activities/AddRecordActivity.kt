@@ -15,6 +15,7 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.R.string.*
 import net.a8pade8.passwordsaver.data.*
 import net.a8pade8.passwordsaver.databinding.ActivityAddRecordBinding
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.generateAlthaNumericString
 
@@ -25,6 +26,7 @@ class AddRecordActivity : AppCompatActivity() {
     private var record = Record(0, "", "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_record)
         binding.record = record

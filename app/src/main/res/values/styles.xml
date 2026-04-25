@@ -12,13 +12,21 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:textColorHighlight">@color/textColorHighlight</item>
 
+        <!-- Фон и поверхность для поддержки темной темы -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="android:textColorHint">@color/hint</item>
+        
     </style>
 
     <style name="mainToolBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:theme">@style/Theme.MaterialComponents.Light.DarkActionBar</item>
+        <!-- Используем тему, которая адаптируется к дню/ночи -->
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
     </style>
 
     <style name="largeLabel">

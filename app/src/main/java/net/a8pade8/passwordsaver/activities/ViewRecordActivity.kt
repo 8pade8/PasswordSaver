@@ -20,6 +20,7 @@ import net.a8pade8.passwordsaver.data.deleteRecordFromPasswords
 import net.a8pade8.passwordsaver.data.getRecordFromPasswords
 import net.a8pade8.passwordsaver.data.updateRecordInPasswords
 import net.a8pade8.passwordsaver.databinding.ActivityResourceViewBinding
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
 
@@ -28,6 +29,7 @@ class ViewRecordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResourceViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_resource_view)
         binding.record = try {

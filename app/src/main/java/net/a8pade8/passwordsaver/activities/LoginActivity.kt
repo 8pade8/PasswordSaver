@@ -17,6 +17,7 @@ import net.a8pade8.passwordsaver.R
 import net.a8pade8.passwordsaver.data.loading
 import net.a8pade8.passwordsaver.databinding.ActivityLoginBinding
 import net.a8pade8.passwordsaver.security.Security
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.middleToastLong
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.finishAndOpenActivity
@@ -57,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         security = Security.getInstance(this)
         setContentView(R.layout.activity_login)

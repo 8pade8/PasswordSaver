@@ -11,6 +11,7 @@ import net.a8pade8.passwordsaver.R.string.demandForPasswordLength
 import net.a8pade8.passwordsaver.R.string.passwordsNotEquals
 import net.a8pade8.passwordsaver.databinding.ActivityAddUserBinding
 import net.a8pade8.passwordsaver.security.Security
+import net.a8pade8.passwordsaver.uiutil.ThemeHelper
 import net.a8pade8.passwordsaver.uiutil.showShortSnack
 import net.a8pade8.passwordsaver.util.isAlthaNumeric
 
@@ -20,6 +21,7 @@ class AddUserActivity : AppCompatActivity() {
     private lateinit var security: Security
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeHelper.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_user)
         security = Security.getInstance(this)
