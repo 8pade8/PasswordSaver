@@ -19,7 +19,7 @@ import net.sqlcipher.database.SQLiteDatabase
 lateinit var dataBase: SQLiteDatabase
 
 fun loading(context: Context) {
-    dataBase = PSDBHelperCrypto(context).getDataBase((Security.getInstance(context).cryptoKey))
+    dataBase = PSDBHelperCrypto(context).getDataBase((Security.getInstance(context).getCryptoKey()))
 }
 
 @Throws(EmptyDataException::class, ResourceLoginRepeatException::class)

@@ -1,26 +1,18 @@
-package net.a8pade8.passwordsaver.data;
+package net.a8pade8.passwordsaver.data
 
-import android.provider.BaseColumns;
+import android.provider.BaseColumns
 
-/**
- * Created by stanislav on 07.12.16.
- */
+object PasswordSaverContract {
 
-public final class PasswordSaverContract {
+    const val DATA_BASE = "psdb.db"
 
-    private PasswordSaverContract() {
-    }
-
-    public static final String DATA_BASE = "psdb.db";
-
-    public static final class Passwords implements BaseColumns {
-        final static String TABLE_PASSWORDS = "passwords";
-
-        final static String _ID = BaseColumns._ID;
-        public final static String COLUMN_RESOURCE = "resource";
-        public final static String COLUMN_LOGIN = "login";
-        public final static String COLUMN_PASSWORD = "password";
-        public final static String COLUMN_COMMENT = "comment";
-        public final static String COLUMN_FAVORITE = "favorite";
+    object Passwords : BaseColumns {
+        const val TABLE_PASSWORDS = "passwords"
+        const val _ID = BaseColumns._ID
+        const val COLUMN_RESOURCE = "resource"
+        const val COLUMN_LOGIN = "login"
+        const val COLUMN_PASSWORD = "password"
+        const val COLUMN_COMMENT = "comment"
+        const val COLUMN_FAVORITE = "favorite"
     }
 }

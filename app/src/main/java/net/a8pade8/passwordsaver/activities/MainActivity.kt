@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun openAddRecordActivity(view: View) {
         openActivity(AddRecordActivity::class.java)
     }
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         showResourceList()
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     private fun onItemClick(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
         openResourceView((adapterView.getItemAtPosition(position) as Record).id)
     }
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         showResourceList()
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun exportToFile(item: MenuItem) {
         if (recordsListView.adapter.count == 0) {
             middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         createFile("application/json", "passwords.json", CREATE_JSON_FILE)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun importFromFile(item: MenuItem) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, PICK_JSON_FILE)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun exportToTxtFile(item: MenuItem) {
         if (recordsListView.adapter.count == 0) {
             middleToastLong(this, getString(R.string.thereAreNoRecordsToExport))

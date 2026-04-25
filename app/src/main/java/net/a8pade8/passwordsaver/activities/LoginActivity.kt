@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG) // Enforce strong biometrics
             .build()
 
-        if (security.password.isEmpty()) {
+        if (security.getPassword().isEmpty()) {
             openActivity(AddUserActivity::class.java, requestCode = CREATE_USER)
         } else {
             fingerAuthenticate(null)
@@ -104,12 +104,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun fingerAuthenticate(view: View?) {
         biometricPrompt.authenticate(promptInfo)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun openMainActivity(view: View?) {
         if (isAttemptExist() && isPasswordExist()) {
             finishAndOpenActivity(MainActivity::class.java)
@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isPasswordExist(): Boolean {
-        if (security.password != binding.password) {
+        if (security.getPassword() != binding.password) {
             showShortSnack(getString(R.string.attemptsWarning) + --attemptPassword)
             if (attemptPassword == 0) {
                 if (!isBlocked()) {

@@ -54,7 +54,7 @@ class ViewRecordActivity : AppCompatActivity() {
         binding.password = getString(R.string.passwordMask)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun switchFadePassword(view: View?) {
         binding.passwordToggleButton.switchState(true)
         if (binding.passwordToggleButton.isIconEnabled) {
@@ -64,7 +64,7 @@ class ViewRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun delete(view: View?) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.warning))
@@ -87,7 +87,7 @@ class ViewRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun edit(view: View?) {
         finishAndOpenActivity(
             EditRecordActivity::class.java,
@@ -95,14 +95,14 @@ class ViewRecordActivity : AppCompatActivity() {
         )
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun copyInBuffer(view: View?) {
         (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager)
             .setPrimaryClip(ClipData.newPlainText("password", binding.record?.password))
         middleToastLong(this, getString(copiedToClipboard))
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun goToResource(view: View?) {
         var address = binding.record!!.resourceName
         if (!address.startsWith("http")) {
@@ -119,7 +119,7 @@ class ViewRecordActivity : AppCompatActivity() {
     }
 
     @Throws(ResourceLoginRepeatException::class, IdIsNotExistException::class)
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun switchFavorite(view: View?) {
         try {
             binding.favoriteToggleButton.switchState(true)

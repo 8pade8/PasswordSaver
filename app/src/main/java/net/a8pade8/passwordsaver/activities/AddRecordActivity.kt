@@ -35,7 +35,7 @@ class AddRecordActivity : AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun onSwitchSite(view: View) {
         resourceToggleButton.switchState(true)
         if (resourceToggleButton.isIconEnabled) {
@@ -45,7 +45,7 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun onSwitchEmail(view: View) {
         loginToggleButton.switchState(true)
         if (loginToggleButton.isIconEnabled) {
@@ -55,7 +55,7 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun onSwitchFade(view: View) {
         passwordToggleButton.switchState(true)
         if (!passwordToggleButton.isIconEnabled) {
@@ -68,7 +68,7 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun onReady(view: View) {
         if (isValuesChecked() && isPasswordsEquals()) {
             if (!isResourceExist()) {
@@ -79,9 +79,9 @@ class AddRecordActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun generatePassword(view: View) {
-        generateAlthaNumericString(6).let {
+        generateAlthaNumericString(8).let {
             record.password = it
             binding.passwordRetry = it
             binding.invalidateAll()

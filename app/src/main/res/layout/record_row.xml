@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="record"
-            type="net.a8pade8.passwordsaver.data.Record" />
+                name="record"
+                type="net.a8pade8.passwordsaver.data.Record" />
     </data>
 
     <LinearLayout
-        android:id="@+id/recordRow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            android:id="@+id/recordRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/resourceWithComment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        <LinearLayout
+                android:id="@+id/resourceWithComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <TextView
-            android:textColor="@color/textColorSecondary"
-            android:textSize="@dimen/normal_text"
-            android:text="@{record.resourceName}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            <TextView
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/normal_text"
+                    android:text="@{record.resourceName}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-        <TextView
-            android:textColor="@color/textColorHighlight"
-            android:textSize="@dimen/normal_text"
-            android:layout_marginStart="@dimen/horizontal_small_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.format(@string/format_brackets,record.comment) }"
-            android:visibility="@{record.comment.equals(``) ? 8 : 0}"
-            android:layout_weight="1"/>
+            <TextView
+                    android:textColor="@color/textColorHighlight"
+                    android:textSize="@dimen/normal_text"
+                    android:layout_marginStart="@dimen/horizontal_small_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/format_brackets,record.comment) }"
+                    android:visibility="@{record.comment.equals(``) ? 8 : 0}"
+                    android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_star"
-            android:tint="@color/colorPrimary"
-            android:layout_marginStart="@dimen/horizontal_small_margin"
-            android:visibility="@{record.favorite? 0 : 8}"
-            android:contentDescription="@string/favorite" />
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_star"
+                    android:layout_marginStart="@dimen/horizontal_small_margin"
+                    android:visibility="@{record.favorite? 0 : 8}"
+                    android:contentDescription="@string/favorite"
+                    app:tint="@color/colorPrimary" />
     </LinearLayout>
 
         <TextView

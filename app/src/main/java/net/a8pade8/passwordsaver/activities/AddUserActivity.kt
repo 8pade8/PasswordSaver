@@ -30,10 +30,10 @@ class AddUserActivity : AppCompatActivity() {
         setSupportActionBar(binding.mainToolbar)
     }
 
-    @Suppress("UNUSED_PARAMETER")
+    @Suppress("unused")
     fun addNewUser(view: View) {
         if (passwordChecked()) {
-            security.password = binding.password.toString()
+            security.setPassword(binding.password.toString())
             showShortSnack(getString(addingUserSuccessfully))
             finish()
         }

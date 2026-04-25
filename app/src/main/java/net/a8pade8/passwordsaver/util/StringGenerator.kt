@@ -3,8 +3,8 @@ package net.a8pade8.passwordsaver.util
 import java.util.regex.Pattern
 import kotlin.random.Random
 
-val symbolsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-val althaNumericRegex = "[0-9a-zA-Z]*((\\d+[a-zA-Z]+)|([a-zA-Z]+\\d+))[0-9a-zA-Z]*"
+const val symbolsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const val althaNumericRegex = "[0-9a-zA-Z]*((\\d+[a-zA-Z]+)|([a-zA-Z]+\\d+))[0-9a-zA-Z]*"
 
 fun generateAlthaNumericString(length: Int): String {
     val stringBuilder: StringBuilder = StringBuilder()
