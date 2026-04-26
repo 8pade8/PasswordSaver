@@ -33,5 +33,27 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
         }
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            // Регистрируем слушатель изменений настроек
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        }
+
+        override fun onDestroy() {
+            super.onDestroy()
+            preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        }
+
+        private val sharedPreferenceChangeListener =
+            android.content.SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+                if (key == "theme_mode") {
+                    // Применяем новую тему
+                    val themeMode = sharedPreferences.getString(key, "system") ?: "system"
+                    ThemeHelper.saveThemeMode(requireContext(), themeMode)
+                    // Пересоздаем активность для немедленного применения темы
+                    activity?.recreate()
+                }
+            }
     }
 }

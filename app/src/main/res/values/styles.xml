@@ -26,7 +26,7 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
         <!-- Используем тему, которая адаптируется к дню/ночи -->
-        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.ActionBar</item>
     </style>
 
     <style name="largeLabel">

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recordsListView: ListView
     private var favoriteOnly = false
     private var searchString: String = ""
+    private var currentThemeMode: String = ""
 
     @Suppress(names = ["UNCHECKED_CAST"])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             }
         showAllResourceList()
         initToolbar()
+        // Инициализируем текущую тему
+        currentThemeMode = ThemeHelper.getThemeMode(this)
     }
 
     private fun initToolbar() {
@@ -107,6 +110,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // Проверяем, изменилась ли тема
+        val newThemeMode = ThemeHelper.getThemeMode(this)
+        if (currentThemeMode != newThemeMode) {
+            // Тема изменилась, пересоздаем активность
+            recreate()
+            return
+        }
         showResourceList()
     }
 
@@ -164,20 +174,25 @@ class MainActivity : AppCompatActivity() {
             resultData?.data?.let {
                 var records = (recordsListView.adapter as RecordViewAdapter).getList()
                 val contentResolver = getContentResolver()
-                if (requestCode == CREATE_TXT_FILE) {
-                    contentResolver.openOutputStream(it)?.let {
-                        exportPasswordsToTxtFile(it, records, this)
+                when (requestCode) {
+                    CREATE_TXT_FILE -> {
+                        contentResolver.openOutputStream(it)?.let {
+                            exportPasswordsToTxtFile(it, records, this)
+                        }
                     }
-                } else if (requestCode == CREATE_JSON_FILE) {
-                    contentResolver.openOutputStream(it)?.let {
-                        exportPasswordsToFile(it, records, this)
+                    CREATE_JSON_FILE -> {
+                        contentResolver.openOutputStream(it)?.let {
+                            exportPasswordsToFile(it, records, this)
+                        }
                     }
-                } else if (requestCode == PICK_JSON_FILE) {
-                    contentResolver.openInputStream(it)?.let {
-                        importPasswordsFromFile(it, this@MainActivity)
-                        showAllResourceList()
+                    PICK_JSON_FILE -> {
+                        contentResolver.openInputStream(it)?.let {
+                            importPasswordsFromFile(it, this@MainActivity)
+                            showAllResourceList()
+                        }
                     }
-                } else {
+                    else -> {
+                    }
                 }
             }
         }
